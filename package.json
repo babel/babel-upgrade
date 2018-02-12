@@ -1,0 +1,22 @@
+{
+  "name": "babel-upgrade",
+  "version": "0.0.1",
+  "description": "Upgrade tool for Babel",
+  "bin": "./bin/babel-upgrade",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Henry Zhu <hi@henryzoo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "golden-fleece": "^1.0.3",
+    "read-pkg-up": "^3.0.0",
+    "sort-keys": "^2.0.0",
+    "write-pkg": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^22.2.2"
+  }
+}

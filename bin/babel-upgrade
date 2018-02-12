@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const { writePackageJSON } = require("../src");
+const cwd = process.cwd();
+console.warn(`Current working directory: ${cwd}`);
+
+console.log("Updating closest package.json dependencies");
+writePackageJSON();
+// TODO: just do this automatically
+console.log("You'll need to re-run yarn or npm install");
+
+
