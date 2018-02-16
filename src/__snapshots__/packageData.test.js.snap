@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`@babel/core peerDep 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "7.0.0-beta.39",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
+    "@babel/preset-env": "7.0.0-beta.39",
+    "babel-loader": "v8.0.0-beta.0",
+  },
+  "name": "add-@babel/core-peerDep",
+}
+`;
+
 exports[`packages 1`] = `
 Object {
   "@babel/cli": "7.0.0-beta.39",

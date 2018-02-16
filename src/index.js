@@ -27,7 +27,7 @@ function updatePackageJSON(pkg) {
     ));
   }
 
-  if (pkg.devDependencies) {
+  if (pkg.dependencies) {
     pkg.dependencies = sortKeys(upgradeDeps(
       pkg.dependencies,
       getLatestVersion()
