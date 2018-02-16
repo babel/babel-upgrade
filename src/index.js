@@ -11,16 +11,32 @@ function getLatestVersion() {
   return "7.0.0-beta.39";
 }
 
-function updatePackageJSON(pkg) {
-  pkg.devDependencies = sortKeys(upgradeDeps(
-    pkg.devDependencies,
-    getLatestVersion()
-  ));
+function upgradeScripts(scripts) {
+  for (let script of Object.keys(scripts)) {
+    // mocha --compilers js:@babel/register
+    scripts[script] = scripts[script].replace('--compilers js:babel-register', '--compilers js:@babel/register');
+  }
+  return scripts;
+}
 
-  pkg.dependencies = sortKeys(upgradeDeps(
-    pkg.dependencies,
-    getLatestVersion()
-  ));
+function updatePackageJSON(pkg) {
+  if (pkg.devDependencies) {
+    pkg.devDependencies = sortKeys(upgradeDeps(
+      pkg.devDependencies,
+      getLatestVersion()
+    ));
+  }
+
+  if (pkg.devDependencies) {
+    pkg.dependencies = sortKeys(upgradeDeps(
+      pkg.dependencies,
+      getLatestVersion()
+    ));
+  }
+
+  if (pkg.scripts) {
+    pkg.scripts = upgradeScripts(pkg.scripts);
+  }
 
   return pkg;
 }

@@ -3,17 +3,17 @@
 exports[`packages 1`] = `
 Object {
   "plugins": Array [
-    "@babel/plugin-transform-function-bind",
+    "@babel/plugin-proposal-function-bind",
     Array [
-      "@babel/plugin-transform-object-rest-spread",
+      "@babel/plugin-proposal-object-rest-spread",
       Object {
         "useBuiltIns": true,
       },
     ],
-    "@babel/plugin-transform-class-properties",
+    "@babel/plugin-proposal-class-properties",
   ],
   "presets": Array [
-    "@babel/preset-es2015",
+    "@babel/preset-env",
     Array [
       "@babel/preset-env",
       Object {

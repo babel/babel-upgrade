@@ -1,6 +1,10 @@
 const { packages: oldPackages, latestPackages } = require('./packageData');
 
-function upgradeDeps(dependencies, version) {
+const otherPackages = {
+  'babel-loader': 'v8.0.0-beta.0',
+};
+
+module.exports = function upgradeDeps(dependencies, version) {
   for (let pkg of Object.keys(dependencies)) {
     const depVersion = dependencies[pkg];
     if (Object.keys(oldPackages).includes(pkg)) {
@@ -21,9 +25,10 @@ function upgradeDeps(dependencies, version) {
     // TODO: use semver check
     } else if (Object.keys(latestPackages).includes(pkg) && depVersion !== version) {
       dependencies[pkg] = version;
+    // TODO: refactor out somewhere else
+    } else if (otherPackages[pkg]) {
+      dependencies[pkg] = otherPackages[pkg];
     }
   }
   return dependencies;
 }
-
-module.exports = upgradeDeps;

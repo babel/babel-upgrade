@@ -1,0 +1,8 @@
+{
+  "name": "mocha-scripts-test",
+  "scripts": {
+    "prepublish": "npm run test",
+    "test": "mocha --compilers js:babel-register test/*Test.js",
+    "coverage": "NODE_ENV=test nyc --reporter=lcov --reporter=text _mocha --compilers js:babel-register test/*.js"
+  }
+}
