@@ -15,12 +15,12 @@ module.exports = function upgradeConfig(config) {
       // check if it's a preset with options (an array)
       if (Array.isArray(preset)) {
         if (presetsToReplace.includes(preset[0])) {
-          preset[0] = `@babel/preset-${preset[0]}`;
+          preset[0] = oldPresets[`babel-preset-${preset[0]}`];
         }
       } else {
         // should be a string now
         if (presetsToReplace.includes(preset)) {
-          presets.splice(i, 1, `@babel/preset-${preset}`)
+          presets[i] = oldPresets[`babel-preset-${preset}`];
         }
       }
     }
@@ -38,12 +38,12 @@ module.exports = function upgradeConfig(config) {
       // check if it's a plugin with options (an array)
       if (Array.isArray(plugin)) {
         if (pluginsToReplace.includes(plugin[0])) {
-          plugin[0] = `@babel/plugin-${plugin[0]}`;
+          plugin[0] = oldPlugins[`babel-plugin-${plugin[0]}`];
         }
       } else {
         // should be a string now
         if (pluginsToReplace.includes(plugin)) {
-          plugins.splice(i, 1, `@babel/plugin-${plugin}`)
+         plugins[i] = oldPlugins[`babel-plugin-${plugin}`];
         }
       }
     }
