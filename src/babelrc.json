@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "es2015",
+    ["env", { "modules": false }],
+    "react"
+  ],
+  "plugins": [
+    "transform-function-bind",
+    ["transform-object-rest-spread", { "useBuiltIns": true }],
+    "transform-class-properties"
+  ]
+}

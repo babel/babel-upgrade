@@ -1,4 +1,4 @@
-const { oldPackages, latestPackages } = require('./packageData');
+const { packages: oldPackages, latestPackages } = require('./packageData');
 
 function upgradeDeps(dependencies, version) {
   for (let pkg of Object.keys(dependencies)) {

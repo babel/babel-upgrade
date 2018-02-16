@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`packages 1`] = `
+Object {
+  "plugins": Array [
+    "@babel/plugin-transform-function-bind",
+    Array [
+      "@babel/plugin-transform-object-rest-spread",
+      Object {
+        "useBuiltIns": true,
+      },
+    ],
+    "@babel/plugin-transform-class-properties",
+  ],
+  "presets": Array [
+    "@babel/preset-es2015",
+    Array [
+      "@babel/preset-env",
+      Object {
+        "modules": false,
+      },
+    ],
+    "@babel/preset-react",
+  ],
+}
+`;
