@@ -227,19 +227,21 @@ const misc = {
   // 'babylon': '@babel/parser',
 }
 
-const oldPackages = Object.assign(
+const plugins = Object.assign({}, transformPlugins, syntaxPlugins, proposalPlugins);
+
+const packages = Object.assign(
   {},
-  transformPlugins,
-  syntaxPlugins,
-  proposalPlugins,
+  plugins,
   presets,
   helpers,
   misc,
 );
 
-const latestPackages = Array.from(new Set(Object.values(oldPackages)));
+const latestPackages = Array.from(new Set(Object.values(packages)));
 
 module.exports = {
-  oldPackages,
+  packages,
+  presets,
+  plugins,
   latestPackages,
 };

@@ -8,13 +8,14 @@ npx babel-upgrade
 
 > Update dependencies, config file, files that require babel directly
 
-- [ ] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
+- [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
   - This includes doing all package renames
   - This includes upgrading the same package to the latest version
 - [ ] Update the babel config file(s).
-  - [ ] `.babelrc`
+  - [x] `.babelrc`
   - [ ] `.babelrc.js`
   - [ ] `package.json babel key`
+  - [ ] handle `env`
 - [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
   - Update all requires/imports
   - Update the use of the Babel API (plugins, integrations)
