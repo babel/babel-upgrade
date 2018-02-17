@@ -15,6 +15,7 @@ function upgradeScripts(scripts) {
   for (let script of Object.keys(scripts)) {
     // mocha --compilers js:@babel/register
     scripts[script] = scripts[script].replace('--compilers js:babel-register', '--compilers js:@babel/register');
+    scripts[script] = scripts[script].replace('--require babel-register', '--require @babel/register');
   }
   return scripts;
 }
