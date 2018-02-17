@@ -8,6 +8,7 @@ npx babel-upgrade
 
 > Update dependencies, config file, files that require babel directly
 
+- [ ] auto run npm or yarn
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
   - This includes doing all package renames
   - This includes upgrading the same package to the latest version
@@ -33,6 +34,8 @@ npx babel-upgrade
 - [ ] Misc files as we go (`karma.conf.js`, `mocha.opts`)
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
+- [ ] later: work on node 4
+- [ ] Should certain parts be generic (replace the string `babel-register` with `@babel/register`)? Could be in a Makefile or somewhere else, but it's just find replace.
 
 ## Philosophy
 
