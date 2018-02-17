@@ -12,6 +12,16 @@ Object {
 }
 `;
 
+exports[`packages - earlier v7 1`] = `
+Object {
+  "@babel/core": "7.0.0-beta.39",
+  "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
+  "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.39",
+  "@babel/preset-env": "7.0.0-beta.39",
+  "@babel/preset-react": "7.0.0-beta.39",
+}
+`;
+
 exports[`packages 1`] = `
 Object {
   "@babel/cli": "7.0.0-beta.39",
