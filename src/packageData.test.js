@@ -17,6 +17,6 @@ test('@babel/core peerDep', () => {
   expect(updatePackageJSON(babelCoreFixture)).toMatchSnapshot();
 });
 
-test.only('packages - earlier v7', () => {
+test('packages - earlier v7', () => {
   expect(upgradeDeps(depsFixtureEarlierBeta, "7.0.0-beta.39")).toMatchSnapshot();
 });
