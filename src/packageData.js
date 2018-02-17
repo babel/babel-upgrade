@@ -208,14 +208,12 @@ const helpers = {
 // using null to specify "removed"
 
 const misc = {
+  'babel': null,
   'babel-cli': '@babel/cli',
   'babel-code-frame': '@babel/code-frame',
   'babel-core': '@babel/core',
   'babel-generator': '@babel/generator',
   'babel-node': '@babel/node',
-  'babel-plugin-check-es2015-constants': null,
-  'babel-plugin-codemod-optional-catch-binding': '@babel/plugin-codemod-optional-catch-binding',
-  'babel-plugin-external-helpers': '@babel/plugin-external-helpers',
   'babel-polyfill': '@babel/polyfill',
   'babel-preset-env-standalone': '@babel/preset-env-standalone',
   'babel-register': '@babel/register',
@@ -227,7 +225,14 @@ const misc = {
   // 'babylon': '@babel/parser',
 }
 
-const plugins = Object.assign({}, transformPlugins, syntaxPlugins, proposalPlugins);
+const plugins = Object.assign({
+  'babel-plugin-check-es2015-constants': null,
+  'babel-plugin-external-helpers': '@babel/plugin-external-helpers',
+  'babel-plugin-codemod-optional-catch-binding': '@babel/plugin-codemod-optional-catch-binding',
+},
+transformPlugins,
+syntaxPlugins,
+proposalPlugins);
 
 const packages = Object.assign(
   {},

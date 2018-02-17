@@ -53,7 +53,7 @@ function changePlugins(config) {
           plugin = `babel-plugin-${plugin}`;
         }
         if (pluginsToReplace.includes(plugin)) {
-         plugins[i] = oldPlugins[plugin];
+          plugins[i] = oldPlugins[plugin];
         }
       }
     }
