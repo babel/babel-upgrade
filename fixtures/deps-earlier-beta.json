@@ -1,0 +1,9 @@
+{
+  "@babel/core": "7.0.0-beta.1",
+  "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.0",
+  "@babel/plugin-proposal-object-rest-spread": "7.0.0-alpha.2",
+  "@babel/polyfill": "https://github.com/some/tarball/stable#85a1b40e4616fe54e4e13fdd9350128d1f0508e6",
+  "@babel/preset-env": "7.0.0-beta.33",
+  "@babel/preset-flow": "not/semver#dddddd",
+  "@babel/preset-react": "7.0.0-beta.38"
+}

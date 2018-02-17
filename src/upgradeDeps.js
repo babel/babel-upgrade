@@ -1,3 +1,4 @@
+const semver = require('semver');
 const { packages: oldPackages, latestPackages } = require('./packageData');
 
 const otherPackages = {
@@ -22,8 +23,12 @@ module.exports = function upgradeDeps(dependencies, version) {
           dependencies[newPackageName] = version;
         }
       }
-    // TODO: use semver check
-    } else if (Object.keys(latestPackages).includes(pkg) && depVersion !== version) {
+    } else if (
+      latestPackages.has(pkg) &&
+      semver.valid(depVersion) &&
+      semver.valid(version) &&
+      semver.lt(depVersion, version)
+    ) {
       dependencies[pkg] = version;
     // TODO: refactor out somewhere else
     } else if (otherPackages[pkg]) {
@@ -32,13 +37,12 @@ module.exports = function upgradeDeps(dependencies, version) {
   }
 
   // one-off on checking for `@babel/core` dep
-  const deps = Object.keys(dependencies);
-  if (deps.some(a => {
-    return a.includes('@babel/plugin') || a.includes('@babel/preset');
-  })) {
-    if (!deps.includes('@babel/core')) {
-      dependencies['@babel/core'] = version;
-    }
+  if (
+    !dependencies['@babel/core'] &&
+    Object.keys(dependencies).some(a =>
+      a.startsWith('@babel/plugin') || a.startsWith('@babel/preset'))
+  ) {
+    dependencies['@babel/core'] = version;
   }
 
   return dependencies;

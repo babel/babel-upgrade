@@ -242,7 +242,7 @@ const packages = Object.assign(
   misc,
 );
 
-const latestPackages = Array.from(new Set(Object.values(packages)));
+const latestPackages = new Set(Object.values(packages));
 
 module.exports = {
   packages,
