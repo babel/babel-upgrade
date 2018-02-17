@@ -2,11 +2,26 @@
   "presets": [
     "es2015",
     ["env", { "modules": false }],
-    "react"
+    "babel-preset-react"
   ],
   "plugins": [
-    "transform-function-bind",
+    "babel-plugin-transform-function-bind",
     ["transform-object-rest-spread", { "useBuiltIns": true }],
     "transform-class-properties"
-  ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "babel-plugin-istanbul",
+        "transform-react-jsx-source",
+        "babel-plugin-transform-react-jsx-self"
+      ]
+    },
+    "production": {
+      "plugins": [
+        "transform-react-constant-elements",
+        "babel-plugin-transform-react-inline-elements"
+      ]
+    }
+  }
 }

@@ -11,11 +11,14 @@ npx babel-upgrade
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
   - This includes doing all package renames
   - This includes upgrading the same package to the latest version
+  - [x] add `@babel/core` peerDep
+  - [x] modify scripts for mocha + `@babel/register`
 - [ ] Update the babel config file(s).
   - [x] `.babelrc`
   - [ ] `.babelrc.js`
   - [ ] `package.json babel key`
-  - [ ] handle `env`
+  - [x] handle `env`
+  - [x] handle shorthand names: `babel-preset-env` and `env`
 - [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
   - Update all requires/imports
   - Update the use of the Babel API (plugins, integrations)
