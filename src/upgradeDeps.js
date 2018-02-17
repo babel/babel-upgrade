@@ -32,13 +32,12 @@ module.exports = function upgradeDeps(dependencies, version) {
   }
 
   // one-off on checking for `@babel/core` dep
-  const deps = Object.keys(dependencies);
-  if (deps.some(a => {
-    return a.includes('@babel/plugin') || a.includes('@babel/preset');
-  })) {
-    if (!deps.includes('@babel/core')) {
-      dependencies['@babel/core'] = version;
-    }
+  if (
+    !dependencies['@babel/core'] &&
+    Object.keys(dependencies).some(a =>
+      a.startsWith('@babel/plugin') || a.startsWith('@babel/preset'))
+  ) {
+    dependencies['@babel/core'] = version;
   }
 
   return dependencies;
