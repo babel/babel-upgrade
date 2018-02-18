@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`packages (json5) 1`] = `
+Object {
+  "env": Object {
+    "development": Object {
+      "plugins": Array [
+        "babel-plugin-istanbul",
+        "@babel/plugin-transform-react-jsx-source",
+        "@babel/plugin-transform-react-jsx-self",
+      ],
+    },
+    "production": Object {
+      "plugins": Array [
+        "@babel/plugin-transform-react-constant-elements",
+        "@babel/plugin-transform-react-inline-elements",
+      ],
+    },
+  },
+  "plugins": Array [
+    "@babel/plugin-proposal-function-bind",
+    Array [
+      "@babel/plugin-proposal-object-rest-spread",
+      Object {
+        "useBuiltIns": true,
+      },
+    ],
+    "@babel/plugin-proposal-class-properties",
+  ],
+  "presets": Array [
+    "@babel/preset-env",
+    Array [
+      "@babel/preset-env",
+      Object {
+        "modules": false,
+      },
+    ],
+    "@babel/preset-react",
+  ],
+}
+`;
+
 exports[`packages 1`] = `
 Object {
   "env": Object {

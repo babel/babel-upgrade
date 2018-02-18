@@ -1,0 +1,28 @@
+{
+  presets: [
+    "es2015",
+    ["env", { "modules": false }],
+    "babel-preset-react",
+  ],
+  plugins: [
+    "babel-plugin-transform-function-bind",
+    ["transform-object-rest-spread", { useBuiltIns: true }],
+    "transform-class-properties",
+  ],
+  env: {
+    // This is a comment
+    development: {
+      plugins: [
+        "babel-plugin-istanbul",
+        "transform-react-jsx-source",
+        "babel-plugin-transform-react-jsx-self",
+      ]
+    },
+    production: {
+      plugins: [
+        "transform-react-constant-elements",
+        "babel-plugin-transform-react-inline-elements",
+      ]
+    },
+  }
+}
