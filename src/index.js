@@ -1,7 +1,9 @@
 const path = require('path');
 const readPkgUp = require('read-pkg-up');
 const sortKeys = require('sort-keys');
-const loadJsonFile = require('load-json-file');
+const fs = require('fs');
+const pify = require('pify');
+const JSON5 = require('json5');
 const writeJsonFile = require('write-json-file');
 
 const upgradeDeps = require('./upgradeDeps');
@@ -54,14 +56,17 @@ function updateBabelRC(config) {
   return upgradeConfig(config);
 }
 
-async function writeBabelRC(configPath) {
-  let json;
-
+async function readBabelRC(configPath) {
   try {
-    json = await loadJsonFile(configPath);
+    const rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
+    return JSON5.parse(rawFile);
   } catch (e) {
-    throw new Error(`babel-upgrade: ${configPath} does not contain a .babelrc file`);
+    throw new Error(`babel-upgrade: ${configPath} does not contain a valid .babelrc file. ${e.stack}`);
   }
+}
+
+async function writeBabelRC(configPath) {
+  let json = await readBabelRC(configPath);
 
   json = updateBabelRC(json);
 
@@ -71,6 +76,7 @@ async function writeBabelRC(configPath) {
 module.exports = {
   updatePackageJSON,
   writePackageJSON,
+  readBabelRC,
   writeBabelRC,
   getLatestVersion
 };
