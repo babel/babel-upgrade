@@ -23,6 +23,7 @@ function upgradeScripts(scripts) {
 }
 
 function updatePackageJSON(pkg) {
+  console.log("Updating closest package.json dependencies");
   if (pkg.devDependencies) {
     pkg.devDependencies = sortKeys(upgradeDeps(
       pkg.devDependencies,
@@ -49,11 +50,12 @@ async function writePackageJSON() {
 
   pkg = updatePackageJSON(pkg);
 
-  await writeJsonFile(path, pkg, { detectIndent: true });
-}
+  if (pkg.babel) {
+    console.log("Updating package.json 'babel' config");
+    pkg.babel = upgradeConfig(pkg.babel);
+  }
 
-function updateBabelRC(config) {
-  return upgradeConfig(config);
+  await writeJsonFile(path, pkg, { detectIndent: true });
 }
 
 async function readBabelRC(configPath) {
@@ -66,11 +68,17 @@ async function readBabelRC(configPath) {
 }
 
 async function writeBabelRC(configPath) {
-  let json = await readBabelRC(configPath);
+  let json;
 
-  json = updateBabelRC(json);
+  try {
+    json = await readBabelRC(configPath);
+  } catch (e) {}
 
-  await writeJsonFile(configPath, json, { detectIndent: true });
+  if (json) {
+    console.log("Updating ./.babelrc config");
+    json = upgradeConfig(json);
+    await writeJsonFile(configPath, json, { detectIndent: true });
+  }
 }
 
 module.exports = {

@@ -20,7 +20,7 @@ npx babel-upgrade
 - [ ] Update the babel config file(s).
   - [x] `.babelrc`
   - [ ] `.babelrc.js`
-  - [ ] `package.json babel key`
+  - [x] `package.json babel key`
   - [x] handle `env`
   - [x] handle shorthand names: `babel-preset-env` and `env`
   - [ ] convert comma separated presets/plugins into an array

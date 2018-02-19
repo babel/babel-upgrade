@@ -5,11 +5,9 @@ const { writePackageJSON, writeBabelRC } = require("../src");
 const cwd = process.cwd();
 console.warn(`Current working directory: ${cwd}`);
 
-console.log("Updating ./.babelrc config");
 // TOOD: allow passing a specific path
 writeBabelRC(path.join(cwd, '.babelrc'));
 
-console.log("Updating closest package.json dependencies");
 // TOOD: allow passing a specific path
 writePackageJSON();
 // TODO: just do this automatically
