@@ -11,7 +11,6 @@
   "author": "Henry Zhu <hi@henryzoo.com>",
   "license": "MIT",
   "dependencies": {
-    "golden-fleece": "^1.0.3",
     "json5": "^0.5.1",
     "pify": "^3.0.0",
     "read-pkg-up": "^3.0.0",
