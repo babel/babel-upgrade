@@ -14,7 +14,7 @@ npx babel-upgrade
   - This includes upgrading the same package to the latest version
   - [x] add `@babel/core` peerDep
   - [x] modify scripts for mocha + `@babel/register`
-  - [ ] throw/warn if engines is < node 4 or current node is < 4?
+  - [x] throw/warn if engines is < node 4 or current node is < 4?
   - [ ] log when replacing out preset-es2015,16,17,latest as FYI
   - [ ] if `babel-node` is used, import `@babel/node`?
 - [ ] Update the babel config file(s).
