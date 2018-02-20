@@ -9,6 +9,7 @@
   },
   "keywords": [],
   "author": "Henry Zhu <hi@henryzoo.com>",
+  "repository": "babel/babel-upgrade",
   "license": "MIT",
   "dependencies": {
     "json5": "^0.5.1",
