@@ -5,9 +5,14 @@ const fs = require('fs');
 const pify = require('pify');
 const JSON5 = require('json5');
 const writeJsonFile = require('write-json-file');
+const semver = require('semver');
 
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
+
+function isAcceptedNodeVersion() {
+  return semver.satisfies(process.version, '>= 4');
+}
 
 function getLatestVersion() {
   return "7.0.0-beta.39";
@@ -82,6 +87,7 @@ async function writeBabelRC(configPath) {
 }
 
 module.exports = {
+  isAcceptedNodeVersion,
   updatePackageJSON,
   writePackageJSON,
   readBabelRC,

@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 const path = require('path');
-const { writePackageJSON, writeBabelRC } = require("../src");
+const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC } = require("../src");
 const cwd = process.cwd();
-console.warn(`Current working directory: ${cwd}`);
+
+if (!isAcceptedNodeVersion()) {
+  throw new Error("Babel 7 will only support Node 4 and higher");
+}
 
 // TOOD: allow passing a specific path
 writeBabelRC(path.join(cwd, '.babelrc'));
