@@ -24,6 +24,12 @@ function upgradeScripts(scripts) {
 
 function updatePackageJSON(pkg) {
   console.log("Updating closest package.json dependencies");
+
+  if (!pkg) {
+    console.log("package.json not found");
+    process.exit(1);
+  }
+
   if (pkg.devDependencies) {
     pkg.devDependencies = sortKeys(upgradeDeps(
       pkg.devDependencies,
