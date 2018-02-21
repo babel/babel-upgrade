@@ -7,6 +7,9 @@ Run at the root of your git repo
 ```bash
 npx babel-upgrade
 ```
+
+> Ideas from http://new.babeljs.io/docs/en/next/v7-migration.html (or modify that file if it's missing)
+
 ## Goals
 
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
@@ -149,7 +152,7 @@ npx babel-upgrade
   - [ ] handle react + flow preset being split. Read if `.flowconfig` and add it?
   - [ ] convert only/ignore?
   - [ ] how do we want to handle spec/loose modes, especially when changing previous loose mode to spec (just warn?)
-  - [ ] remove `typeof-symbol` if using `@babel/preset-env`
+  - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
 - [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
   - Update all requires/imports
   - Update the use of the Babel API (plugins, integrations)
