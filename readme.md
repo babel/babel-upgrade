@@ -7,7 +7,6 @@ Run at the root of your git repo
 ```bash
 npx babel-upgrade
 ```
-
 ## Goals
 
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
@@ -17,19 +16,135 @@ npx babel-upgrade
   - [x] all package renames
   - [x] Upgrading the same package to the latest version
   - [x] add `@babel/core` peerDep
+
+```diff
+{
+  "devDependencies": {
++   "@babel/core": "7.0.0-beta.39",
++   "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
++   "@babel/preset-env": "7.0.0-beta.39",
++   "babel-loader": "v8.0.0-beta.0"
+-   "babel-loader": "6.0.0",
+-   "babel-plugin-transform-object-rest-spread": "6.0.0",
+-   "babel-preset-env": "^1.0.0",
+  },
+}
+```
+  
   - [x] modify scripts for mocha + `@babel/register`
-  - [x] throw/warn if engines is < node 4 or current node is < 4?
+
+```diff
+{
+  "name": "mocha-scripts-test",
+  "scripts": {
+-    "test": "mocha --compilers js:babel-register --require babel-polyfill test/*Test.js",
++    "test": "mocha --compilers js:@babel/register --require @babel/polyfill test/*Test.js",
+  }
+}
+```
+  
   - [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency
+
+```diff
+"devDependencies": {
+  "@babel/core": "7.0.0-beta.39",
++ "babel-core": "7.0.0-bridge.0",
+  "jest": "^22.0.0"
+},
+"scripts": {
+  "test": "jest"
+}
+```
+  
   - [x] add new `@babel/node` package if `babel-node` is used
-  - [ ] log when replacing out preset-es2015,16,17,latest as FYI
-  - [ ] if `babel-node` is used, import `@babel/node`?
-- [ ] Auto run npm or yarn after updating dependencies
-- [ ] Update the babel config file(s).
-  - [x] `.babelrc`
-  - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
+
+```diff
+"devDependencies": {
+  "@babel/cli": "7.0.0-beta.39",
++ "@babel/node": "7.0.0-beta.39"
+},
+"scripts": {
+  "start": "babel-node a.js"
+}
+```
+
+  - [x] if `babel-node` is used, import `@babel/node`?
+
+```diff
+{
+  "devDependencies": {
++   "@babel/node": "7.0.0-beta.39"
+  }
+  "scripts": {
+    "start": "babel-node"
+  }
+}
+```
+  
+  - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
+- [ ] Auto run npm/yarn after updating dependencies
+- [x] Update the babel config file(s).
+  - [x] change all `.babelrc` files
+
+```txt
+- src/
+- example/
+  - .babelrc // now modifies these too
+- test/
+  - .babelrc // now modifies these too
+- `.babelrc`
+```
+  - [x] rename config files to swap shorthand form to long form
+
+```diff
+{
+  "presets": [
++   "@babel/preset-env"
+-   "env"
+  ]
+}
+```
+
   - [x] `package.json babel key`
+
+```diff
+{
+  "babel": {
+    "presets": [
++     "@babel/preset-env"
+-     "env"
+    ]
+  }
+}
+```
+  
   - [x] handle `env`
-  - [x] handle shorthand names: `babel-preset-env` and `env`
+
+```diff
+{
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "env": {
+    "development": {
+      "plugins": [
+-       "transform-react-jsx-source",
+-       "babel-plugin-transform-react-jsx-self"
++       "@babel/plugin-transform-react-jsx-source",
++       "@babel/plugin-transform-react-jsx-self",
+      ]
+    }
+  }
+}
+
+
+```
+  
+  - [ ] figure out how to change nested .babelrcs into using "overrides" instead
+  - [ ] monorepo support
+  - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
   - [ ] convert comma separated presets/plugins into an array
   - [ ] handle react + flow preset being split. Read if `.flowconfig` and add it?
   - [ ] convert only/ignore?
@@ -38,7 +153,7 @@ npx babel-upgrade
 - [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
   - Update all requires/imports
   - Update the use of the Babel API (plugins, integrations)
-- [ ] Modify misc files as we go
+- [ ] Modify other config files as we go
   - [x] `mocha.opts`
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
