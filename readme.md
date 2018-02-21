@@ -153,9 +153,9 @@ npx babel-upgrade
 - [ ] convert only/ignore?
 - [ ] how do we want to handle spec/loose modes, especially when changing previous loose mode to spec (just warn?)
 - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
-- [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
-  - Update all requires/imports
-  - Update the use of the Babel API (plugins, integrations)
+- [ ] Update test files that use babel directly (`babel-types` -> `@babel/types`, `babel-core`)
+  - [ ] Update all requires/imports
+  - [ ] Update the use of the Babel API (plugins, integrations)
 - [ ] Modify other config files as we go
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
