@@ -9,6 +9,11 @@ module.exports = function upgradeDeps(dependencies, version) {
   for (let pkg of Object.keys(dependencies)) {
     const depVersion = dependencies[pkg];
     if (Object.keys(oldPackages).includes(pkg)) {
+      // don't update `babel-core` bridge
+      if (dependencies[pkg].includes("7.0.0-bridge.0")) {
+        break;
+      }
+
       delete dependencies[pkg];
       const newPackageName = oldPackages[pkg];
       if (newPackageName) {
