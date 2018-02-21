@@ -1,3 +1,5 @@
+before_install:
+  - npm i -g npm@^5.4.0
 git:
   depth: 10
 sudo: false
