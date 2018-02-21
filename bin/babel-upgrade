@@ -2,5 +2,6 @@
 
 console.log("🙌 Thanks for trying out babel-upgrade!");
 console.log("You can contribute to make this better at https://github.com/babel/babel-upgrade");
+console.log("");
 require('@babel/polyfill');
 require('../lib/bin');
