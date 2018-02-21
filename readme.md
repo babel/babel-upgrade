@@ -149,7 +149,7 @@ npx babel-upgrade
 - [ ] monorepo support
 - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
 - [ ] convert comma separated presets/plugins into an array
-- [ ] handle react + flow preset being split. Read if `.flowconfig` and add it?
+- [x] handle react + flow preset being split. Read if `.flowconfig` and add it?
 - [ ] convert only/ignore?
 - [ ] how do we want to handle spec/loose modes, especially when changing previous loose mode to spec (just warn?)
 - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
