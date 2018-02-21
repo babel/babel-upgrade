@@ -12,14 +12,14 @@ function changePresets(config) {
 
       // check if it's a preset with options (an array)
       if (Array.isArray(preset)) {
-        if (preset[0].indexOf('babel-preset') !== 0) {
+        if (preset[0].indexOf('babel-preset') !== 0 && preset[0].indexOf('@babel/') !== 0) {
           preset[0] = `babel-preset-${preset[0]}`;
         }
         if (presetsToReplace.includes(preset[0])) {
           preset[0] = oldPresets[preset[0]];
         }
       } else {
-        if (preset.indexOf('babel-preset') !== 0) {
+        if (preset.indexOf('babel-preset') !== 0 && preset[0].indexOf('@babel/') !== 0) {
           preset = `babel-preset-${preset}`;
         }
         if (presetsToReplace.includes(preset)) {
@@ -42,14 +42,14 @@ function changePlugins(config) {
 
       // check if it's a plugin with options (an array)
       if (Array.isArray(plugin)) {
-        if (plugin[0].indexOf('babel-plugin') !== 0) {
+        if (plugin[0].indexOf('babel-plugin') !== 0 && plugin[0].indexOf('@babel/') !== 0) {
           plugin[0] = `babel-plugin-${plugin[0]}`;
         }
         if (pluginsToReplace.includes(plugin[0])) {
           plugin[0] = oldPlugins[plugin[0]];
         }
       } else {
-        if (plugin.indexOf('babel-plugin') !== 0) {
+        if (plugin.indexOf('babel-plugin') !== 0 && plugin[0].indexOf('@babel/') !== 0) {
           plugin = `babel-plugin-${plugin}`;
         }
         if (pluginsToReplace.includes(plugin)) {
