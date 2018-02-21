@@ -35,11 +35,30 @@ function updatePackageJSON(pkg) {
     process.exit(1);
   }
 
+  if (pkg.scripts) {
+    pkg.scripts = upgradeScripts(pkg.scripts);
+
+    if (Object.values(pkg.scripts).some(s => s.includes('babel-node'))) {
+      if (pkg.devDependencies) {
+        pkg.devDependencies["@babel/node"] = getLatestVersion();
+      }
+    }
+  }
+
   if (pkg.devDependencies) {
-    pkg.devDependencies = sortKeys(upgradeDeps(
+    pkg.devDependencies = upgradeDeps(
       pkg.devDependencies,
       getLatestVersion()
-    ));
+    );
+
+    const devDeps = Object.keys(pkg.devDependencies);
+    // use babel-bridge for jest
+    // maybe should do this for other tools?
+    if (devDeps.includes("jest") && !devDeps.includes("babel-core")) {
+      pkg.devDependencies["babel-core"] = "^7.0.0-bridge.0";
+    }
+
+    pkg.devDependencies = sortKeys(pkg.devDependencies);
   }
 
   if (pkg.dependencies) {
@@ -47,10 +66,6 @@ function updatePackageJSON(pkg) {
       pkg.dependencies,
       getLatestVersion()
     ));
-  }
-
-  if (pkg.scripts) {
-    pkg.scripts = upgradeScripts(pkg.scripts);
   }
 
   return pkg;
