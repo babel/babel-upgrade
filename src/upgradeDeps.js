@@ -5,7 +5,9 @@ const otherPackages = {
   'babel-loader': 'v8.0.0-beta.0',
 };
 
-module.exports = function upgradeDeps(dependencies, version) {
+module.exports = function upgradeDeps(dependencies, version, options = {}) {
+  const { hasFlow } = options;
+
   for (let pkg of Object.keys(dependencies)) {
     const depVersion = dependencies[pkg];
     if (Object.keys(oldPackages).includes(pkg)) {
@@ -48,6 +50,12 @@ module.exports = function upgradeDeps(dependencies, version) {
       a.startsWith('@babel/plugin') || a.startsWith('@babel/preset'))
   ) {
     dependencies['@babel/core'] = version;
+  }
+
+  // Adds preset-flow if needed, especially since it was split out of
+  // preset-react
+  if (hasFlow && !dependencies['@babel/preset-flow']) {
+    dependencies['@babel/preset-flow'] = version;
   }
 
   return dependencies;

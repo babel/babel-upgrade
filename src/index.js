@@ -1,3 +1,4 @@
+const globby = require('globby');
 const path = require('path');
 const readPkgUp = require('read-pkg-up');
 const sortKeys = require('sort-keys');
@@ -34,7 +35,7 @@ function upgradeScripts(scripts) {
   return scripts;
 }
 
-function updatePackageJSON(pkg) {
+async function updatePackageJSON(pkg) {
   if (process.env.NODE_ENV !== 'test') {
     console.log("Updating closest package.json dependencies");
   }
@@ -54,10 +55,17 @@ function updatePackageJSON(pkg) {
     }
   }
 
+  const flowConfigs = await globby(['**/.flowconfig', '!./node_modules/**']);
+
+  const upgradeDepOptions = {
+    hasFlow: flowConfigs.length > 0,
+  };
+
   if (pkg.devDependencies) {
     pkg.devDependencies = upgradeDeps(
       pkg.devDependencies,
-      getLatestVersion()
+      getLatestVersion(),
+      upgradeDepOptions,
     );
 
     const devDeps = Object.keys(pkg.devDependencies);
@@ -73,7 +81,8 @@ function updatePackageJSON(pkg) {
   if (pkg.dependencies) {
     pkg.dependencies = sortKeys(upgradeDeps(
       pkg.dependencies,
-      getLatestVersion()
+      getLatestVersion(),
+      upgradeDepOptions,
     ));
   }
 
