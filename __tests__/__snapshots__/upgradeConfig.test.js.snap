@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`package that is removed 1`] = `
+Object {
+  "plugins": Array [
+    "@babel/plugin-proposal-function-bind",
+    "instanbul",
+  ],
+}
+`;
+
 exports[`packages (json5) 1`] = `
 Object {
   "env": Object {
