@@ -37,7 +37,7 @@ npx babel-upgrade
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
 - [ ] Handle the differences in plugins in v7 for default/loose/spec
-- [ ] Later: work on node 4
+- [x] Later: work on node 4
 - [ ] Should certain parts be generic (replace the string `babel-register` with `@babel/register`)? Could be in a Makefile or somewhere else, but it's just find replace.
 
 ## Philosophy
@@ -50,3 +50,9 @@ npx babel-upgrade
 - Can be used for non-major bumps too - just for updating to the latest version.
 - Include mini-changelog?
 - Maybe the version should just reflect the version that it targets?
+
+## Development
+```sh
+$ npm i
+$ npm start
+```
