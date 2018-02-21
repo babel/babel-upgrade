@@ -6,20 +6,22 @@ npx babel-upgrade
 
 ## Goals
 
-> Update dependencies, config file, files that require babel directly
+> Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
-- [ ] auto run npm or yarn
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
   - This includes doing all package renames
   - This includes upgrading the same package to the latest version
   - [x] add `@babel/core` peerDep
   - [x] modify scripts for mocha + `@babel/register`
   - [x] throw/warn if engines is < node 4 or current node is < 4?
+  - [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency
+  - [x] add new `@babel/node` package if `babel-node` is used
   - [ ] log when replacing out preset-es2015,16,17,latest as FYI
   - [ ] if `babel-node` is used, import `@babel/node`?
+- [ ] Auto run npm or yarn after updating dependencies
 - [ ] Update the babel config file(s).
   - [x] `.babelrc`
-  - [ ] `.babelrc.js`
+  - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
   - [x] `package.json babel key`
   - [x] handle `env`
   - [x] handle shorthand names: `babel-preset-env` and `env`
@@ -31,10 +33,11 @@ npx babel-upgrade
 - [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
   - Update all requires/imports
   - Update the use of the Babel API (plugins, integrations)
-- [ ] Misc files as we go (`karma.conf.js`, `mocha.opts`)
+- [ ] Modify misc files as we go (`karma.conf.js`, `mocha.opts`)
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
-- [ ] later: work on node 4
+- [ ] Handle the differences in plugins in v7 for default/loose/spec
+- [ ] Later: work on node 4
 - [ ] Should certain parts be generic (replace the string `babel-register` with `@babel/register`)? Could be in a Makefile or somewhere else, but it's just find replace.
 
 ## Philosophy
