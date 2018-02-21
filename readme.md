@@ -38,7 +38,8 @@ npx babel-upgrade
 - [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
   - Update all requires/imports
   - Update the use of the Babel API (plugins, integrations)
-- [ ] Modify misc files as we go (`karma.conf.js`, `mocha.opts`)
+- [ ] Modify misc files as we go
+  - [x] `mocha.opts`
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
 - [ ] Handle the differences in plugins in v7 for default/loose/spec

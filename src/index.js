@@ -6,6 +6,7 @@ const pify = require('pify');
 const JSON5 = require('json5');
 const writeJsonFile = require('write-json-file');
 const semver = require('semver');
+const writeFile = require('write');
 
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
@@ -18,11 +19,17 @@ function getLatestVersion() {
   return "7.0.0-beta.39";
 }
 
+function replaceMocha(str) {
+  return str
+    .replace('--compilers js:babel-core/register', '--compilers js:@babel/register')
+    .replace('--compilers js:babel-register', '--compilers js:@babel/register')
+    .replace('--require babel-register', '--require @babel/register')
+    .replace('--require babel-polyfill', '--require @babel/polyfill');
+}
+
 function upgradeScripts(scripts) {
   for (let script of Object.keys(scripts)) {
-    // mocha --compilers js:@babel/register
-    scripts[script] = scripts[script].replace('--compilers js:babel-register', '--compilers js:@babel/register');
-    scripts[script] = scripts[script].replace('--require babel-register', '--require @babel/register');
+    scripts[script] = replaceMocha(scripts[script]);
   }
   return scripts;
 }
@@ -109,11 +116,17 @@ async function writeBabelRC(configPath) {
   }
 }
 
+async function writeMochaOpts(configPath) {
+  let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
+  await writeFile(configPath, replaceMocha(rawFile));
+}
+
 module.exports = {
   isAcceptedNodeVersion,
   updatePackageJSON,
   writePackageJSON,
   readBabelRC,
   writeBabelRC,
-  getLatestVersion
+  getLatestVersion,
+  writeMochaOpts
 };

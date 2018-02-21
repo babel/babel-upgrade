@@ -1,5 +1,5 @@
 const path = require('path');
-const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC } = require('.');
+const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC, writeMochaOpts } = require('.');
 const globby = require('globby');
 const cwd = process.cwd();
 
@@ -12,6 +12,7 @@ if (!isAcceptedNodeVersion()) {
   // account for nested babelrc's
   const paths = await globby(['**/.babelrc', '!./node_modules/**']);
   const packages = await globby(['**/package.json', '!./node_modules/**']);
+  const mochaOpts = await globby(['**/mocha.opts', '!./node_modules/**']);
 
   // if not a monorepo
   if (packages.length === 1) {
@@ -20,6 +21,8 @@ if (!isAcceptedNodeVersion()) {
     }
     paths.forEach(p => writeBabelRC(p));
   }
+
+  mochaOpts.forEach(p => writeMochaOpts(p));
 })();
 
 // TOOD: allow passing a specific path
