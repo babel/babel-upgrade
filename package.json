@@ -15,7 +15,7 @@
     "bin",
     "readme.md"
   ],
-  "keywords": [],
+  "keywords": ["babel", "babel 7", "babel-upgrade", "codemod"],
   "author": "Henry Zhu <hi@henryzoo.com>",
   "repository": "babel/babel-upgrade",
   "license": "MIT",
@@ -36,5 +36,9 @@
     "@babel/preset-env": "^7.0.0-beta.40",
     "babel-core": "^7.0.0-bridge.0",
     "jest": "^22.4.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "<rootDir>/node_modules/@babel/polyfill/dist/polyfill.js"
   }
 }
