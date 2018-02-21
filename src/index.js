@@ -28,7 +28,9 @@ function upgradeScripts(scripts) {
 }
 
 function updatePackageJSON(pkg) {
-  console.log("Updating closest package.json dependencies");
+  if (process.env.NODE_ENV !== 'test') {
+    console.log("Updating closest package.json dependencies");
+  }
 
   if (!pkg) {
     console.log("package.json not found");

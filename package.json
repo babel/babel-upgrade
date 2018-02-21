@@ -3,15 +3,29 @@
   "version": "0.0.9",
   "description": "Upgrade tool for Babel",
   "bin": "./bin/babel-upgrade",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build": "babel src -d lib",
+    "start": "npm run build -- -w",
+    "prepublish": "npm run build",
     "test": "jest"
   },
-  "keywords": [],
+  "files": [
+    "lib",
+    "bin",
+    "readme.md"
+  ],
+  "keywords": [
+    "babel",
+    "babel 7",
+    "babel-upgrade",
+    "codemod"
+  ],
   "author": "Henry Zhu <hi@henryzoo.com>",
   "repository": "babel/babel-upgrade",
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "7.0.0-beta.40",
     "globby": "^8.0.1",
     "json5": "^0.5.1",
     "pify": "^3.0.0",
@@ -22,6 +36,14 @@
     "write-pkg": "^3.1.0"
   },
   "devDependencies": {
-    "jest": "^22.2.2"
+    "@babel/cli": "7.0.0-beta.40",
+    "@babel/core": "7.0.0-beta.40",
+    "@babel/preset-env": "7.0.0-beta.40",
+    "babel-core": "^7.0.0-bridge.0",
+    "jest": "^22.4.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "<rootDir>/node_modules/@babel/polyfill/dist/polyfill.js"
   }
 }
