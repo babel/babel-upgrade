@@ -12,6 +12,7 @@
   "repository": "babel/babel-upgrade",
   "license": "MIT",
   "dependencies": {
+    "globby": "^8.0.1",
     "json5": "^0.5.1",
     "pify": "^3.0.0",
     "read-pkg-up": "^3.0.0",

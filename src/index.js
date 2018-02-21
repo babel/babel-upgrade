@@ -86,7 +86,7 @@ async function writeBabelRC(configPath) {
   } catch (e) {}
 
   if (json) {
-    console.log("Updating ./.babelrc config");
+    console.log(`Updating .babelrc config at ${configPath}`);
     json = upgradeConfig(json);
     await writeJsonFile(configPath, json, { detectIndent: true });
   }
