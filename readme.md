@@ -1,5 +1,9 @@
 # babel-upgrade
 
+## Usage
+
+Run at the root of your git repo
+
 ```bash
 npx babel-upgrade
 ```
@@ -8,7 +12,7 @@ npx babel-upgrade
 
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
-> [x] Works on Node >= 4 (anything lower isn't supported in v7)
+- [x] Works on Node >= 4 (anything lower isn't supported in v7)
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
   - [x] all package renames
   - [x] Upgrading the same package to the latest version
