@@ -10,7 +10,7 @@ npx babel-upgrade
 
 > Ideas from http://new.babeljs.io/docs/en/next/v7-migration.html (or modify that file if it's missing)
 
-## Goals
+## Todos
 
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
@@ -34,7 +34,7 @@ npx babel-upgrade
 }
 ```
   
-  - [x] modify scripts for mocha + `@babel/register`
+- [x] modify scripts for mocha + `@babel/register`
 
 ```diff
 {
@@ -46,7 +46,7 @@ npx babel-upgrade
 }
 ```
   
-  - [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency
+- [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency
 
 ```diff
 "devDependencies": {
@@ -59,7 +59,7 @@ npx babel-upgrade
 }
 ```
   
-  - [x] add new `@babel/node` package if `babel-node` is used
+- [x] add new `@babel/node` package if `babel-node` is used
 
 ```diff
 "devDependencies": {
@@ -71,7 +71,7 @@ npx babel-upgrade
 }
 ```
 
-  - [x] if `babel-node` is used, import `@babel/node`?
+- [x] if `babel-node` is used, import `@babel/node`?
 
 ```diff
 {
@@ -84,8 +84,6 @@ npx babel-upgrade
 }
 ```
   
-  - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
-- [ ] Auto run npm/yarn after updating dependencies
 - [x] Update the babel config file(s).
   - [x] change all `.babelrc` files
 
@@ -97,7 +95,7 @@ npx babel-upgrade
   - .babelrc // now modifies these too
 - `.babelrc`
 ```
-  - [x] rename config files to swap shorthand form to long form
+- [x] rename config files to swap shorthand form to long form
 
 ```diff
 {
@@ -108,7 +106,7 @@ npx babel-upgrade
 }
 ```
 
-  - [x] `package.json babel key`
+- [x] `package.json babel key`
 
 ```diff
 {
@@ -121,7 +119,7 @@ npx babel-upgrade
 }
 ```
   
-  - [x] handle `env`
+- [x] handle `env`
 
 ```diff
 {
@@ -144,20 +142,21 @@ npx babel-upgrade
 
 
 ```
-  
-  - [ ] figure out how to change nested .babelrcs into using "overrides" instead
-  - [ ] monorepo support
-  - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
-  - [ ] convert comma separated presets/plugins into an array
-  - [ ] handle react + flow preset being split. Read if `.flowconfig` and add it?
-  - [ ] convert only/ignore?
-  - [ ] how do we want to handle spec/loose modes, especially when changing previous loose mode to spec (just warn?)
-  - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
+- [x] Modify `mocha.opts`
+- [ ] Log when replacing out preset-es2015,16,17,latest as FYI
+- [ ] Auto run npm/yarn after updating dependencies
+- [ ] figure out how to change nested .babelrcs into using "overrides" instead
+- [ ] monorepo support
+- [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
+- [ ] convert comma separated presets/plugins into an array
+- [ ] handle react + flow preset being split. Read if `.flowconfig` and add it?
+- [ ] convert only/ignore?
+- [ ] how do we want to handle spec/loose modes, especially when changing previous loose mode to spec (just warn?)
+- [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
 - [ ] Update test files that use babel directly (`babel-types`, `babel-core`)
   - Update all requires/imports
   - Update the use of the Babel API (plugins, integrations)
 - [ ] Modify other config files as we go
-  - [x] `mocha.opts`
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
 - [ ] Handle the differences in plugins in v7 for default/loose/spec
