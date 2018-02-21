@@ -1,0 +1,9 @@
+{
+  "name": "scripts-babel-node",
+  "scripts": {
+    "test": "babel-node"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.0.0-beta.3"
+  }
+}
