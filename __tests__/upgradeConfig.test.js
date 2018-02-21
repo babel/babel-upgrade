@@ -1,8 +1,8 @@
 const path = require('path');
-const upgradeConfig = require('../upgradeConfig');
-const babelrcFixture = require('../../fixtures/babelrc');
-const { readBabelRC } = require('../');
-const JSON5_PATH = path.resolve(__dirname, '../../fixtures/babelrc.json5');
+const upgradeConfig = require('../src/upgradeConfig');
+const babelrcFixture = require('../fixtures/babelrc');
+const { readBabelRC } = require('../src');
+const JSON5_PATH = path.resolve(__dirname, '../fixtures/babelrc.json5');
 
 test('packages', () => {
   expect(upgradeConfig(babelrcFixture)).toMatchSnapshot();
