@@ -1,5 +1,6 @@
 const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
 
+// TODO: fix all of this
 function changePresets(config) {
   const presets = config.presets;
 
@@ -16,14 +17,22 @@ function changePresets(config) {
           preset[0] = `babel-preset-${preset[0]}`;
         }
         if (presetsToReplace.includes(preset[0])) {
-          preset[0] = oldPresets[preset[0]];
+          if (oldPresets[preset[0]]) {
+            preset[0] = oldPresets[preset[0]];
+          } else {
+            presets.splice(i, 1);
+          }
         }
       } else {
         if (preset.indexOf('babel-preset') !== 0 && preset[0].indexOf('@babel/') !== 0) {
           preset = `babel-preset-${preset}`;
         }
         if (presetsToReplace.includes(preset)) {
-          presets[i] = oldPresets[preset];
+          if (oldPresets[preset]) {
+            presets[i] = oldPresets[preset];
+          } else {
+            presets.splice(i, 1);
+          }
         }
       }
     }
@@ -46,14 +55,22 @@ function changePlugins(config) {
           plugin[0] = `babel-plugin-${plugin[0]}`;
         }
         if (pluginsToReplace.includes(plugin[0])) {
-          plugin[0] = oldPlugins[plugin[0]];
+          if (oldPlugins[plugin[0]]) {
+            plugin[0] = oldPlugins[plugin[0]];
+          } else {
+            plugins.splice(i, 1);
+          }
         }
       } else {
         if (plugin.indexOf('babel-plugin') !== 0 && plugin[0].indexOf('@babel/') !== 0) {
           plugin = `babel-plugin-${plugin}`;
         }
         if (pluginsToReplace.includes(plugin)) {
-          plugins[i] = oldPlugins[plugin];
+          if (oldPlugins[plugin]) {
+            plugins[i] = oldPlugins[plugin];
+          } else {
+            plugins.splice(i, 1);
+          }
         }
       }
     }

@@ -8,6 +8,16 @@ test('packages', () => {
   expect(upgradeConfig(babelrcFixture)).toMatchSnapshot();
 });
 
+test('package that is removed', () => {
+  expect(upgradeConfig({
+    plugins: [
+      'transform-function-bind',
+      'check-es2015-constants',
+      'instanbul'
+    ]
+  })).toMatchSnapshot();
+});
+
 test('packages (json5)', async () => {
   const json5Data = await readBabelRC(JSON5_PATH);
   expect(upgradeConfig(json5Data)).toMatchSnapshot();
