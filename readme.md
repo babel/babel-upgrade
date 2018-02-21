@@ -8,9 +8,10 @@ npx babel-upgrade
 
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
+> [x] Works on Node >= 4 (anything lower isn't supported in v7)
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
-  - This includes doing all package renames
-  - This includes upgrading the same package to the latest version
+  - [x] all package renames
+  - [x] Upgrading the same package to the latest version
   - [x] add `@babel/core` peerDep
   - [x] modify scripts for mocha + `@babel/register`
   - [x] throw/warn if engines is < node 4 or current node is < 4?
@@ -37,7 +38,6 @@ npx babel-upgrade
 - [ ] Add to the upgrade guide which parts are autofixable and the command (if we care enough to make this individually runnable too infrastructure wise)
 - [ ] May need to add a warning on any 3rd party plugins since they might not be compatible
 - [ ] Handle the differences in plugins in v7 for default/loose/spec
-- [x] Later: work on node 4
 - [ ] Should certain parts be generic (replace the string `babel-register` with `@babel/register`)? Could be in a Makefile or somewhere else, but it's just find replace.
 
 ## Philosophy
