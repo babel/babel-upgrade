@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
-console.log("🙌 Thanks for trying out https://github.com/babel/babel-upgrade!");
+console.log("🙌  Thanks for trying out https://github.com/babel/babel-upgrade!");
 console.log("");
+
 require('@babel/polyfill');
-require('../lib/bin');
+
+parseInt(process.versions.node, 10) < 8
+  ? require('../lib/bin')
+  : require('../src/bin');

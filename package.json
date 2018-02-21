@@ -12,6 +12,7 @@
   },
   "files": [
     "lib",
+    "src",
     "bin",
     "readme.md"
   ],

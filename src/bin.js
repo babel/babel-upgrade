@@ -18,6 +18,7 @@ if (!isAcceptedNodeVersion()) {
   if (packages.length === 1) {
     if (paths.length > 1) {
       console.log("We suggest using the new 'overrides' option instead of nested .babelrc's, can check out http://new.babeljs.io/docs/en/next/babelrc.html#overrides");
+      console.log("");
     }
     paths.forEach(p => writeBabelRC(p));
   }
