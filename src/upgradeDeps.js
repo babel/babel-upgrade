@@ -2,7 +2,8 @@ const semver = require('semver');
 const { packages: oldPackages, latestPackages } = require('./packageData');
 
 const otherPackages = {
-  'babel-loader': 'v8.0.0-beta.0',
+  'babel-loader': '^8.0.0-beta.0',
+  'rollup-plugin-babel': '^4.0.0-beta.2',
 };
 
 module.exports = function upgradeDeps(dependencies, version, options = {}) {

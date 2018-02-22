@@ -182,5 +182,6 @@
   "babel-template": "6.0.0",
   "babel-traverse": "6.0.0",
   "babel-types": "6.0.0",
-  "babel-loader": "6.0.0"
+  "babel-loader": "6.0.0",
+  "rollup-plugin-babel": "3.0.3"
 }
