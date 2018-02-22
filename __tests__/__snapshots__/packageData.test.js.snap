@@ -6,7 +6,7 @@ Object {
     "@babel/core": "7.0.0-beta.39",
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
     "@babel/preset-env": "7.0.0-beta.39",
-    "babel-loader": "v8.0.0-beta.0",
+    "babel-loader": "^8.0.0-beta.0",
   },
   "name": "add-@babel/core-peerDep",
 }
@@ -19,7 +19,7 @@ Object {
     "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
     "@babel/preset-env": "7.0.0-beta.39",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-loader": "v8.0.0-beta.0",
+    "babel-loader": "^8.0.0-beta.0",
     "jest": "22.0.0",
   },
   "name": "add-@babel/core-peerDep",
@@ -241,6 +241,7 @@ Object {
   "@babel/template": "7.0.0-beta.39",
   "@babel/traverse": "7.0.0-beta.39",
   "@babel/types": "7.0.0-beta.39",
-  "babel-loader": "v8.0.0-beta.0",
+  "babel-loader": "^8.0.0-beta.0",
+  "rollup-plugin-babel": "^4.0.0-beta.2",
 }
 `;
