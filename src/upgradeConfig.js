@@ -21,6 +21,7 @@ function changePresets(config) {
             preset[0] = oldPresets[preset[0]];
           } else {
             presets.splice(i, 1);
+            i--;
           }
         }
       } else {
@@ -32,6 +33,7 @@ function changePresets(config) {
             presets[i] = oldPresets[preset];
           } else {
             presets.splice(i, 1);
+            i--;
           }
         }
       }
@@ -51,14 +53,17 @@ function changePlugins(config) {
 
       // check if it's a plugin with options (an array)
       if (Array.isArray(plugin)) {
+
         if (plugin[0].indexOf('babel-plugin') !== 0 && plugin[0].indexOf('@babel/') !== 0) {
           plugin[0] = `babel-plugin-${plugin[0]}`;
         }
+
         if (pluginsToReplace.includes(plugin[0])) {
           if (oldPlugins[plugin[0]]) {
             plugin[0] = oldPlugins[plugin[0]];
           } else {
             plugins.splice(i, 1);
+            i--;
           }
         }
       } else {
@@ -70,6 +75,7 @@ function changePlugins(config) {
             plugins[i] = oldPlugins[plugin];
           } else {
             plugins.splice(i, 1);
+            i--;
           }
         }
       }

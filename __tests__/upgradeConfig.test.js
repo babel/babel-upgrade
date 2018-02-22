@@ -13,6 +13,7 @@ test('package that is removed', () => {
     plugins: [
       'transform-function-bind',
       'check-es2015-constants',
+      'transform-es2015-spread',
       'instanbul'
     ]
   })).toMatchSnapshot();

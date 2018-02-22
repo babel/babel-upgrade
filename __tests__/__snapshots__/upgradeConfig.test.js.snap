@@ -4,6 +4,7 @@ exports[`package that is removed 1`] = `
 Object {
   "plugins": Array [
     "@babel/plugin-proposal-function-bind",
+    "@babel/plugin-transform-spread",
     "instanbul",
   ],
 }
