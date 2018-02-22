@@ -24,7 +24,7 @@ function changePresets(config) {
           }
         }
       } else {
-        if (preset.indexOf('babel-preset') !== 0 && preset[0].indexOf('@babel/') !== 0) {
+        if (preset.indexOf('babel-preset') !== 0 && preset.indexOf('@babel/') !== 0) {
           preset = `babel-preset-${preset}`;
         }
         if (presetsToReplace.includes(preset)) {

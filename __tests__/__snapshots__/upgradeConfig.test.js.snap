@@ -88,3 +88,18 @@ Object {
   ],
 }
 `;
+
+exports[`rename community packages 1`] = `
+Object {
+  "env": Object {
+    "development": Object {
+      "plugins": Array [
+        "lodash",
+      ],
+    },
+  },
+  "plugins": Array [
+    "lodash",
+  ],
+}
+`;

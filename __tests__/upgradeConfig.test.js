@@ -18,6 +18,21 @@ test('package that is removed', () => {
   })).toMatchSnapshot();
 });
 
+test('rename community packages', () => {
+  expect(upgradeConfig({
+    plugins: [
+      'lodash'
+    ],
+    env: {
+      development: {
+        plugins: [
+          'lodash'
+        ]
+      }
+    }
+  })).toMatchSnapshot();
+});
+
 test('packages (json5)', async () => {
   const json5Data = await readBabelRC(JSON5_PATH);
   expect(upgradeConfig(json5Data)).toMatchSnapshot();
