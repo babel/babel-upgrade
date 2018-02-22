@@ -1,6 +1,6 @@
 {
   "name": "babel-upgrade",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Upgrade tool for Babel",
   "bin": "./bin/babel-upgrade",
   "main": "lib/index.js",
