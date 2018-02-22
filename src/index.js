@@ -11,6 +11,7 @@ const writeFile = require('write');
 
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
+const installDeps = require('./installDeps');
 
 function isAcceptedNodeVersion() {
   return semver.satisfies(process.version, '>= 4');
@@ -137,5 +138,6 @@ module.exports = {
   readBabelRC,
   writeBabelRC,
   getLatestVersion,
-  writeMochaOpts
+  writeMochaOpts,
+  installDeps
 };

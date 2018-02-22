@@ -1,5 +1,4 @@
-const path = require('path');
-const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC, writeMochaOpts } = require('.');
+const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC, writeMochaOpts, installDeps } = require('.');
 const globby = require('globby');
 const cwd = process.cwd();
 
@@ -24,9 +23,8 @@ if (!isAcceptedNodeVersion()) {
   }
 
   mochaOpts.forEach(p => writeMochaOpts(p));
-})();
 
-// TOOD: allow passing a specific path
-writePackageJSON();
-// TODO: just do this automatically
-console.log("You'll need to re-run yarn or npm install");
+  // TOOD: allow passing a specific path
+  await writePackageJSON();
+  installDeps(cwd);
+})();
