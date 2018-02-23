@@ -144,7 +144,7 @@ npx babel-upgrade
 ```
 - [x] Modify `mocha.opts`
 - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
-- [ ] Auto run npm/yarn after updating dependencies
+- [x] Auto run npm/yarn after updating dependencies
 - [ ] figure out how to change nested .babelrcs into using "overrides" instead
 - [ ] monorepo support
 - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
