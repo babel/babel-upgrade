@@ -8,6 +8,8 @@ const JSON5 = require('json5');
 const writeJsonFile = require('write-json-file');
 const semver = require('semver');
 const writeFile = require('write');
+const crossSpawn = require('cross-spawn');
+const hasYarn = require('has-yarn');
 
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
@@ -102,6 +104,12 @@ async function writePackageJSON() {
   await writeJsonFile(path, pkg, { detectIndent: true });
 }
 
+function installDeps() {
+  const command = hasYarn() ? 'yarn' : 'npm';
+  const args = ['install'];
+  crossSpawn.sync(command, args, { stdio: 'inherit' });
+}
+
 async function readBabelRC(configPath) {
   try {
     const rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
@@ -137,5 +145,6 @@ module.exports = {
   readBabelRC,
   writeBabelRC,
   getLatestVersion,
-  writeMochaOpts
+  writeMochaOpts,
+  installDeps,
 };

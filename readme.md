@@ -8,6 +8,12 @@ Run at the root of your git repo
 npx babel-upgrade
 ```
 
+Optionally use `--install` to run `yarn` or `npm` after the upgrade.
+
+```bash
+npx babel-upgrade --install
+```
+
 > Ideas from http://new.babeljs.io/docs/en/next/v7-migration.html (or modify that file if it's missing)
 
 ## Todos
@@ -15,7 +21,7 @@ npx babel-upgrade
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
 - [x] Works on Node >= 4 (anything lower isn't supported in v7)
-- [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version. 
+- [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version.
   - [x] all package renames
   - [x] Upgrading the same package to the latest version
   - [x] add `@babel/core` peerDep
@@ -33,7 +39,7 @@ npx babel-upgrade
   },
 }
 ```
-  
+
 - [x] modify scripts for mocha + `@babel/register`
 
 ```diff
@@ -45,7 +51,7 @@ npx babel-upgrade
   }
 }
 ```
-  
+
 - [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency
 
 ```diff
@@ -58,7 +64,7 @@ npx babel-upgrade
   "test": "jest"
 }
 ```
-  
+
 - [x] add new `@babel/node` package if `babel-node` is used
 
 ```diff
@@ -83,7 +89,7 @@ npx babel-upgrade
   }
 }
 ```
-  
+
 - [x] Update the babel config file(s).
   - [x] change all `.babelrc` files
 
@@ -118,7 +124,7 @@ npx babel-upgrade
   }
 }
 ```
-  
+
 - [x] handle `env`
 
 ```diff
