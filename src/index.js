@@ -104,10 +104,10 @@ async function writePackageJSON() {
   await writeJsonFile(path, pkg, { detectIndent: true });
 }
 
-function installDeps() {
+async function installDeps() {
   const command = hasYarn() ? 'yarn' : 'npm';
   const args = ['install'];
-  crossSpawn.sync(command, args, { stdio: 'inherit' });
+  await crossSpawn(command, args, { stdio: 'inherit' });
 }
 
 async function readBabelRC(configPath) {

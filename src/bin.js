@@ -30,6 +30,7 @@ if (!isAcceptedNodeVersion()) {
 
   // TODO: add smarter CLI option handling if we support more options
   if (process.argv[2] === '--install') {
-    installDeps();
+    console.log('Installing new dependencies');
+    await installDeps();
   }
 })();
