@@ -150,14 +150,13 @@ npx babel-upgrade --install
 ```
 - [x] Modify `mocha.opts`
 - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
-- [ ] Auto run npm/yarn after updating dependencies
-- [ ] figure out how to change nested .babelrcs into using "overrides" instead
-- [ ] monorepo support
+- [x] ~~Auto~~ Run npm/yarn after updating dependencies (use `--install`)
+- [ ] Figure out how to change nested .babelrcs into using "overrides" instead
+- [ ] Monorepo support
 - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
-- [ ] convert comma separated presets/plugins into an array
+- [ ] Convert comma separated presets/plugins into an array
 - [x] handle react + flow preset being split. Read if `.flowconfig` and add it?
-- [ ] convert only/ignore?
-- [ ] how do we want to handle spec/loose modes, especially when changing previous loose mode to spec (just warn?)
+- [ ] convert `only`/`ignore` if necessary
 - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
 - [ ] Update test files that use babel directly (`babel-types` -> `@babel/types`, `babel-core`)
   - [ ] Update all requires/imports
