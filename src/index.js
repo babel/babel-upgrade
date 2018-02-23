@@ -36,9 +36,9 @@ function upgradeScripts(scripts) {
   return scripts;
 }
 
-async function updatePackageJSON(pkg, options) {
+async function updatePackageJSON(pkg, pkgPath, options) {
   if (process.env.NODE_ENV !== 'test') {
-    console.log("Updating closest package.json dependencies");
+    console.log(`Updating package.json dependencies at ${pkgPath}`);
   }
 
   if (!pkg) {
@@ -76,17 +76,17 @@ async function updatePackageJSON(pkg, options) {
   return pkg;
 }
 
-async function writePackageJSON(options) {
-  let { pkg, path } = await readPkgUp({ normalize: false });
+async function writePackageJSON(pkgPath, options) {
+  let { pkg, path: filePath } = await readPkgUp({ normalize: false, cwd: pkgPath ? path.dirname(pkgPath) : undefined });
 
-  pkg = await updatePackageJSON(pkg, options);
+  pkg = await updatePackageJSON(pkg, pkgPath, options);
 
   if (pkg.babel) {
     console.log("Updating package.json 'babel' config");
     pkg.babel = upgradeConfig(pkg.babel, options);
   }
 
-  await writeJsonFile(path, pkg, { detectIndent: true });
+  await writeJsonFile(filePath, pkg, { detectIndent: true });
 }
 
 async function installDeps() {
