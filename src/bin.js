@@ -10,9 +10,9 @@ if (!isAcceptedNodeVersion()) {
 // TOOD: allow passing a specific path
 (async () => {
   // account for nested babelrc's
-  const paths = await globby(['**/.babelrc', '!./node_modules/**']);
-  const packages = await globby(['**/package.json', '!./node_modules/**']);
-  const mochaOpts = await globby(['**/mocha.opts', '!./node_modules/**']);
+  const paths = await globby(['**/.babelrc', '!**/node_modules/**']);
+  const packages = await globby(['**/package.json', '!**/node_modules/**']);
+  const mochaOpts = await globby(['**/mocha.opts', '!**/node_modules/**']);
 
   // if not a monorepo
   if (packages.length === 1) {

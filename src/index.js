@@ -55,7 +55,7 @@ async function updatePackageJSON(pkg) {
     }
   }
 
-  const flowConfigs = await globby(['**/.flowconfig', '!./node_modules/**']);
+  const flowConfigs = await globby(['**/.flowconfig', '!**/node_modules/**']);
 
   const upgradeDepOptions = {
     hasFlow: flowConfigs.length > 0,
