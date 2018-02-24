@@ -3,6 +3,7 @@ const upgradeDeps = require('../src/upgradeDeps');
 const babelCoreFixture = require('../fixtures/babel-core');
 const jestFixture = require('../fixtures/jest');
 const depsFixture = require('../fixtures/deps');
+const webpackV1Fixture = require('../fixtures/webpack-v1');
 const depsFixtureEarlierBeta = require('../fixtures/deps-earlier-beta.json');
 const scriptsMochaFixture = require('../fixtures/scripts-mocha');
 const scriptsBabelNodeFixture = require('../fixtures/scripts-babel-node');
@@ -68,4 +69,8 @@ test('@babel/core peerDep', async () => {
 
 test('jest babel-core bridge', async () => {
   expect(await updatePackageJSON(jestFixture)).toMatchSnapshot();
+});
+
+test('webpack v1 compatibility', async () => {
+  expect(await updatePackageJSON(webpackV1Fixture)).toMatchSnapshot();
 });

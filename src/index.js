@@ -64,20 +64,11 @@ async function updatePackageJSON(pkg) {
   };
 
   if (pkg.devDependencies) {
-    pkg.devDependencies = upgradeDeps(
+    pkg.devDependencies = sortKeys(upgradeDeps(
       pkg.devDependencies,
       getLatestVersion(),
       upgradeDepOptions,
-    );
-
-    const devDeps = Object.keys(pkg.devDependencies);
-    // use babel-bridge for jest
-    // maybe should do this for other tools?
-    if (devDeps.includes("jest") && !devDeps.includes("babel-core")) {
-      pkg.devDependencies["babel-core"] = "^7.0.0-bridge.0";
-    }
-
-    pkg.devDependencies = sortKeys(pkg.devDependencies);
+    ));
   }
 
   if (pkg.dependencies) {

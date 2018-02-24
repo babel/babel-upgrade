@@ -245,3 +245,17 @@ Object {
   "rollup-plugin-babel": "^4.0.0-beta.2",
 }
 `;
+
+exports[`webpack v1 compatibility 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "7.0.0-beta.39",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
+    "@babel/preset-env": "7.0.0-beta.39",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "7.1.1",
+    "webpack": "^1.15.0",
+  },
+  "name": "webpack-v1-compatibility",
+}
+`;
