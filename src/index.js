@@ -82,7 +82,7 @@ async function writePackageJSON(pkgPath, options) {
   pkg = await updatePackageJSON(pkg, pkgPath, options);
 
   if (pkg.babel) {
-    console.log("Updating package.json 'babel' config");
+    console.log(`Updating package.json 'babel' config at ${pkgPath}`);
     pkg.babel = upgradeConfig(pkg.babel, options);
   }
 
