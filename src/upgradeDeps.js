@@ -63,7 +63,9 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   // Later versions of babel-loader are incompatible with Webpack v1.
   // https://github.com/babel/babel-loader/issues/505
   if (depsWebpack1 && dependencies['babel-loader']) {
-    console.log('Updating babel-loader to v7.1.1 as this project uses Webpack v1');
+    if (process.env.NODE_ENV !== 'test') {
+      console.log('Updating babel-loader to v7.1.1 as this project uses Webpack v1');
+    }
     dependencies['babel-loader'] = '7.1.1';
   }
 
