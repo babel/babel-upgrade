@@ -20,11 +20,13 @@ npx babel-upgrade --install
 
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
-- [x] Works on Node >= 4 (anything lower isn't supported in v7)
+- [x] Works on Node >= 4 (anything lower isn't supported in v7) ([#16](https://github.com/babel/babel-upgrade/pull/16))
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version.
   - [x] all package renames
+    - [x] `babel-loader` for webpack >=1 ([#34](https://github.com/babel/babel-upgrade/pull/34))
+    - [x] `rollup-plugin-babel` ([#36](https://github.com/babel/babel-upgrade/pull/36))
   - [x] Upgrading the same package to the latest version
-  - [x] add `@babel/core` peerDep
+  - [x] add `@babel/core` peerDep ([7c34cd](https://github.com/babel/babel-upgrade/commit/7c34cdf318ecbb8a916e7a8ee5c2cfbad7d8d8d0))
 
 ```diff
 {
@@ -40,7 +42,7 @@ npx babel-upgrade --install
 }
 ```
 
-- [x] modify scripts for mocha + `@babel/register`
+- [x] modify scripts for mocha + `@babel/register` ([e81cf7](https://github.com/babel/babel-upgrade/commit/e81cf7c16860d424967a254cd700a88c33d2b56a))
 
 ```diff
 {
@@ -52,7 +54,7 @@ npx babel-upgrade --install
 }
 ```
 
-- [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency
+- [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency ([#14](https://github.com/babel/babel-upgrade/pull/14))
 
 ```diff
 "devDependencies": {
@@ -65,7 +67,7 @@ npx babel-upgrade --install
 }
 ```
 
-- [x] add new `@babel/node` package if `babel-node` is used
+- [x] add new `@babel/node` package if `babel-node` is used ([#14](https://github.com/babel/babel-upgrade/pull/14))
 
 ```diff
 "devDependencies": {
@@ -77,21 +79,8 @@ npx babel-upgrade --install
 }
 ```
 
-- [x] if `babel-node` is used, import `@babel/node`?
 
-```diff
-{
-  "devDependencies": {
-+   "@babel/node": "7.0.0-beta.39"
-  }
-  "scripts": {
-    "start": "babel-node"
-  }
-}
-```
-
-- [x] Update the babel config file(s).
-  - [x] change all `.babelrc` files
+- [x] Handle all nested `.babelrc` ([#14](https://github.com/babel/babel-upgrade/pull/14))
 
 ```txt
 - src/
@@ -112,7 +101,7 @@ npx babel-upgrade --install
 }
 ```
 
-- [x] `package.json babel key`
+- [x] `package.json babel key` ([d123ad](https://github.com/babel/babel-upgrade/commit/d123ad72fba25c9118847b36ae950d99c1a152d0))
 
 ```diff
 {
@@ -125,7 +114,7 @@ npx babel-upgrade --install
 }
 ```
 
-- [x] handle `env`
+- [x] handle `env` ([e9fc42](https://github.com/babel/babel-upgrade/commit/e9fc42203d6c5928d85c12438efa42398d2d6a2a))
 
 ```diff
 {
@@ -148,14 +137,14 @@ npx babel-upgrade --install
 
 
 ```
-- [x] Modify `mocha.opts`
+- [x] Modify `mocha.opts` ([e81cf7](https://github.com/babel/babel-upgrade/commit/e81cf7c16860d424967a254cd700a88c33d2b56a))
 - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
-- [x] ~~Auto~~ Run npm/yarn after updating dependencies (use `--install`)
+- [x] ~~Auto~~ Run npm/yarn after updating dependencies (use `--install`) ([#18](https://github.com/babel/babel-upgrade/pull/18))
 - [ ] Figure out how to change nested .babelrcs into using "overrides" instead
 - [ ] Monorepo support
 - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
-- [x] Convert comma separated presets/plugins into an array
-- [x] handle react + flow preset being split. Read if `.flowconfig` and add it?
+- [x] Convert comma separated presets/plugins into an array ([#37](https://github.com/babel/babel-upgrade/pull/37))
+- [x] handle react + flow preset being split. Read if `.flowconfig` and add it? ([#21](https://github.com/babel/babel-upgrade/pull/21))
 - [ ] convert `only`/`ignore` if necessary
 - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
 - [ ] Update test files that use babel directly (`babel-types` -> `@babel/types`, `babel-core`)
