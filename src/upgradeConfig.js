@@ -2,7 +2,11 @@ const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
 
 // TODO: fix all of this
 function changePresets(config) {
-  const presets = config.presets;
+  let presets = config.presets;
+
+  if (!Array.isArray(presets) && typeof presets === 'string') {
+    presets = config.presets = config.presets.split(',').map((preset) => preset.trim());
+  }
 
   // check if presets are there
   if (presets) {
@@ -42,7 +46,11 @@ function changePresets(config) {
 }
 
 function changePlugins(config) {
-  const plugins = config.plugins;
+  let plugins = config.plugins;
+
+  if (!Array.isArray(plugins) && typeof plugins === 'string') {
+    plugins = config.plugins = config.plugins.split(',').map((plugin) => plugin.trim());
+  }
 
   // check if plugins are there
   if (plugins) {
