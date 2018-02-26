@@ -21,6 +21,7 @@ npx babel-upgrade --install
 > Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
 - [x] Works on Node >= 4 (anything lower isn't supported in v7) ([#16](https://github.com/babel/babel-upgrade/pull/16))
+- [x] Run npm/yarn after updating dependencies (use `--install`) ([#18](https://github.com/babel/babel-upgrade/pull/18))
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version.
   - [x] all package renames
     - [x] `babel-loader` for webpack >=1 ([#34](https://github.com/babel/babel-upgrade/pull/34))
@@ -138,13 +139,33 @@ npx babel-upgrade --install
 
 ```
 - [x] Modify `mocha.opts` ([e81cf7](https://github.com/babel/babel-upgrade/commit/e81cf7c16860d424967a254cd700a88c33d2b56a))
+
+```diff
+---require babel-register
++--require @babel/register
+```
+
+- [x] Convert comma separated presets/plugins into an array ([#37](https://github.com/babel/babel-upgrade/pull/37))
+
+```diff
+{
+-  "presets": "env, react",
++  "presets": ["env", "react"],
+```
+
+- [x] handle react + flow preset being split. Read if `.flowconfig` and add it? ([#21](https://github.com/babel/babel-upgrade/pull/21))
+
+```diff
+{
+  "@babel/preset-react": "7.0.0-beta.39",
++  "@babel/preset-flow": "7.0.0-beta.39"
+}
+```
+
 - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
-- [x] ~~Auto~~ Run npm/yarn after updating dependencies (use `--install`) ([#18](https://github.com/babel/babel-upgrade/pull/18))
 - [ ] Figure out how to change nested .babelrcs into using "overrides" instead
 - [ ] Monorepo support
 - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
-- [x] Convert comma separated presets/plugins into an array ([#37](https://github.com/babel/babel-upgrade/pull/37))
-- [x] handle react + flow preset being split. Read if `.flowconfig` and add it? ([#21](https://github.com/babel/babel-upgrade/pull/21))
 - [ ] convert `only`/`ignore` if necessary
 - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
 - [ ] Update test files that use babel directly (`babel-types` -> `@babel/types`, `babel-core`)
