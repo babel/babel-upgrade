@@ -1,4 +1,3 @@
-const globby = require('globby');
 const path = require('path');
 const readPkgUp = require('read-pkg-up');
 const sortKeys = require('sort-keys');
@@ -37,7 +36,7 @@ function upgradeScripts(scripts) {
   return scripts;
 }
 
-async function updatePackageJSON(pkg) {
+async function updatePackageJSON(pkg, options) {
   if (process.env.NODE_ENV !== 'test') {
     console.log("Updating closest package.json dependencies");
   }
@@ -57,17 +56,12 @@ async function updatePackageJSON(pkg) {
     }
   }
 
-  const flowConfigs = await globby(['**/.flowconfig', '!**/node_modules/**']);
-
-  const upgradeDepOptions = {
-    hasFlow: flowConfigs.length > 0,
-  };
 
   if (pkg.devDependencies) {
     pkg.devDependencies = sortKeys(upgradeDeps(
       pkg.devDependencies,
       getLatestVersion(),
-      upgradeDepOptions,
+      options,
     ));
   }
 
@@ -75,21 +69,21 @@ async function updatePackageJSON(pkg) {
     pkg.dependencies = sortKeys(upgradeDeps(
       pkg.dependencies,
       getLatestVersion(),
-      upgradeDepOptions,
+      options,
     ));
   }
 
   return pkg;
 }
 
-async function writePackageJSON() {
+async function writePackageJSON(options) {
   let { pkg, path } = await readPkgUp({ normalize: false });
 
-  pkg = await updatePackageJSON(pkg);
+  pkg = await updatePackageJSON(pkg, options);
 
   if (pkg.babel) {
     console.log("Updating package.json 'babel' config");
-    pkg.babel = upgradeConfig(pkg.babel);
+    pkg.babel = upgradeConfig(pkg.babel, options);
   }
 
   await writeJsonFile(path, pkg, { detectIndent: true });
@@ -110,7 +104,7 @@ async function readBabelRC(configPath) {
   }
 }
 
-async function writeBabelRC(configPath) {
+async function writeBabelRC(configPath, options) {
   let json;
 
   try {
@@ -119,7 +113,7 @@ async function writeBabelRC(configPath) {
 
   if (json) {
     console.log(`Updating .babelrc config at ${configPath}`);
-    json = upgradeConfig(json);
+    json = upgradeConfig(json, options);
     await writeJsonFile(configPath, json, { detectIndent: true });
   }
 }

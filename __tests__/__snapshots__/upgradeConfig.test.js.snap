@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`adds flow preset if hasFlow option passed 1`] = `
+Object {
+  "presets": Array [
+    "@babel/preset-react",
+    "@babel/preset-flow",
+  ],
+}
+`;
+
 exports[`convert comma separated presets/plugins into an array 1`] = `
 Object {
   "env": Object {
@@ -18,6 +27,23 @@ Object {
   "presets": Array [
     "@babel/preset-env",
     "@babel/preset-react",
+  ],
+}
+`;
+
+exports[`does not add flow preset if hasFlow option is not passed 1`] = `
+Object {
+  "presets": Array [
+    "@babel/preset-react",
+  ],
+}
+`;
+
+exports[`does not another flow preset if already present and hasFlow option passed 1`] = `
+Object {
+  "presets": Array [
+    "@babel/preset-react",
+    "@babel/preset-flow",
   ],
 }
 `;

@@ -1,7 +1,7 @@
 const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
 
 // TODO: fix all of this
-function changePresets(config) {
+function changePresets(config, options = {}) {
   let presets = config.presets;
 
   if (!Array.isArray(presets) && typeof presets === 'string') {
@@ -41,6 +41,10 @@ function changePresets(config) {
           }
         }
       }
+    }
+
+    if (options.hasFlow && !presets.includes('@babel/preset-flow')) {
+      presets.push('@babel/preset-flow');
     }
   }
 }
@@ -91,10 +95,10 @@ function changePlugins(config) {
   }
 }
 
-module.exports = function upgradeConfig(config) {
+module.exports = function upgradeConfig(config, options) {
   config = Object.assign({}, config);
 
-  changePresets(config);
+  changePresets(config, options);
   changePlugins(config);
 
   if (config.env) {
