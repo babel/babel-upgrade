@@ -59,18 +59,18 @@ describe('upgradeDeps', () => {
 });
 
 test('scripts', async () => {
-  expect(await updatePackageJSON(scriptsMochaFixture)).toMatchSnapshot();
-  expect(await updatePackageJSON(scriptsBabelNodeFixture)).toMatchSnapshot();
+  expect(await updatePackageJSON(scriptsMochaFixture, __dirname)).toMatchSnapshot();
+  expect(await updatePackageJSON(scriptsBabelNodeFixture, __dirname)).toMatchSnapshot();
 });
 
 test('@babel/core peerDep', async () => {
-  expect(await updatePackageJSON(babelCoreFixture)).toMatchSnapshot();
+  expect(await updatePackageJSON(babelCoreFixture, __dirname)).toMatchSnapshot();
 });
 
 test('jest babel-core bridge', async () => {
-  expect(await updatePackageJSON(jestFixture)).toMatchSnapshot();
+  expect(await updatePackageJSON(jestFixture, __dirname)).toMatchSnapshot();
 });
 
 test('webpack v1 compatibility', async () => {
-  expect(await updatePackageJSON(webpackV1Fixture)).toMatchSnapshot();
+  expect(await updatePackageJSON(webpackV1Fixture, __dirname)).toMatchSnapshot();
 });
