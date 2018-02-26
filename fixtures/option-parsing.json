@@ -1,0 +1,9 @@
+{
+  "presets": "@babel/preset-env, @babel/preset-react",
+  "plugins": "babel-plugin-transform-function-bind, transform-class-properties",
+  "env": {
+    "development": {
+      "plugins": "babel-plugin-istanbul, transform-react-jsx-source, babel-plugin-transform-react-inline-elements"
+    }
+  }
+}

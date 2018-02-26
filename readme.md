@@ -154,7 +154,7 @@ npx babel-upgrade --install
 - [ ] Figure out how to change nested .babelrcs into using "overrides" instead
 - [ ] Monorepo support
 - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
-- [ ] Convert comma separated presets/plugins into an array
+- [x] Convert comma separated presets/plugins into an array
 - [x] handle react + flow preset being split. Read if `.flowconfig` and add it?
 - [ ] convert `only`/`ignore` if necessary
 - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
