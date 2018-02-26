@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`convert comma separated presets/plugins into an array 1`] = `
+Object {
+  "env": Object {
+    "development": Object {
+      "plugins": Array [
+        "babel-plugin-istanbul",
+        "@babel/plugin-transform-react-jsx-source",
+        "@babel/plugin-transform-react-inline-elements",
+      ],
+    },
+  },
+  "plugins": Array [
+    "@babel/plugin-proposal-function-bind",
+    "@babel/plugin-proposal-class-properties",
+  ],
+  "presets": Array [
+    "@babel/preset-env",
+    "@babel/preset-react",
+  ],
+}
+`;
+
 exports[`package that is removed 1`] = `
 Object {
   "plugins": Array [
