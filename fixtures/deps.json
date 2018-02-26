@@ -143,6 +143,7 @@
   "babel-preset-stage-3": "6.0.0",
   "babel-preset-typescript": "6.0.0",
   "babel-preset-env": "6.0.0",
+  "babel-preset-latest": "6.0.0",
   "babel-helper-annotate-as-pure": "6.0.0",
   "babel-helper-bindify-decorators": "6.0.0",
   "babel-helper-builder-binary-assignment-operator-visitor": "6.0.0",

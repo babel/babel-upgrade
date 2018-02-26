@@ -169,6 +169,7 @@ const presets = {
   'babel-preset-es2015': '@babel/preset-env', // just change these to env
   'babel-preset-es2016': '@babel/preset-env',
   'babel-preset-es2017': '@babel/preset-env',
+  'babel-preset-latest': '@babel/preset-env',
   'babel-preset-flow': '@babel/preset-flow',
   'babel-preset-react': '@babel/preset-react',
   'babel-preset-stage-0': '@babel/preset-stage-0',
