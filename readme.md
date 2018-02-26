@@ -164,7 +164,7 @@ npx babel-upgrade --install
 
 - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
 - [ ] Figure out how to change nested .babelrcs into using "overrides" instead
-- [ ] Monorepo support
+- [x] Monorepo support
 - [ ] `.babelrc.js` and other js files with a config like presets, `webpack.config.js`
 - [ ] convert `only`/`ignore` if necessary
 - [ ] remove `typeof-symbol` if using `@babel/preset-env` + loose
