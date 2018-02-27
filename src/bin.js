@@ -1,6 +1,12 @@
-const path = require('path');
-const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC, writeMochaOpts, installDeps } = require('.');
 const globby = require('globby');
+const {
+  installDeps,
+  isAcceptedNodeVersion,
+  writeBabelRC,
+  writeJSFiles,
+  writeMochaOpts,
+  writePackageJSON,
+} = require('.');
 
 if (!isAcceptedNodeVersion()) {
   throw new Error("Babel 7 will only support Node 4 and higher");
@@ -11,14 +17,13 @@ async function hasFlow() {
   return flowConfigs.length > 0;
 }
 
-// TODO: allow passing a specific path
 (async () => {
   // account for nested babelrc's
   const paths = await globby(['**/.babelrc', '!**/node_modules/**']);
   const packages = await globby(['**/package.json', '!**/node_modules/**']);
   const mochaOpts = await globby(['**/mocha.opts', '!**/node_modules/**']);
+  const jsFiles = await globby(['**/*.js', '!**/node_modules/**']);
   const flow = await hasFlow();
-
   const upgradeOptions = {
     hasFlow: flow,
   };
@@ -36,6 +41,8 @@ async function hasFlow() {
 
   // TODO: allow passing a specific path
   await writePackageJSON(upgradeOptions);
+
+  await writeJSFiles(jsFiles);
 
   // TODO: add smarter CLI option handling if we support more options
   if (process.argv[2] === '--install') {
