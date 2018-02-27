@@ -1,7 +1,6 @@
 const path = require('path');
 const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC, writeMochaOpts, installDeps } = require('.');
 const globby = require('globby');
-const cwd = process.cwd();
 
 if (!isAcceptedNodeVersion()) {
   throw new Error("Babel 7 will only support Node 4 and higher");
