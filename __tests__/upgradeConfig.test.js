@@ -43,3 +43,31 @@ test('packages (json5)', async () => {
 test('convert comma separated presets/plugins into an array', () => {
   expect(upgradeConfig(optionParsingFixture)).toMatchSnapshot();
 });
+
+test('adds flow preset if hasFlow option passed', () => {
+  const config = {
+    "presets": ["react"],
+  };
+
+  expect(upgradeConfig(config, { hasFlow: true })).toMatchSnapshot();
+});
+
+test('does not add flow preset if hasFlow option is not passed', () => {
+  const config = {
+    "presets": ["react"],
+  };
+
+  expect(upgradeConfig(config, { hasFlow: false })).toMatchSnapshot();
+});
+
+test('does not another flow preset if already present and hasFlow option passed', () => {
+  const config = {
+    "presets": [
+      "@babel/preset-react",
+      "@babel/preset-flow",
+    ],
+  };
+
+  expect(upgradeConfig(config, { hasFlow: true })).toMatchSnapshot();
+});
+
