@@ -31,7 +31,7 @@ function replaceMocha(str) {
 }
 
 function upgradeScripts(scripts) {
-  for (let script of Object.keys(scripts)) {
+  for (const script of Object.keys(scripts)) {
     scripts[script] = replaceMocha(scripts[script]);
   }
   return scripts;
