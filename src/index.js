@@ -92,7 +92,7 @@ async function writePackageJSON(options) {
 async function installDeps() {
   const command = hasYarn() ? 'yarn' : 'npm';
   const args = ['install'];
-  await crossSpawn(command, args, { stdio: 'inherit' });
+  await pify(crossSpawn)(command, args, { stdio: 'inherit' });
 }
 
 async function readBabelRC(configPath) {
