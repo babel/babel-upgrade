@@ -10,6 +10,7 @@ const writeFile = require('write');
 const crossSpawn = require('cross-spawn');
 const hasYarn = require('has-yarn');
 
+const transform = require('./transform');
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
 
@@ -118,6 +119,17 @@ async function writeBabelRC(configPath, options) {
   }
 }
 
+async function writeBabelRCJS(configPath) {
+  try {
+    const rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
+    const res = transform(rawFile);
+
+    await pify(fs.writeFile)(configPath, res); // overwrite
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 async function writeMochaOpts(configPath) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
   await writeFile(configPath, replaceMocha(rawFile));
@@ -132,4 +144,5 @@ module.exports = {
   getLatestVersion,
   writeMochaOpts,
   installDeps,
+  writeBabelRCJS
 };
