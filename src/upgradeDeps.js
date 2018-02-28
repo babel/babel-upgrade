@@ -46,7 +46,7 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   if (
     !dependencies['@babel/core'] &&
     Object.keys(dependencies).some(a =>
-      a.startsWith('@babel/plugin') || a.startsWith('@babel/preset'))
+      a.startsWith('@babel/plugin') || a.startsWith('@babel/preset') || a === '@babel/cli')
   ) {
     dependencies['@babel/core'] = version;
   }

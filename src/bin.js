@@ -11,7 +11,7 @@ async function hasFlow() {
   return flowConfigs.length > 0;
 }
 
-// TOOD: allow passing a specific path
+// TODO: allow passing a specific path
 (async () => {
   // account for nested babelrc's
   const paths = await globby(['**/.babelrc', '!**/node_modules/**']);
@@ -34,7 +34,7 @@ async function hasFlow() {
 
   mochaOpts.forEach(p => writeMochaOpts(p, upgradeOptions));
 
-  // TOOD: allow passing a specific path
+  // TODO: allow passing a specific path
   await writePackageJSON(upgradeOptions);
 
   // TODO: add smarter CLI option handling if we support more options

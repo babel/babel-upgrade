@@ -42,6 +42,7 @@ exports[`scripts 2`] = `
 Object {
   "devDependencies": Object {
     "@babel/cli": "7.0.0-beta.40",
+    "@babel/core": "7.0.0-beta.40",
     "@babel/node": "7.0.0-beta.40",
   },
   "name": "scripts-babel-node",
