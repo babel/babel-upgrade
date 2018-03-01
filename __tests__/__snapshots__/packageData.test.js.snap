@@ -241,6 +241,7 @@ Object {
   "@babel/template": "7.0.0-beta.39",
   "@babel/traverse": "7.0.0-beta.39",
   "@babel/types": "7.0.0-beta.39",
+  "[object Object]": "7.0.0-beta.39",
   "babel-loader": "^8.0.0-beta.0",
   "rollup-plugin-babel": "^4.0.0-beta.2",
 }

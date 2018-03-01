@@ -1,5 +1,9 @@
 const transformPlugins = {
   'babel-plugin-transform-async-to-generator': '@babel/plugin-transform-async-to-generator',
+  'babel-plugin-transform-async-to-module-method': ['@babel/plugin-transform-async-to-generator', {
+    "module": 'bluebird',
+    "method": 'coroutine',
+  }],
   'babel-plugin-transform-eval': '@babel/plugin-transform-eval',
   'babel-plugin-transform-exponentiation-operator': '@babel/plugin-transform-exponentiation-operator',
   'babel-plugin-transform-flow-comments': '@babel/plugin-transform-flow-comments',
