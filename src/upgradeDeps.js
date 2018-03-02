@@ -7,7 +7,7 @@ const otherPackages = {
 };
 
 module.exports = function upgradeDeps(dependencies, version, options = {}) {
-  for (let pkg of Object.keys(dependencies)) {
+  for (const pkg of Object.keys(dependencies)) {
     const depVersion = dependencies[pkg];
     if (Object.keys(oldPackages).includes(pkg)) {
       // don't update `babel-core` bridge
@@ -46,7 +46,10 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   if (
     !dependencies['@babel/core'] &&
     Object.keys(dependencies).some(a =>
-      a.startsWith('@babel/plugin') || a.startsWith('@babel/preset'))
+      a.startsWith('@babel/plugin') ||
+      a.startsWith('@babel/preset') ||
+      a.startsWith('babel-plugin') ||
+      a.startsWith('babel-preset'))
   ) {
     dependencies['@babel/core'] = version;
   }
