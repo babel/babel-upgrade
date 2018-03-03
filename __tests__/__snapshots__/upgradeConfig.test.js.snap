@@ -48,6 +48,17 @@ Object {
 }
 `;
 
+exports[`does not another flow preset if already present in an array and hasFlow option passed 1`] = `
+Object {
+  "presets": Array [
+    "@babel/preset-react",
+    Array [
+      "@babel/preset-flow",
+    ],
+  ],
+}
+`;
+
 exports[`package that is removed 1`] = `
 Object {
   "plugins": Array [
