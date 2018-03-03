@@ -31,11 +31,9 @@ function transformPreset(preset) {
   const newPresetName = oldPresets[presetName];
   if (newPresetName !== undefined) {
     return Object.keys(presetOptions).length > 0 ? [newPresetName, presetOptions] : newPresetName;
-  } else {
-    return preset;
   }
 
-  return null;
+  return preset;
 }
 
 function transformPlugins(plugins) {
@@ -57,11 +55,9 @@ function transformPlugin(plugin) {
   const newPluginName = oldPlugins[pluginName];
   if (newPluginName !== undefined) {
     return Object.keys(pluginOptions).length > 0 ? [newPluginName, pluginOptions] : newPluginName;
-  } else {
-    return plugin;
   }
 
-  return null;
+  return plugin;
 }
 
 module.exports = function upgradeConfig(config, options) {
