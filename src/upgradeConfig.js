@@ -79,7 +79,7 @@ function changePlugins(config) {
           }
         }
       } else {
-        if (plugin.indexOf('babel-plugin') !== 0 && plugin[0].indexOf('@babel/') !== 0) {
+        if (plugin.indexOf('babel-plugin') !== 0 && plugin.indexOf('@babel/') !== 0) {
           plugin = `babel-plugin-${plugin}`;
         }
         if (pluginsToReplace.includes(plugin)) {
