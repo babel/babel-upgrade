@@ -1,18 +1,52 @@
-const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
+const packageData = require('./packageData');
 
-function transformPresets(presets, options = {}) {
-  if (!Array.isArray(presets) && typeof presets === 'string') {
-    presets = presets.split(',').map(preset => preset.trim());
+function parseConfigCollection(collection) {
+  if (!Array.isArray(collection) && typeof collection === 'string') {
+    return collection.split(',').map(collection => collection.trim());
   }
 
-  if (presets) {
-    const newPresets = presets.map(transformPreset).filter(Boolean);
-
-    return options.hasFlow ? appendFlowIfNeeded(newPresets) : newPresets;
-  }
-
-  return presets;
+  return collection;
 }
+
+function parseConfigItem(rawConfigItem, configItemType) {
+  let name = Array.isArray(rawConfigItem) ? rawConfigItem[0] : rawConfigItem;
+
+  if (name.indexOf(`babel-${configItemType}`) !== 0 && name.indexOf('@babel/') !== 0) {
+    name = `babel-${configItemType}-${name}`;
+  }
+
+  return {
+    name,
+    options: Array.isArray(rawConfigItem) ? rawConfigItem[1] : {}
+  };
+}
+
+function formatConfigItem(item) {
+  return Object.keys(item.options).length > 0 ? [item.name, item.options] : item.name;
+}
+
+const buildConfigItemTransformer = configItemType => configItem => {
+  const newConfigItem = parseConfigItem(configItem, configItemType);
+
+  const newName = packageData[`${configItemType}s`][newConfigItem.name];
+  if (newName !== undefined) {
+    return formatConfigItem(Object.assign(newConfigItem, { name: newName }));
+  }
+
+  return configItem;
+};
+
+function buildConfigCollectionTransformer(configItemType) {
+  const itemTransformer = buildConfigItemTransformer(configItemType);
+  return function(configItems) {
+    configItems = parseConfigCollection(configItems);
+
+    return configItems && configItems.map(itemTransformer).filter(Boolean);
+  };
+}
+
+const transformPresets = buildConfigCollectionTransformer('preset');
+const transformPlugins = buildConfigCollectionTransformer('plugin');
 
 function appendFlowIfNeeded(presets) {
   return presets.find(preset => preset === '@babel/preset-flow' || preset[0] === '@babel/preset-flow')
@@ -20,68 +54,28 @@ function appendFlowIfNeeded(presets) {
     : presets.concat(['@babel/preset-flow']);
 }
 
-function transformPreset(preset) {
-  let presetName = Array.isArray(preset) ? preset[0] : preset;
-  const presetOptions = Array.isArray(preset) ? preset[1] : {};
-
-  if (presetName.indexOf('babel-preset') !== 0 && presetName.indexOf('@babel/') !== 0) {
-    presetName = `babel-preset-${presetName}`;
-  }
-
-  const newPresetName = oldPresets[presetName];
-  if (newPresetName !== undefined) {
-    return Object.keys(presetOptions).length > 0 ? [newPresetName, presetOptions] : newPresetName;
-  }
-
-  return preset;
-}
-
-function transformPlugins(plugins) {
-  if (!Array.isArray(plugins) && typeof plugins === 'string') {
-    plugins = plugins.split(',').map(plugin => plugin.trim());
-  }
-
-  return plugins && plugins.map(transformPlugin).filter(Boolean);
-}
-
-function transformPlugin(plugin) {
-  let pluginName = Array.isArray(plugin) ? plugin[0] : plugin;
-  const pluginOptions = Array.isArray(plugin) ? plugin[1] : {};
-
-  if (pluginName.indexOf('babel-plugin') !== 0 && pluginName.indexOf('@babel/') !== 0) {
-    pluginName = `babel-plugin-${pluginName}`;
-  }
-
-  const newPluginName = oldPlugins[pluginName];
-  if (newPluginName !== undefined) {
-    return Object.keys(pluginOptions).length > 0 ? [newPluginName, pluginOptions] : newPluginName;
-  }
-
-  return plugin;
-}
-
-module.exports = function upgradeConfig(config, options) {
-  config = Object.assign({}, config);
-
+function upgradeConfigForEnv(config, options) {
   if (config.presets) {
-    config.presets = transformPresets(config.presets, options);
+    config.presets = options.hasFlow
+      ? appendFlowIfNeeded(transformPresets(config.presets))
+      : transformPresets(config.presets);
   }
 
   if (config.plugins) {
     config.plugins = transformPlugins(config.plugins);
   }
+}
+
+module.exports = function upgradeConfig(config, options = {}) {
+  config = Object.assign({}, config);
+
+  upgradeConfigForEnv(config, options);
 
   if (config.env) {
     Object.keys(config.env).forEach(env => {
       const envConfig = config.env[env];
 
-      if (envConfig.presets) {
-        envConfig.presets = transformPresets(envConfig.presets, options);
-      }
-
-      if (envConfig.plugins) {
-        envConfig.plugins = transformPlugins(envConfig.plugins);
-      }
+      upgradeConfigForEnv(envConfig, options);
     });
   }
 
