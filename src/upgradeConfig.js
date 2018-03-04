@@ -11,7 +11,7 @@ function parseConfigCollection(collection) {
 function parseConfigItem(rawConfigItem, configItemType) {
   let name = Array.isArray(rawConfigItem) ? rawConfigItem[0] : rawConfigItem;
 
-  if (name.indexOf(`babel-${configItemType}`) !== 0 && name.indexOf('@babel/') !== 0) {
+  if (!name.startsWith(`babel-${configItemType}`) && !name.startsWith('@babel/')) {
     name = `babel-${configItemType}-${name}`;
   }
 
@@ -72,11 +72,7 @@ module.exports = function upgradeConfig(config, options = {}) {
   upgradeConfigForEnv(config, options);
 
   if (config.env) {
-    Object.keys(config.env).forEach(env => {
-      const envConfig = config.env[env];
-
-      upgradeConfigForEnv(envConfig, options);
-    });
+    Object.values(config.env).forEach(envConfig => upgradeConfigForEnv(envConfig, options));
   }
 
   return config;

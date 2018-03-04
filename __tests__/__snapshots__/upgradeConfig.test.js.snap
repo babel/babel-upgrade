@@ -31,15 +31,7 @@ Object {
 }
 `;
 
-exports[`does not add flow preset if hasFlow option is not passed 1`] = `
-Object {
-  "presets": Array [
-    "@babel/preset-react",
-  ],
-}
-`;
-
-exports[`does not another flow preset if already present and hasFlow option passed 1`] = `
+exports[`does not add another flow preset if already present and hasFlow option passed 1`] = `
 Object {
   "presets": Array [
     "@babel/preset-react",
@@ -48,13 +40,21 @@ Object {
 }
 `;
 
-exports[`does not another flow preset if already present in an array and hasFlow option passed 1`] = `
+exports[`does not add another flow preset if already present in an array and hasFlow option passed 1`] = `
 Object {
   "presets": Array [
     "@babel/preset-react",
     Array [
       "@babel/preset-flow",
     ],
+  ],
+}
+`;
+
+exports[`does not add flow preset if hasFlow option is not passed 1`] = `
+Object {
+  "presets": Array [
+    "@babel/preset-react",
   ],
 }
 `;

@@ -60,7 +60,7 @@ test('does not add flow preset if hasFlow option is not passed', () => {
   expect(upgradeConfig(config, { hasFlow: false })).toMatchSnapshot();
 });
 
-test('does not another flow preset if already present and hasFlow option passed', () => {
+test('does not add another flow preset if already present and hasFlow option passed', () => {
   const config = {
     "presets": [
       "@babel/preset-react",
@@ -71,7 +71,7 @@ test('does not another flow preset if already present and hasFlow option passed'
   expect(upgradeConfig(config, { hasFlow: true })).toMatchSnapshot();
 });
 
-test('does not another flow preset if already present in an array and hasFlow option passed', () => {
+test('does not add another flow preset if already present in an array and hasFlow option passed', () => {
   const config = {
     "presets": [
       "@babel/preset-react",
