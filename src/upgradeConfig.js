@@ -1,4 +1,6 @@
-const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
+const { presets: oldPresets, plugins: oldPlugins, pluginsNowSpecByDefault } = require('./packageData');
+
+const unhandledPluginsNowSpecByDefault = new Set(pluginsNowSpecByDefault);
 
 // TODO: fix all of this
 function changePresets(config, options = {}) {
@@ -72,7 +74,7 @@ function changePlugins(config) {
 
         if (pluginsToReplace.includes(plugin[0])) {
           if (oldPlugins[plugin[0]]) {
-            plugin[0] = oldPlugins[plugin[0]];
+            plugins[i] = setLooseIfNeeded([oldPlugins[plugin[0]], plugin[1]]);
           } else {
             plugins.splice(i, 1);
             i--;
@@ -84,7 +86,7 @@ function changePlugins(config) {
         }
         if (pluginsToReplace.includes(plugin)) {
           if (oldPlugins[plugin]) {
-            plugins[i] = oldPlugins[plugin];
+            plugins[i] = setLooseIfNeeded(oldPlugins[plugin]);
           } else {
             plugins.splice(i, 1);
             i--;
@@ -92,6 +94,30 @@ function changePlugins(config) {
         }
       }
     }
+  }
+}
+
+function buildPluginGithubUrl(plugin) {
+  return `https://github.com/babel/babel/tree/master/packages/${plugin.replace('@', '').replace('/', '-')}`;
+}
+
+function setLooseIfNeeded(plugin) {
+  if (Array.isArray(plugin)) {
+    if (pluginsNowSpecByDefault.has(plugin[0])) {
+      plugin[1] = plugin[1] || {};
+      if (!plugin[1].spec) {
+        Object.assign(plugin[1], { loose: true });
+      }
+      delete plugin[1].spec;
+    }
+    unhandledPluginsNowSpecByDefault.delete(plugin[0]);
+    return Object.keys(plugin[1]).length > 0 ? plugin : plugin[0];
+  } else {
+    if (pluginsNowSpecByDefault.has(plugin)) {
+      plugin = [plugin, { loose: true }];
+    }
+    unhandledPluginsNowSpecByDefault.delete(plugin);
+    return plugin;
   }
 }
 
@@ -107,6 +133,10 @@ module.exports = function upgradeConfig(config, options) {
       changePlugins(config.env[env]);
     });
   }
+
+  unhandledPluginsNowSpecByDefault.forEach(plugin => {
+    console.log(`\`${plugin}\` is now spec by default. For parity with Babel 6, use the \`loose\` flag (${buildPluginGithubUrl(plugin).concat('#loose')})`)
+  });
 
   return config;
 };

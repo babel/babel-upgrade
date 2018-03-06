@@ -22,7 +22,12 @@ Object {
   },
   "plugins": Array [
     "@babel/plugin-proposal-function-bind",
-    "@babel/plugin-proposal-class-properties",
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
   ],
   "presets": Array [
     "@babel/preset-env",
@@ -93,7 +98,12 @@ Object {
         "useBuiltIns": true,
       },
     ],
-    "@babel/plugin-proposal-class-properties",
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
   ],
   "presets": Array [
     "@babel/preset-env",
@@ -133,7 +143,12 @@ Object {
         "useBuiltIns": true,
       },
     ],
-    "@babel/plugin-proposal-class-properties",
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
   ],
   "presets": Array [
     "@babel/preset-env",
@@ -159,6 +174,89 @@ Object {
   },
   "plugins": Array [
     "lodash",
+  ],
+}
+`;
+
+exports[`sets \`loose\` option on plugins that are now spec by default if needed 1`] = `
+Object {
+  "plugins": Array [
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-transform-template-literals",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-transform-template-literals",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-transform-template-literals",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-transform-template-literals",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-transform-template-literals",
+      Object {
+        "loose": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-transform-template-literals",
+      Object {
+        "loose": true,
+      },
+    ],
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-template-literals",
+    "@babel/plugin-transform-template-literals",
   ],
 }
 `;

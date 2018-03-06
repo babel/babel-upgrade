@@ -35,6 +35,29 @@ test('rename community packages', () => {
   })).toMatchSnapshot();
 });
 
+test('sets `loose` option on plugins that are now spec by default if needed', () => {
+  expect(upgradeConfig({
+    plugins: [
+      'babel-plugin-transform-class-properties',
+      '@babel/plugin-transform-class-properties',
+      'babel-plugin-transform-es2015-template-literals',
+      '@babel/plugin-transform-es2015-template-literals',
+      ['babel-plugin-transform-class-properties'],
+      ['@babel/plugin-transform-class-properties'],
+      ['babel-plugin-transform-es2015-template-literals'],
+      ['@babel/plugin-transform-es2015-template-literals'],
+      ['babel-plugin-transform-class-properties', { spec: false }],
+      ['@babel/plugin-transform-class-properties', { spec: false }],
+      ['babel-plugin-transform-es2015-template-literals', { spec: false }],
+      ['@babel/plugin-transform-es2015-template-literals', { spec: false }],
+      ['babel-plugin-transform-class-properties', { spec: true }],
+      ['@babel/plugin-transform-class-properties', { spec: true }],
+      ['babel-plugin-transform-es2015-template-literals', { spec: true }],
+      ['@babel/plugin-transform-es2015-template-literals', { spec: true }]
+    ]
+  })).toMatchSnapshot();
+});
+
 test('packages (json5)', async () => {
   const json5Data = await readBabelRC(JSON5_PATH);
   expect(upgradeConfig(json5Data)).toMatchSnapshot();

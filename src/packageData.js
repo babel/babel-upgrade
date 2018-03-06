@@ -245,9 +245,15 @@ const packages = Object.assign(
 
 const latestPackages = new Set(Object.values(packages));
 
+const pluginsNowSpecByDefault = new Set([
+  '@babel/plugin-transform-template-literals',
+  '@babel/plugin-proposal-class-properties'
+]);
+
 module.exports = {
   packages,
   presets,
   plugins,
   latestPackages,
+  pluginsNowSpecByDefault
 };
