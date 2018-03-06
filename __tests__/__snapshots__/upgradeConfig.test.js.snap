@@ -59,6 +59,16 @@ Object {
 }
 `;
 
+exports[`handles @babel prefix in plugins 1`] = `
+Object {
+  "plugins": Array [
+    "@babel/plugin-proposal-async-generator-functions",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-decorators",
+  ],
+}
+`;
+
 exports[`package that is removed 1`] = `
 Object {
   "plugins": Array [

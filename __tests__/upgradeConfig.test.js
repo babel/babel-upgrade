@@ -82,3 +82,14 @@ test('does not add another flow preset if already present in an array and hasFlo
   expect(upgradeConfig(config, { hasFlow: true })).toMatchSnapshot();
 });
 
+test('handles @babel prefix in plugins', () => {
+  const config = {
+    "plugins": [
+      '@babel/plugin-transform-async-generator-functions',
+      '@babel/plugin-transform-class-properties',
+      '@babel/plugin-transform-decorators'
+    ],
+  };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
