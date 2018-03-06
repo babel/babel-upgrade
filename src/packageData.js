@@ -245,17 +245,9 @@ const packages = Object.assign(
 
 const latestPackages = new Set(Object.values(packages));
 
-const packagesWarnAboutEnv = new Set([
-  'babel-preset-es2015',
-  'babel-preset-es2016',
-  'babel-preset-es2017',
-  'babel-preset-latest'
-]);
-
 module.exports = {
   packages,
   presets,
   plugins,
-  latestPackages,
-  packagesWarnAboutEnv
+  latestPackages
 };
