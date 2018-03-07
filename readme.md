@@ -2,7 +2,9 @@
 
 ## Usage
 
-Run at the root of your git repo
+If using npm < v5.2.0, install [npx](https://www.npmjs.com/package/npx) globally.
+
+Run at the root of your git repo:
 
 ```bash
 npx babel-upgrade
