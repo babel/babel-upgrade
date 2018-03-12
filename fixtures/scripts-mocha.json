@@ -4,6 +4,7 @@
     "prepublish": "npm run test",
     "test": "mocha --compilers js:babel-register --require babel-polyfill test/*Test.js",
     "test2": "mocha --compilers js:babel-core/register --require babel-polyfill test/*Test.js",
+    "test3": "mocha  --compilers  js:babel-core/register  --require  babel-polyfill test/*Test.js",
     "coverage": "NODE_ENV=test nyc --reporter=lcov --reporter=text _mocha --require babel-register test/*.js"
   }
 }
