@@ -7,8 +7,8 @@ const JSON5 = require('json5');
 const writeJsonFile = require('write-json-file');
 const semver = require('semver');
 const writeFile = require('write');
-const crossSpawn = require('cross-spawn');
 const hasYarn = require('has-yarn');
+const execa = require('execa');
 
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
@@ -92,7 +92,7 @@ async function writePackageJSON(options) {
 async function installDeps() {
   const command = hasYarn() ? 'yarn' : 'npm';
   const args = ['install'];
-  await pify(crossSpawn)(command, args, { stdio: 'inherit' });
+  await execa(command, args, { stdio: 'inherit' });
 }
 
 async function readBabelRC(configPath) {
@@ -119,8 +119,15 @@ async function writeBabelRC(configPath, options) {
 }
 
 async function writeMochaOpts(configPath) {
-  let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
+  const rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
   await writeFile(configPath, replaceMocha(rawFile));
+}
+
+async function writeJSFiles(filePaths) {
+  console.log("Updating imports in JS files");
+  const command = require.resolve('babel-codemod/bin/codemod');
+  const args = ['-p', require.resolve('./babel-plugin-update-imports'), ...filePaths];
+  await execa(command, args, { stdio: 'inherit' });
 }
 
 module.exports = {
@@ -129,6 +136,7 @@ module.exports = {
   writePackageJSON,
   readBabelRC,
   writeBabelRC,
+  writeJSFiles,
   getLatestVersion,
   writeMochaOpts,
   installDeps,
