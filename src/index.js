@@ -10,6 +10,7 @@ const writeFile = require('write');
 const crossSpawn = require('cross-spawn');
 const hasYarn = require('has-yarn');
 
+const { packages } = require('./packageData');
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
 
@@ -71,6 +72,17 @@ async function updatePackageJSON(pkg, options) {
       getLatestVersion(),
       options,
     ));
+  }
+
+  // ava
+  if (pkg.ava) {
+    if (pkg.ava.require && Array.isArray(pkg.ava.require)) {
+      pkg.ava.require = pkg.ava.require.map((p) => packages[p] || p);
+    }
+
+    if (pkg.ava.babel && pkg.ava.babel.testOptions) {
+      pkg.ava.babel.testOptions = upgradeConfig(pkg.ava.babel.testOptions, options);
+    }
   }
 
   return pkg;
