@@ -34,6 +34,7 @@ Object {
     "prepublish": "npm run test",
     "test": "mocha --compilers js:@babel/register --require @babel/polyfill test/*Test.js",
     "test2": "mocha --compilers js:@babel/register --require @babel/polyfill test/*Test.js",
+    "test3": "mocha  --compilers js:@babel/register  --require @babel/polyfill test/*Test.js",
   },
 }
 `;
