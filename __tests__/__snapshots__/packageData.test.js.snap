@@ -247,6 +247,38 @@ Object {
 }
 `;
 
+exports[`upgrades packages in ava 1`] = `
+Object {
+  "ava": Object {
+    "babel": Object {
+      "testOptions": Object {
+        "babelrc": false,
+        "plugins": Array [
+          "@babel/plugin-syntax-jsx",
+          "@babel/plugin-proposal-object-rest-spread",
+        ],
+        "presets": Array [
+          "@babel/preset-stage-3",
+          "@babel/preset-env",
+          "@babel/preset-stage-0",
+          "@babel/preset-react",
+          "@ava/transform-test-files",
+          Array [
+            "module:ava/stage-4",
+            false,
+          ],
+        ],
+      },
+    },
+    "require": Array [
+      "@babel/polyfill",
+      "@babel/register",
+    ],
+  },
+  "name": "upgrade-packages-in-ava",
+}
+`;
+
 exports[`webpack v1 compatibility 1`] = `
 Object {
   "devDependencies": Object {

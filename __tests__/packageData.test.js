@@ -1,6 +1,7 @@
 const { updatePackageJSON } = require('../src/');
 const upgradeDeps = require('../src/upgradeDeps');
 const babelCoreFixture = require('../fixtures/babel-core');
+const avaFixture = require('../fixtures/ava');
 const jestFixture = require('../fixtures/jest');
 const depsFixture = require('../fixtures/deps');
 const webpackV1Fixture = require('../fixtures/webpack-v1');
@@ -74,3 +75,7 @@ test('jest babel-core bridge', async () => {
 test('webpack v1 compatibility', async () => {
   expect(await updatePackageJSON(webpackV1Fixture)).toMatchSnapshot();
 });
+
+test('upgrades packages in ava', async () => {
+  expect(await updatePackageJSON(avaFixture)).toMatchSnapshot();
+})
