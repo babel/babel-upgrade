@@ -1,5 +1,5 @@
 const semver = require('semver');
-const { packages: oldPackages, latestPackages } = require('./packageData');
+const { getNewPackageName, latestPackages } = require('./packageData');
 
 const otherPackages = {
   'babel-loader': '^8.0.0-beta.0',
@@ -9,14 +9,16 @@ const otherPackages = {
 module.exports = function upgradeDeps(dependencies, version, options = {}) {
   for (const pkg of Object.keys(dependencies)) {
     const depVersion = dependencies[pkg];
-    if (Object.keys(oldPackages).includes(pkg)) {
+
+    const newPackageName = getNewPackageName(pkg);
+    if (newPackageName !== undefined) {
       // don't update `babel-core` bridge
       if (dependencies[pkg].includes("7.0.0-bridge.0")) {
         break;
       }
 
       delete dependencies[pkg];
-      const newPackageName = oldPackages[pkg];
+
       if (newPackageName) {
         if (process.env.DEBUG) {
           console.warn(`Updating ${pkg} -> ${newPackageName}`);

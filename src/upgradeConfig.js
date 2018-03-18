@@ -1,4 +1,36 @@
-const packageData = require('./packageData');
+const {
+  getNewPackageName,
+  getNewPackageOptionsTransformer
+} = require('./packageData');
+
+class ConfigItem {
+  constructor(rawConfigItem, type) {
+    const initialName = Array.isArray(rawConfigItem)
+      ? rawConfigItem[0]
+      : rawConfigItem;
+
+    let name = initialName;
+
+    if (!name.startsWith(`babel-${type}`) && !name.startsWith('@babel/')) {
+      name = `babel-${type}-${name}`;
+    }
+
+    const options =
+      (Array.isArray(rawConfigItem) ? rawConfigItem[1] : {}) || {};
+
+    const newName = getNewPackageName(name);
+    const newOptions = getNewPackageOptionsTransformer(name)(options);
+
+    this.name = newName === undefined ? initialName : newName;
+    this.options = newOptions;
+  }
+
+  render() {
+    return Object.keys(this.options).length > 0
+      ? [this.name, this.options]
+      : this.name;
+  }
+}
 
 function parseConfigCollection(collection) {
   if (!Array.isArray(collection) && typeof collection === 'string') {
@@ -8,32 +40,9 @@ function parseConfigCollection(collection) {
   return collection;
 }
 
-function parseConfigItem(rawConfigItem, configItemType) {
-  let name = Array.isArray(rawConfigItem) ? rawConfigItem[0] : rawConfigItem;
-
-  if (!name.startsWith(`babel-${configItemType}`) && !name.startsWith('@babel/')) {
-    name = `babel-${configItemType}-${name}`;
-  }
-
-  return {
-    name,
-    options: Array.isArray(rawConfigItem) ? rawConfigItem[1] : {}
-  };
-}
-
-function formatConfigItem(item) {
-  return Object.keys(item.options).length > 0 ? [item.name, item.options] : item.name;
-}
-
 const buildConfigItemTransformer = configItemType => configItem => {
-  const newConfigItem = parseConfigItem(configItem, configItemType);
-
-  const newName = packageData[`${configItemType}s`][newConfigItem.name];
-  if (newName !== undefined) {
-    return formatConfigItem(Object.assign(newConfigItem, { name: newName }));
-  }
-
-  return configItem;
+  const newConfigItem = new ConfigItem(configItem, configItemType);
+  return newConfigItem.render();
 };
 
 function buildConfigCollectionTransformer(configItemType) {
@@ -49,7 +58,10 @@ const transformPresets = buildConfigCollectionTransformer('preset');
 const transformPlugins = buildConfigCollectionTransformer('plugin');
 
 function appendFlowIfNeeded(presets) {
-  return presets.find(preset => preset === '@babel/preset-flow' || preset[0] === '@babel/preset-flow')
+  return presets.find(
+    preset =>
+      preset === '@babel/preset-flow' || preset[0] === '@babel/preset-flow'
+  )
     ? presets
     : presets.concat(['@babel/preset-flow']);
 }
@@ -72,7 +84,9 @@ module.exports = function upgradeConfig(config, options = {}) {
   upgradeConfigForEnv(config, options);
 
   if (config.env) {
-    Object.values(config.env).forEach(envConfig => upgradeConfigForEnv(envConfig, options));
+    Object.values(config.env).forEach(envConfig =>
+      upgradeConfigForEnv(envConfig, options)
+    );
   }
 
   return config;

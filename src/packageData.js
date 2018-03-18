@@ -125,7 +125,19 @@ const syntaxPlugins = {
 const proposalPlugins = {
   // not scoped, transform
   'babel-plugin-transform-async-generator-functions': '@babel/plugin-proposal-async-generator-functions',
-  'babel-plugin-transform-class-properties': '@babel/plugin-proposal-class-properties',
+  'babel-plugin-transform-class-properties': {
+    name: '@babel/plugin-proposal-class-properties',
+    optionsTransformer: function classPropertiesOptionsTransformer(options) {
+      const newOptions = Object.assign({}, options);
+
+      if (!newOptions.spec) {
+        newOptions.loose = true;
+      }
+
+      delete newOptions.spec;
+      return newOptions;
+    },
+  },
   'babel-plugin-transform-decorators': '@babel/plugin-proposal-decorators',
   'babel-plugin-transform-do-expressions': '@babel/plugin-proposal-do-expressions',
   'babel-plugin-transform-export-default': ['@babel/plugin-proposal-export-default-from', '@babel/plugin-proposal-export-namespace-from'],
@@ -245,9 +257,36 @@ const packages = Object.assign(
 
 const latestPackages = new Set(Object.values(packages));
 
+function isPackageObject(entry) {
+  return entry !== null && typeof entry === 'object' && !Array.isArray(entry);
+}
+
+function getNewPackageName(name) {
+  const entry = packages[name];
+
+  if (isPackageObject(entry)) {
+    return entry.name;
+  }
+
+  return entry;
+}
+
+function getNewPackageOptionsTransformer(name) {
+  const entry = packages[name];
+
+
+  if (isPackageObject(entry)) {
+    return entry.optionsTransformer || (options => options);
+  }
+
+  return (options => options);
+}
+
 module.exports = {
   packages,
   presets,
   plugins,
-  latestPackages
+  latestPackages,
+  getNewPackageName,
+  getNewPackageOptionsTransformer
 };

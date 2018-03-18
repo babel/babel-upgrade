@@ -22,7 +22,12 @@ Object {
   },
   "plugins": Array [
     "@babel/plugin-proposal-function-bind",
-    "@babel/plugin-proposal-class-properties",
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
   ],
   "presets": Array [
     "@babel/preset-env",
@@ -44,9 +49,7 @@ exports[`does not add another flow preset if already present in an array and has
 Object {
   "presets": Array [
     "@babel/preset-react",
-    Array [
-      "@babel/preset-flow",
-    ],
+    "@babel/preset-flow",
   ],
 }
 `;
@@ -104,7 +107,12 @@ Object {
         "useBuiltIns": true,
       },
     ],
-    "@babel/plugin-proposal-class-properties",
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
   ],
   "presets": Array [
     "@babel/preset-env",
@@ -144,7 +152,12 @@ Object {
         "useBuiltIns": true,
       },
     ],
-    "@babel/plugin-proposal-class-properties",
+    Array [
+      "@babel/plugin-proposal-class-properties",
+      Object {
+        "loose": true,
+      },
+    ],
   ],
   "presets": Array [
     "@babel/preset-env",
