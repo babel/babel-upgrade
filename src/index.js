@@ -23,10 +23,10 @@ function getLatestVersion() {
 
 function replaceMocha(str) {
   return str
-    .replace('--compilers js:babel-core/register', '--compilers js:@babel/register')
-    .replace('--compilers js:babel-register', '--compilers js:@babel/register')
-    .replace('--require babel-register', '--require @babel/register')
-    .replace('--require babel-polyfill', '--require @babel/polyfill');
+    .replace(/--compilers\s+js:babel-core\/register/, '--compilers js:@babel/register')
+    .replace(/--compilers\s+js:babel-register/, '--compilers js:@babel/register')
+    .replace(/--require\s+babel-register/, '--require @babel/register')
+    .replace(/--require\s+babel-polyfill/, '--require @babel/polyfill');
 }
 
 function upgradeScripts(scripts) {
