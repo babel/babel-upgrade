@@ -22,9 +22,7 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
           console.warn(`Updating ${pkg} -> ${newPackageName}`);
         }
         if (Array.isArray(newPackageName)) {
-          for (name of newPackageName) {
-            dependencies[name] = version;
-          }
+          newPackageName.forEach(name => dependencies[name] = version);
         } else {
           dependencies[newPackageName] = version;
         }
