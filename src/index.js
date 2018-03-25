@@ -9,7 +9,7 @@ const semver = require('semver');
 const writeFile = require('write');
 const crossSpawn = require('cross-spawn');
 const hasYarn = require('has-yarn');
-
+const diff = require('difflet')({ indent: 2, comment: true });
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
 
@@ -79,14 +79,17 @@ async function updatePackageJSON(pkg, options) {
 async function writePackageJSON(options) {
   let { pkg, path } = await readPkgUp({ normalize: false });
 
-  pkg = await updatePackageJSON(pkg, options);
+  let updatedPkg = await updatePackageJSON(pkg, options);
 
   if (pkg.babel) {
     console.log("Updating package.json 'babel' config");
-    pkg.babel = upgradeConfig(pkg.babel, options);
+    updatedPkg.babel = upgradeConfig(pkg.babel, options);
   }
-
-  await writeJsonFile(path, pkg, { detectIndent: true });
+  if (options.dryRun) {
+    console.log(diff.compare(pkg, updatedPkg));
+  } else {
+    await writeJsonFile(path, updatedPkg, { detectIndent: true });
+  }
 }
 
 async function installDeps() {
@@ -113,14 +116,22 @@ async function writeBabelRC(configPath, options) {
 
   if (json) {
     console.log(`Updating .babelrc config at ${configPath}`);
-    json = upgradeConfig(json, options);
-    await writeJsonFile(configPath, json, { detectIndent: true });
+    let updatedJson = upgradeConfig(json, options);
+    if (options.dryRun) {
+      console.log(diff.compare(json, updatedJson));
+    } else {
+      await writeJsonFile(configPath, updatedJson, { detectIndent: true });
+    };
   }
 }
 
-async function writeMochaOpts(configPath) {
+async function writeMochaOpts(configPath, options) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
-  await writeFile(configPath, replaceMocha(rawFile));
+  if (options.dryRun) {
+    console.log(replaceMocha(rawFile));
+  } else {
+    await writeFile(configPath, replaceMocha(rawFile));
+  }
 }
 
 module.exports = {

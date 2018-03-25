@@ -18,9 +18,10 @@ async function hasFlow() {
   const packages = await globby(['**/package.json', '!**/node_modules/**']);
   const mochaOpts = await globby(['**/mocha.opts', '!**/node_modules/**']);
   const flow = await hasFlow();
-
+  const dryRun = process.argv.includes('--dry-run');
   const upgradeOptions = {
     hasFlow: flow,
+    dryRun
   };
 
   // if not a monorepo
@@ -38,7 +39,7 @@ async function hasFlow() {
   await writePackageJSON(upgradeOptions);
 
   // TODO: add smarter CLI option handling if we support more options
-  if (process.argv[2] === '--install') {
+  if (process.argv[2] === '--install' && !dryRun) {
     console.log('Installing new dependencies');
     await installDeps();
   }
