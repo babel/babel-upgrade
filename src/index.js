@@ -53,7 +53,9 @@ async function updatePackageJSON(pkg, options) {
 
     if (Object.values(updatedPkg.scripts).some(s => s.includes('babel-node'))) {
       if (pkg.devDependencies) {
-        updatedPkg.devDependencies["@babel/node"] = getLatestVersion();
+        updatedPkg.devDependencies = {
+          "@babel/node": getLatestVersion()
+        };
       }
     }
   }
