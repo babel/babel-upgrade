@@ -9,7 +9,7 @@ const semver = require('semver');
 const writeFile = require('write');
 const crossSpawn = require('cross-spawn');
 const hasYarn = require('has-yarn');
-const diff = require('difflet')({ indent: 2, comment: true });
+const diff = require('diff');
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
 
@@ -30,10 +30,11 @@ function replaceMocha(str) {
 }
 
 function upgradeScripts(scripts) {
+  let updatedScripts = {};
   for (const script of Object.keys(scripts)) {
-    scripts[script] = replaceMocha(scripts[script]);
+    updatedScripts[script] = replaceMocha(scripts[script]);
   }
-  return scripts;
+  return updatedScripts;
 }
 
 async function updatePackageJSON(pkg, options) {
@@ -45,40 +46,43 @@ async function updatePackageJSON(pkg, options) {
     console.log("package.json not found");
     process.exit(1);
   }
+  let updatedPkg = {};
 
   if (pkg.scripts) {
-    pkg.scripts = upgradeScripts(pkg.scripts);
+    updatedPkg.scripts = upgradeScripts(pkg.scripts);
 
-    if (Object.values(pkg.scripts).some(s => s.includes('babel-node'))) {
+    if (Object.values(updatedPkg.scripts).some(s => s.includes('babel-node'))) {
       if (pkg.devDependencies) {
-        pkg.devDependencies["@babel/node"] = getLatestVersion();
+        updatedPkg.devDependencies["@babel/node"] = getLatestVersion();
       }
     }
   }
 
-
   if (pkg.devDependencies) {
-    pkg.devDependencies = sortKeys(upgradeDeps(
-      pkg.devDependencies,
+    updatedPkg.devDependencies = sortKeys(upgradeDeps(
+      Object.assign(
+        {},
+        pkg.devDependencies,
+        updatedPkg.devDependencies || {}
+      ),
       getLatestVersion(),
       options,
     ));
   }
 
   if (pkg.dependencies) {
-    pkg.dependencies = sortKeys(upgradeDeps(
+    updatedPkg.dependencies = sortKeys(upgradeDeps(
       pkg.dependencies,
       getLatestVersion(),
       options,
     ));
   }
 
-  return pkg;
+  return Object.assign({}, pkg, updatedPkg);
 }
 
 async function writePackageJSON(options) {
   let { pkg, path } = await readPkgUp({ normalize: false });
-
   let updatedPkg = await updatePackageJSON(pkg, options);
 
   if (pkg.babel) {
@@ -86,7 +90,22 @@ async function writePackageJSON(options) {
     updatedPkg.babel = upgradeConfig(pkg.babel, options);
   }
   if (options.dryRun) {
-    console.log(diff.compare(pkg, updatedPkg));
+    let removedParts = [];
+    let addedParts = [];
+    diff.diffJson(pkg, updatedPkg)
+      .forEach(part => {
+        if (part.added) {
+          addedParts.push(part.value);
+        }
+        if (part.removed) {
+          removedParts.push(part.value);
+        }
+      });
+    
+    console.log("Before upgrade");
+    console.log(removedParts.join(""));
+    console.log("After upgrade");
+    console.log(addedParts.join(""));
   } else {
     await writeJsonFile(path, updatedPkg, { detectIndent: true });
   }
@@ -118,7 +137,22 @@ async function writeBabelRC(configPath, options) {
     console.log(`Updating .babelrc config at ${configPath}`);
     let updatedJson = upgradeConfig(json, options);
     if (options.dryRun) {
-      console.log(diff.compare(json, updatedJson));
+      let removedParts = [];
+      let addedParts = [];
+      diff.diffJson(json, updatedJson)
+        .forEach(part => {
+          if (part.added) {
+            addedParts.push(part.value);
+          }
+          if (part.removed) {
+            removedParts.push(part.value);
+          }
+        });
+    
+      console.log("Before upgrade");
+      console.log(removedParts.join(""));
+      console.log("After upgrade");
+      console.log(addedParts.join(""));
     } else {
       await writeJsonFile(configPath, updatedJson, { detectIndent: true });
     };
@@ -128,6 +162,9 @@ async function writeBabelRC(configPath, options) {
 async function writeMochaOpts(configPath, options) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
   if (options.dryRun) {
+    console.log("Before upgrade");
+    console.log(rawFile);
+    console.log("After upgrade");
     console.log(replaceMocha(rawFile));
   } else {
     await writeFile(configPath, replaceMocha(rawFile));
