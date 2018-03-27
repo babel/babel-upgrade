@@ -83,6 +83,8 @@ async function updatePackageJSON(pkg, options) {
   return Object.assign({}, pkg, updatedPkg);
 }
 
+const prettyPrint = json => JSON.stringify(json, null, 2);
+
 async function writePackageJSON(options) {
   let { pkg, path } = await readPkgUp({ normalize: false });
   let updatedPkg = await updatePackageJSON(pkg, options);
@@ -92,22 +94,15 @@ async function writePackageJSON(options) {
     updatedPkg.babel = upgradeConfig(pkg.babel, options);
   }
   if (options.dryRun) {
-    let removedParts = [];
-    let addedParts = [];
-    diff.diffJson(pkg, updatedPkg)
-      .forEach(part => {
-        if (part.added) {
-          addedParts.push(part.value);
-        }
-        if (part.removed) {
-          removedParts.push(part.value);
-        }
-      });
-    
-    console.log("Before upgrade");
-    console.log(removedParts.join(""));
-    console.log("After upgrade");
-    console.log(addedParts.join(""));
+    console.log(
+      diff.createPatch(
+        "package.json",
+        prettyPrint(pkg),
+        prettyPrint(updatedPkg),
+        "Before Upgrade",
+        "After Upgrade"
+      )
+    );
   } else {
     await writeJsonFile(path, updatedPkg, { detectIndent: true });
   }
@@ -139,22 +134,15 @@ async function writeBabelRC(configPath, options) {
     console.log(`Updating .babelrc config at ${configPath}`);
     let updatedJson = upgradeConfig(json, options);
     if (options.dryRun) {
-      let removedParts = [];
-      let addedParts = [];
-      diff.diffJson(json, updatedJson)
-        .forEach(part => {
-          if (part.added) {
-            addedParts.push(part.value);
-          }
-          if (part.removed) {
-            removedParts.push(part.value);
-          }
-        });
-    
-      console.log("Before upgrade");
-      console.log(removedParts.join(""));
-      console.log("After upgrade");
-      console.log(addedParts.join(""));
+      console.log(
+        diff.createPatch(
+          ".babelrc",
+          prettyPrint(json),
+          prettyPrint(updatedJson),
+          "Before Upgrade",
+          "After Upgrade"
+        )
+      );
     } else {
       await writeJsonFile(configPath, updatedJson, { detectIndent: true });
     };
@@ -164,10 +152,15 @@ async function writeBabelRC(configPath, options) {
 async function writeMochaOpts(configPath, options) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
   if (options.dryRun) {
-    console.log("Before upgrade");
-    console.log(rawFile);
-    console.log("After upgrade");
-    console.log(replaceMocha(rawFile));
+    console.log(
+      diff.createPatch(
+        "mocha",
+        rawFile,
+        replaceMocha(rawFile),
+        "Before Upgrade",
+        "After Upgrade"
+      )
+    );
   } else {
     await writeFile(configPath, replaceMocha(rawFile));
   }
