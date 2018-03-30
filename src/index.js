@@ -30,11 +30,10 @@ function replaceMocha(str) {
 }
 
 function upgradeScripts(scripts) {
-  let updatedScripts = {};
   for (const script of Object.keys(scripts)) {
-    updatedScripts[script] = replaceMocha(scripts[script]);
+    scripts[script] = replaceMocha(scripts[script]);
   }
-  return updatedScripts;
+  return scripts;
 }
 
 async function updatePackageJSON(pkg, options) {
@@ -46,65 +45,66 @@ async function updatePackageJSON(pkg, options) {
     console.log("package.json not found");
     process.exit(1);
   }
-  let updatedPkg = {};
 
   if (pkg.scripts) {
-    updatedPkg.scripts = upgradeScripts(pkg.scripts);
+    pkg.scripts = upgradeScripts(pkg.scripts);
 
-    if (Object.values(updatedPkg.scripts).some(s => s.includes('babel-node'))) {
+    if (Object.values(pkg.scripts).some(s => s.includes('babel-node'))) {
       if (pkg.devDependencies) {
-        updatedPkg.devDependencies = {
-          "@babel/node": getLatestVersion()
-        };
+        pkg.devDependencies["@babel/node"] = getLatestVersion();
       }
     }
   }
 
   if (pkg.devDependencies) {
-    updatedPkg.devDependencies = sortKeys(upgradeDeps(
-      Object.assign(
-        {},
-        pkg.devDependencies,
-        updatedPkg.devDependencies || {}
-      ),
+    pkg.devDependencies = sortKeys(upgradeDeps(
+      pkg.devDependencies,
       getLatestVersion(),
       options,
     ));
   }
 
   if (pkg.dependencies) {
-    updatedPkg.dependencies = sortKeys(upgradeDeps(
+    pkg.dependencies = sortKeys(upgradeDeps(
       pkg.dependencies,
       getLatestVersion(),
       options,
     ));
   }
 
-  return Object.assign({}, pkg, updatedPkg);
+  return pkg;
 }
 
-const prettyPrint = json => JSON.stringify(json, null, 2);
+function prettyPrint(json) {
+  return JSON.stringify(json, null, 2);
+}
+
+function showPatch(filename, before, after) {
+  console.log(
+    diff.createPatch(
+      filename,
+      before,
+      after,
+      "Before Upgrade",
+      "After Upgrade"
+    )
+  );
+  console.log("");
+}
 
 async function writePackageJSON(options) {
   let { pkg, path } = await readPkgUp({ normalize: false });
-  let updatedPkg = await updatePackageJSON(pkg, options);
+  let oldPkg = JSON.parse(JSON.stringify(pkg));
+  pkg = await updatePackageJSON(pkg, options);
 
   if (pkg.babel) {
     console.log("Updating package.json 'babel' config");
-    updatedPkg.babel = upgradeConfig(pkg.babel, options);
+    pkg.babel = upgradeConfig(pkg.babel, options);
   }
-  if (options.dryRun) {
-    console.log(
-      diff.createPatch(
-        "package.json",
-        prettyPrint(pkg),
-        prettyPrint(updatedPkg),
-        "Before Upgrade",
-        "After Upgrade"
-      )
-    );
-  } else {
-    await writeJsonFile(path, updatedPkg, { detectIndent: true });
+  showPatch("package.json", prettyPrint(oldPkg), prettyPrint(pkg));
+
+  if (!options.dryRun) {
+    await writeJsonFile(path, pkg, { detectIndent: true });
   }
 }
 
@@ -132,36 +132,21 @@ async function writeBabelRC(configPath, options) {
 
   if (json) {
     console.log(`Updating .babelrc config at ${configPath}`);
-    let updatedJson = upgradeConfig(json, options);
-    if (options.dryRun) {
-      console.log(
-        diff.createPatch(
-          ".babelrc",
-          prettyPrint(json),
-          prettyPrint(updatedJson),
-          "Before Upgrade",
-          "After Upgrade"
-        )
-      );
-    } else {
-      await writeJsonFile(configPath, updatedJson, { detectIndent: true });
+    let oldJson = JSON.parse(JSON.stringify(json));
+    json = upgradeConfig(json, options);
+    showPatch(".babelrc", prettyPrint(oldJson), prettyPrint(json));
+
+    if (!options.dryRun) {
+      await writeJsonFile(configPath, json, { detectIndent: true });
     };
   }
 }
 
 async function writeMochaOpts(configPath, options) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
-  if (options.dryRun) {
-    console.log(
-      diff.createPatch(
-        "mocha",
-        rawFile,
-        replaceMocha(rawFile),
-        "Before Upgrade",
-        "After Upgrade"
-      )
-    );
-  } else {
+  showPatch("mocha.opts", rawFile, replaceMocha(rawFile));
+
+  if (!options.dryRun) {
     await writeFile(configPath, replaceMocha(rawFile));
   }
 }
