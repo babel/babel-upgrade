@@ -94,14 +94,14 @@ function showPatch(filename, before, after) {
 
 async function writePackageJSON(options) {
   let { pkg, path } = await readPkgUp({ normalize: false });
-  let oldPkg = JSON.parse(JSON.stringify(pkg));
+  let oldPkg = prettyPrint(pkg);
   pkg = await updatePackageJSON(pkg, options);
 
   if (pkg.babel) {
     console.log("Updating package.json 'babel' config");
     pkg.babel = upgradeConfig(pkg.babel, options);
   }
-  showPatch("package.json", prettyPrint(oldPkg), prettyPrint(pkg));
+  showPatch("package.json", oldPkg, prettyPrint(pkg));
 
   if (!options.dryRun) {
     await writeJsonFile(path, pkg, { detectIndent: true });
@@ -132,9 +132,9 @@ async function writeBabelRC(configPath, options) {
 
   if (json) {
     console.log(`Updating .babelrc config at ${configPath}`);
-    let oldJson = JSON.parse(JSON.stringify(json));
+    let oldJson = prettyPrint(json);
     json = upgradeConfig(json, options);
-    showPatch(".babelrc", prettyPrint(oldJson), prettyPrint(json));
+    showPatch(".babelrc", oldJson, prettyPrint(json));
 
     if (!options.dryRun) {
       await writeJsonFile(configPath, json, { detectIndent: true });
