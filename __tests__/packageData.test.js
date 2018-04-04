@@ -1,4 +1,4 @@
-const { updatePackageJSON } = require('../src/');
+const { updatePackageJSON, writePackageJSON, writeBabelRC, writeMochaOpts } = require('../src/');
 const upgradeDeps = require('../src/upgradeDeps');
 const babelCoreFixture = require('../fixtures/babel-core');
 const jestFixture = require('../fixtures/jest');
@@ -74,3 +74,21 @@ test('jest babel-core bridge', async () => {
 test('webpack v1 compatibility', async () => {
   expect(await updatePackageJSON(webpackV1Fixture)).toMatchSnapshot();
 });
+
+test('respects dry run', async () => {
+  jest.doMock('write-json-file', () => jest.fn().mockResolvedValue({}));
+  const writeJsonFile = require('write-json-file');
+  
+  await writePackageJSON({ dryRun: true });
+  expect(writeJsonFile).not.toBeCalled();
+  writeJsonFile.mockReset();
+
+  await writeBabelRC(".babelrc", { dryRun: true });
+  expect(writeJsonFile).not.toBeCalled();
+  writeJsonFile.mockReset();
+
+  await writeMochaOpts(".babelrc", { dryRun: true });
+  expect(writeJsonFile).not.toBeCalled();
+  writeJsonFile.mockReset();
+
+})
