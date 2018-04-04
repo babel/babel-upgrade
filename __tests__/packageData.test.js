@@ -83,11 +83,11 @@ test('respects dry run', async () => {
   expect(writeJsonFile).not.toBeCalled();
   writeJsonFile.mockReset();
 
-  await writeBabelRC(".babelrc", { dryRun: true });
+  await writeBabelRC("./fixtures/babelrc.json5", { dryRun: true });
   expect(writeJsonFile).not.toBeCalled();
   writeJsonFile.mockReset();
 
-  await writeMochaOpts(".babelrc", { dryRun: true });
+  await writeMochaOpts("./fixtures/scripts-mocha.json", { dryRun: true });
   expect(writeJsonFile).not.toBeCalled();
   writeJsonFile.mockReset();
 
