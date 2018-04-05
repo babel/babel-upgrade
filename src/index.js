@@ -134,7 +134,7 @@ async function writeBabelRC(configPath, options) {
     console.log(`Updating .babelrc config at ${configPath}`);
     let oldJson = prettyPrint(json);
     json = upgradeConfig(json, options);
-    showPatch(".babelrc", oldJson, prettyPrint(json));
+    showPatch(configPath, oldJson, prettyPrint(json));
 
     if (!options.dryRun) {
       await writeJsonFile(configPath, json, { detectIndent: true });
@@ -144,7 +144,7 @@ async function writeBabelRC(configPath, options) {
 
 async function writeMochaOpts(configPath, options) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
-  showPatch("mocha.opts", rawFile, replaceMocha(rawFile));
+  showPatch(configPath, rawFile, replaceMocha(rawFile));
 
   if (!options.dryRun) {
     await writeFile(configPath, replaceMocha(rawFile));
