@@ -1,13 +1,20 @@
 # babel-upgrade
 
-## Usage
+> A tool that tries to automatically update most dependencies, config files, and JavaScript files that require Babel packages directly to Babel v7 (and more in the future).
 
-If using npm < v5.2.0, install [npx](https://www.npmjs.com/package/npx) globally.
+## Usage
 
 Run at the root of your git repo:
 
+> If using npm < v5.2.0, install [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) globally.
+
 ```bash
+# npx lets you just run the command directly
 npx babel-upgrade
+
+# or install globally and run
+npm install babel-upgrade -g
+babel-upgrade
 ```
 
 Optionally use `--install` to run `yarn` or `npm` after the upgrade.
@@ -19,8 +26,6 @@ npx babel-upgrade --install
 > Ideas from http://new.babeljs.io/docs/en/next/v7-migration.html (or modify that file if it's missing)
 
 ## Todos
-
-> Update dependencies, config files, and maybe JavaScript files that require babel packages directly
 
 - [x] Works on Node >= 4 (anything lower isn't supported in v7) ([#16](https://github.com/babel/babel-upgrade/pull/16))
 - [x] Run npm/yarn after updating dependencies (use `--install`) ([#18](https://github.com/babel/babel-upgrade/pull/18))
