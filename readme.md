@@ -62,7 +62,7 @@ npx babel-upgrade --install
 }
 ```
 
-- [x] use `"babel-core": "^7.0.0-bridge-0"` if jest is a dependency ([#14](https://github.com/babel/babel-upgrade/pull/14))
+- [x] use `"babel-core": "^7.0.0-bridge-0"` if jest or jest-cli is a dependency ([#14](https://github.com/babel/babel-upgrade/pull/14))
 
 ```diff
 "devDependencies": {
