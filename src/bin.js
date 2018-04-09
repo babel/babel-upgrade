@@ -16,10 +16,7 @@ function parseOptions(args, availableOptions) {
     .map(([option, flags]) => ({
       [option]: args.some(arg => flags.includes(arg))
     }))
-    .reduce((options, option) => ({
-      ...options,
-      ...option
-    }), {});
+    .reduce((options, option) => Object.assign(options, option), {});
 }
 
 // TODO: allow passing a specific path
