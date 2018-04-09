@@ -50,8 +50,12 @@ function parseOptions(args, availableOptions) {
   await writePackageJSON(upgradeOptions);
 
   // TODO: add smarter CLI option handling if we support more options
-  if (cliOptions.write && cliOptions.installDeps) {
-    console.log('Installing new dependencies');
-    await installDeps();
+  if (cliOptions.installDeps) {
+    if (cliOptions.write) {
+      console.log('Installing new dependencies');
+      await installDeps();
+    } else {
+      console.log('Run babel-upgrade with --write (or) -w and --install for it to install the newly added dependencies');
+    }
   }
 })();
