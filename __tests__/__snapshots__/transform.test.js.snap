@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transform basic 1`] = `
+"module.exports = {
+  plugins: [\\"@babel/plugin-transform-classes\\", \\"@babel/plugin-syntax-jsx\\"],
+  presets: [\\"@babel/preset-env\\"]
+};
+"
+`;
+
+exports[`transform function 1`] = `
+"function createBabelrc() {
+  return {
+    plugins: [
+      \\"@babel/plugin-transform-classes\\",
+      \\"@babel/plugin-syntax-jsx\\",
+      \\"@babel/plugin-proposal-pipeline-operator\\"
+    ],
+    presets: [\\"@babel/preset-env\\", \\"@babel/preset-react\\"]
+  };
+}
+
+module.exports = createBabelrc();
+"
+`;

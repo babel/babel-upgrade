@@ -1,6 +1,13 @@
 const path = require('path');
-const { isAcceptedNodeVersion, writePackageJSON, writeBabelRC, writeMochaOpts, installDeps } = require('.');
 const globby = require('globby');
+const {
+  isAcceptedNodeVersion,
+  writePackageJSON,
+  writeBabelRC,
+  writeMochaOpts,
+  installDeps,
+  writeBabelRCJS
+} = require('.');
 
 if (!isAcceptedNodeVersion()) {
   throw new Error("Babel 7 will only support Node 4 and higher");
@@ -14,7 +21,8 @@ async function hasFlow() {
 // TODO: allow passing a specific path
 (async () => {
   // account for nested babelrc's
-  const paths = await globby(['**/.babelrc', '!**/node_modules/**']);
+  const babelRC = await globby(['**/.babelrc', '!**/node_modules/**']);
+  const babelRCJS = await globby(['**/.babelrc.js', '!**/node_modules/**']);
   const packages = await globby(['**/package.json', '!**/node_modules/**']);
   const mochaOpts = await globby(['**/mocha.opts', '!**/node_modules/**']);
   const flow = await hasFlow();
@@ -25,11 +33,12 @@ async function hasFlow() {
 
   // if not a monorepo
   if (packages.length === 1) {
-    if (paths.length > 1) {
+    if (babelRC.length > 1) {
       console.log("We suggest using the new 'overrides' option instead of nested .babelrc's, can check out http://new.babeljs.io/docs/en/next/babelrc.html#overrides");
       console.log("");
     }
-    paths.forEach(p => writeBabelRC(p, upgradeOptions));
+    babelRC.forEach(p => writeBabelRC(p, upgradeOptions));
+    babelRCJS.forEach(p => writeBabelRCJS(p));
   }
 
   mochaOpts.forEach(p => writeMochaOpts(p, upgradeOptions));
