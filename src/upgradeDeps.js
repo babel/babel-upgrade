@@ -75,7 +75,7 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   // https://github.com/babel/babel-upgrade/issues/29
   // https://github.com/babel/babel-loader/issues/505
   if (
-    (dependencies['jest'] || (depsWebpack1 && dependencies['babel-loader'])) &&
+    (dependencies['jest'] || dependencies['jest-cli'] || (depsWebpack1 && dependencies['babel-loader'])) &&
     !dependencies['babel-core']
   ) {
     dependencies['babel-core'] = '^7.0.0-bridge.0';

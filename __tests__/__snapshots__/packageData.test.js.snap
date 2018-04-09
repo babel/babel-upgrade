@@ -26,6 +26,20 @@ Object {
 }
 `;
 
+exports[`jest-cli babel-core bridge 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "7.0.0-beta.44",
+    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.44",
+    "@babel/preset-env": "7.0.0-beta.44",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.0.0-beta.0",
+    "jest-cli": "22.0.0",
+  },
+  "name": "add-@babel/core-peerDep",
+}
+`;
+
 exports[`scripts 1`] = `
 Object {
   "name": "mocha-scripts-test",
