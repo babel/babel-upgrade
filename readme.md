@@ -10,12 +10,14 @@ Run at the root of your git repo:
 
 ```bash
 # npx lets you run babel-upgrade without installing it locally
-npx babel-upgrade
+npx babel-upgrade --write
 
 # or install globally and run
 npm install babel-upgrade -g
-babel-upgrade
+babel-upgrade --write
 ```
+
+Without the `--write` (or `-w`) flag, `babel-upgrade` will print a diff without writing any changes.
 
 Optionally use `--install` to run `yarn` or `npm` after the upgrade.
 
