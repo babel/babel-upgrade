@@ -11,6 +11,14 @@ async function hasFlow() {
   return flowConfigs.length > 0;
 }
 
+function parseOptions(args, availableOptions) {
+  return Object.entries(availableOptions)
+    .map(([option, flags]) => ({
+      [option]: args.some(arg => flags.includes(arg))
+    }))
+    .reduce((options, option) => Object.assign(options, option), {});
+}
+
 // TODO: allow passing a specific path
 (async () => {
   // account for nested babelrc's
@@ -18,9 +26,13 @@ async function hasFlow() {
   const packages = await globby(['**/package.json', '!**/node_modules/**']);
   const mochaOpts = await globby(['**/mocha.opts', '!**/node_modules/**']);
   const flow = await hasFlow();
-
+  const cliOptions = parseOptions(process.argv, {
+    installDeps: ['--install'],
+    write: ['--write', '-w']
+  })
   const upgradeOptions = {
     hasFlow: flow,
+    write: cliOptions.write
   };
 
   // if not a monorepo
@@ -38,8 +50,12 @@ async function hasFlow() {
   await writePackageJSON(upgradeOptions);
 
   // TODO: add smarter CLI option handling if we support more options
-  if (process.argv[2] === '--install') {
-    console.log('Installing new dependencies');
-    await installDeps();
+  if (cliOptions.installDeps) {
+    if (cliOptions.write) {
+      console.log('Installing new dependencies');
+      await installDeps();
+    } else {
+      console.log('Run babel-upgrade with --write (or) -w and --install for it to install the newly added dependencies');
+    }
   }
 })();
