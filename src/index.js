@@ -101,9 +101,9 @@ async function writePackageJSON(options) {
     console.log("Updating package.json 'babel' config");
     pkg.babel = upgradeConfig(pkg.babel, options);
   }
-  showPatch("package.json", oldPkg, prettyPrint(pkg));
+  showPatch(path, oldPkg, prettyPrint(pkg));
 
-  if (!options.dryRun) {
+  if (options.write) {
     await writeJsonFile(path, pkg, { detectIndent: true });
   }
 }
@@ -136,7 +136,7 @@ async function writeBabelRC(configPath, options) {
     json = upgradeConfig(json, options);
     showPatch(configPath, oldJson, prettyPrint(json));
 
-    if (!options.dryRun) {
+    if (options.write) {
       await writeJsonFile(configPath, json, { detectIndent: true });
     };
   }
@@ -146,7 +146,7 @@ async function writeMochaOpts(configPath, options) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
   showPatch(configPath, rawFile, replaceMocha(rawFile));
 
-  if (!options.dryRun) {
+  if (options.write) {
     await writeFile(configPath, replaceMocha(rawFile));
   }
 }

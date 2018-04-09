@@ -7,33 +7,34 @@ jest.mock('write', () => jest.fn().mockResolvedValue({}));
 const writeJsonFile = require('write-json-file');
 const writeFile = require('write');
 
-test('respects dry run', async () => {
-  
-  await writePackageJSON({ dryRun: true });
+test('does not write when --write is not passed', async () => {
+
+  await writePackageJSON({ write: false });
   expect(writeJsonFile).not.toBeCalled();
   writeJsonFile.mockReset();
 
-  await writeBabelRC("./fixtures/babelrc.json5", { dryRun: true });
+  await writeBabelRC("./fixtures/babelrc.json5", { write: false });
   expect(writeJsonFile).not.toBeCalled();
   writeJsonFile.mockReset();
 
-  await writeMochaOpts("./fixtures/scripts-mocha.json", { dryRun: true });
+  await writeMochaOpts("./fixtures/scripts-mocha.json", { write: false });
   expect(writeFile).not.toBeCalled();
   writeFile.mockReset();
 
-})
+});
 
-test('write when dry run is not passed', async () => {
+test('writes when --write is passed', async () => {
 
-  await writePackageJSON({ dryRun: false });
+  await writePackageJSON({ write: true });
   expect(writeJsonFile).toBeCalled();
   writeJsonFile.mockReset();
 
-  await writeBabelRC("./fixtures/babelrc.json5", { dryRun: false });
+  await writeBabelRC("./fixtures/babelrc.json5", { write: true });
   expect(writeJsonFile).toBeCalled();
   writeJsonFile.mockReset();
 
-  await writeMochaOpts("./fixtures/scripts-mocha.json", { dryRun: false });
+  await writeMochaOpts("./fixtures/scripts-mocha.json", { write: true });
   expect(writeFile).toBeCalled();
   writeFile.mockReset();
-})
+
+});

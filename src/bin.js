@@ -11,6 +11,17 @@ async function hasFlow() {
   return flowConfigs.length > 0;
 }
 
+function parseOptions(args, availableOptions) {
+  return Object.entries(availableOptions)
+    .map(([option, flags]) => ({
+      [option]: args.some(arg => flags.includes(arg))
+    }))
+    .reduce((options, option) => ({
+      ...options,
+      ...option
+    }), {});
+}
+
 // TODO: allow passing a specific path
 (async () => {
   // account for nested babelrc's
@@ -18,10 +29,13 @@ async function hasFlow() {
   const packages = await globby(['**/package.json', '!**/node_modules/**']);
   const mochaOpts = await globby(['**/mocha.opts', '!**/node_modules/**']);
   const flow = await hasFlow();
-  const dryRun = process.argv.includes('--dry-run');
+  const cliOptions = parseOptions(process.argv, {
+    installDeps: ['--install'],
+    write: ['--write', '-w']
+  })
   const upgradeOptions = {
     hasFlow: flow,
-    dryRun
+    write: cliOptions.write
   };
 
   // if not a monorepo
@@ -39,7 +53,7 @@ async function hasFlow() {
   await writePackageJSON(upgradeOptions);
 
   // TODO: add smarter CLI option handling if we support more options
-  if (process.argv[2] === '--install' && !dryRun) {
+  if (cliOptions.write && cliOptions.installDeps) {
     console.log('Installing new dependencies');
     await installDeps();
   }
