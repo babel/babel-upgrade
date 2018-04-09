@@ -29,13 +29,11 @@ async function hasFlow() {
       console.log("We suggest using the new 'overrides' option instead of nested .babelrc's, can check out http://new.babeljs.io/docs/en/next/babelrc.html#overrides");
       console.log("");
     }
-    paths.forEach(p => writeBabelRC(p, upgradeOptions));
   }
 
+  paths.forEach(p => writeBabelRC(p, upgradeOptions));
   mochaOpts.forEach(p => writeMochaOpts(p, upgradeOptions));
-
-  // TODO: allow passing a specific path
-  await writePackageJSON(upgradeOptions);
+  await Promise.all(packages.map(p => writePackageJSON(p, upgradeOptions)));
 
   // TODO: add smarter CLI option handling if we support more options
   if (process.argv[2] === '--install') {
