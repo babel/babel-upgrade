@@ -9,6 +9,45 @@ Object {
 }
 `;
 
+exports[`adds legacy option to decorators 1`] = `
+Object {
+  "plugins": Array [
+    Array [
+      "@babel/plugin-proposal-decorators",
+      Object {
+        "legacy": true,
+      },
+    ],
+    Array [
+      "@babel/plugin-syntax-decorators",
+      Object {
+        "legacy": true,
+      },
+    ],
+  ],
+  "presets": Array [
+    Array [
+      "@babel/preset-stage-0",
+      Object {
+        "decoratorsLegacy": true,
+      },
+    ],
+    Array [
+      "@babel/preset-stage-1",
+      Object {
+        "decoratorsLegacy": true,
+      },
+    ],
+    Array [
+      "@babel/preset-stage-2",
+      Object {
+        "decoratorsLegacy": true,
+      },
+    ],
+  ],
+}
+`;
+
 exports[`convert comma separated presets/plugins into an array 1`] = `
 Object {
   "env": Object {
@@ -53,7 +92,7 @@ Object {
   "plugins": Array [
     "@babel/plugin-proposal-async-generator-functions",
     "@babel/plugin-proposal-class-properties",
-    "@babel/plugin-proposal-decorators",
+    "@babel/plugin-proposal-do-expressions",
   ],
 }
 `;

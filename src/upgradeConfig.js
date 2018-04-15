@@ -1,4 +1,5 @@
 const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
+const upgradeOptions = require('./upgradeOptions');
 
 function changeName(originalName, kind) {
   const oldNames = kind === 'plugin' ? oldPlugins : oldPresets;
@@ -43,7 +44,9 @@ function changePresets(config, options = {}) {
         i--;
       } else {
         if (isArray) preset[0] = name;
-        else presets[i] = name;
+        else preset = name;
+
+        presets[i] = upgradeOptions(preset);
       }
     }
 
@@ -75,7 +78,9 @@ function changePlugins(config) {
         i--;
       } else {
         if (isArray) plugin[0] = name;
-        else plugins[i] = name;
+        else plugin = name;
+
+        plugins[i] = upgradeOptions(plugin);
       }
     }
   }
