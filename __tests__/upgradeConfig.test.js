@@ -76,8 +76,24 @@ test('handles @babel prefix in plugins', () => {
     "plugins": [
       '@babel/plugin-transform-async-generator-functions',
       '@babel/plugin-transform-class-properties',
-      '@babel/plugin-transform-decorators'
+      '@babel/plugin-transform-do-expressions'
     ],
+  };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("adds legacy option to decorators", () => {
+  const config = {
+    "plugins": [
+      "transform-decorators",
+      "@babel/plugin-syntax-decorators"
+    ],
+    "presets": [
+      "@babel/preset-stage-0",
+      "babel-preset-stage-1",
+      "stage-2"
+    ]
   };
 
   expect(upgradeConfig(config)).toMatchSnapshot();
