@@ -90,9 +90,25 @@ test("adds legacy option to decorators", () => {
       "@babel/plugin-syntax-decorators"
     ],
     "presets": [
-      "@babel/preset-stage-0",
-      "babel-preset-stage-1",
+      ["@babel/preset-stage-0", { pipelineProposal: "minimal" }],
+      ["babel-preset-stage-1", { pipelineProposal: "minimal" }],
       "stage-2"
+    ]
+  };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("adds proposal option to pipeline", () => {
+  const config = {
+    "plugins": [
+      "transform-pipeline-operator",
+      "@babel/plugin-syntax-pipeline-operator"
+    ],
+    "presets": [
+      ["@babel/preset-stage-0", { decoratorsLegacy: true }],
+      ["babel-preset-stage-1", { decoratorsLegacy: true }],
+      ["stage-2", { decoratorsLegacy: true }]
     ]
   };
 

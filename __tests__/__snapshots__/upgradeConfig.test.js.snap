@@ -30,12 +30,55 @@ Object {
       "@babel/preset-stage-0",
       Object {
         "decoratorsLegacy": true,
+        "pipelineProposal": "minimal",
       },
     ],
     Array [
       "@babel/preset-stage-1",
       Object {
         "decoratorsLegacy": true,
+        "pipelineProposal": "minimal",
+      },
+    ],
+    Array [
+      "@babel/preset-stage-2",
+      Object {
+        "decoratorsLegacy": true,
+      },
+    ],
+  ],
+}
+`;
+
+exports[`adds proposal option to pipeline 1`] = `
+Object {
+  "plugins": Array [
+    Array [
+      "@babel/plugin-proposal-pipeline-operator",
+      Object {
+        "proposal": "minimal",
+      },
+    ],
+    Array [
+      "@babel/plugin-syntax-pipeline-operator",
+      Object {
+        "proposal": "minimal",
+      },
+    ],
+  ],
+  "presets": Array [
+    Array [
+      "@babel/preset-stage-0",
+      Object {
+        "decoratorsLegacy": true,
+        "pipelineProposal": "minimal",
+      },
+    ],
+    Array [
+      "@babel/preset-stage-1",
+      Object {
+        "decoratorsLegacy": true,
+        "pipelineProposal": "minimal",
       },
     ],
     Array [
