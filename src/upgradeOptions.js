@@ -4,8 +4,12 @@ const updaters = {
   __proto__: null,
   "@babel/plugin-proposal-decorators": define({ legacy: true }),
   "@babel/plugin-syntax-decorators": define({ legacy: true }),
-  "@babel/preset-stage-0": define({ decoratorsLegacy: true }),
-  "@babel/preset-stage-1": define({ decoratorsLegacy: true }),
+
+  "@babel/plugin-proposal-pipeline-operator": define({ proposal: "minimal" }),
+  "@babel/plugin-syntax-pipeline-operator": define({ proposal: "minimal" }),
+
+  "@babel/preset-stage-0": define({ decoratorsLegacy: true, pipelineProposal: "minimal" }),
+  "@babel/preset-stage-1": define({ decoratorsLegacy: true, pipelineProposal: "minimal" }),
   "@babel/preset-stage-2": define({ decoratorsLegacy: true }),
 };
 
