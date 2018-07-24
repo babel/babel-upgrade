@@ -89,11 +89,6 @@ test("adds legacy option to decorators", () => {
       "transform-decorators",
       "@babel/plugin-syntax-decorators"
     ],
-    "presets": [
-      ["@babel/preset-stage-0", { pipelineProposal: "minimal" }],
-      ["babel-preset-stage-1", { pipelineProposal: "minimal" }],
-      "stage-2"
-    ]
   };
 
   expect(upgradeConfig(config)).toMatchSnapshot();
@@ -105,10 +100,15 @@ test("adds proposal option to pipeline", () => {
       "transform-pipeline-operator",
       "@babel/plugin-syntax-pipeline-operator"
     ],
+  };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("replaces stage presets", () => {
+  const config = {
     "presets": [
-      ["@babel/preset-stage-0", { decoratorsLegacy: true }],
-      ["babel-preset-stage-1", { decoratorsLegacy: true }],
-      ["stage-2", { decoratorsLegacy: true }]
+      "stage-1"
     ]
   };
 

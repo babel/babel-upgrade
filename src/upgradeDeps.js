@@ -1,5 +1,5 @@
 const semver = require('semver');
-const { packages: oldPackages, latestPackages } = require('./packageData');
+const { packages: oldPackages, latestPackages, stagePresets } = require('./packageData');
 
 const otherPackages = {
   'babel-loader': '^8.0.0-beta.0',
@@ -79,6 +79,16 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     !dependencies['babel-core']
   ) {
     dependencies['babel-core'] = '^7.0.0-bridge.0';
+  }
+
+  for (let stage = 0; stage <= 3; stage++) {
+    if (dependencies[`@babel/preset-stage-${stage}`]) {
+      delete dependencies[`@babel/preset-stage-${stage}`];
+      for (const plugin of stagePresets[stage]) {
+        const name = typeof plugin === "string" ? plugin : plugin[0];
+        dependencies[name] = version;
+      }
+    }
   }
 
   return dependencies;
