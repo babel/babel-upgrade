@@ -7,10 +7,6 @@ const updaters = {
 
   "@babel/plugin-proposal-pipeline-operator": define({ proposal: "minimal" }),
   "@babel/plugin-syntax-pipeline-operator": define({ proposal: "minimal" }),
-
-  "@babel/preset-stage-0": define({ decoratorsLegacy: true, pipelineProposal: "minimal" }),
-  "@babel/preset-stage-1": define({ decoratorsLegacy: true, pipelineProposal: "minimal" }),
-  "@babel/preset-stage-2": define({ decoratorsLegacy: true }),
 };
 
 module.exports = function updateOptions(entry) {

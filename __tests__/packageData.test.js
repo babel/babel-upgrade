@@ -79,3 +79,9 @@ test('jest-cli babel-core bridge', async () => {
 test('webpack v1 compatibility', async () => {
   expect(await updatePackageJSON(webpackV1Fixture)).toMatchSnapshot();
 });
+
+test('replaces stage presets', () => {
+  expect(upgradeDeps({
+    "@babel/preset-stage-2": "7.0.0-alpha.0"
+  }, VERSION)).toMatchSnapshot();
+});

@@ -40,6 +40,21 @@ Object {
 }
 `;
 
+exports[`replaces stage presets 1`] = `
+Object {
+  "@babel/core": "7.0.0-beta.39",
+  "@babel/plugin-proposal-class-properties": "7.0.0-beta.39",
+  "@babel/plugin-proposal-decorators": "7.0.0-beta.39",
+  "@babel/plugin-proposal-export-namespace-from": "7.0.0-beta.39",
+  "@babel/plugin-proposal-function-sent": "7.0.0-beta.39",
+  "@babel/plugin-proposal-json-strings": "7.0.0-beta.39",
+  "@babel/plugin-proposal-numeric-separator": "7.0.0-beta.39",
+  "@babel/plugin-proposal-throw-expressions": "7.0.0-beta.39",
+  "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.39",
+  "@babel/plugin-syntax-import-meta": "7.0.0-beta.39",
+}
+`;
+
 exports[`scripts 1`] = `
 Object {
   "name": "mocha-scripts-test",
@@ -164,6 +179,8 @@ Object {
   "@babel/plugin-proposal-export-namespace-from": "7.0.0-beta.39",
   "@babel/plugin-proposal-function-bind": "7.0.0-beta.39",
   "@babel/plugin-proposal-function-sent": "7.0.0-beta.39",
+  "@babel/plugin-proposal-json-strings": "7.0.0-beta.39",
+  "@babel/plugin-proposal-logical-assignment-operators": "7.0.0-beta.39",
   "@babel/plugin-proposal-nullish-coalescing-operator": "7.0.0-beta.39",
   "@babel/plugin-proposal-numeric-separator": "7.0.0-beta.39",
   "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
@@ -245,10 +262,6 @@ Object {
   "@babel/preset-env-standalone": "7.0.0-beta.39",
   "@babel/preset-flow": "7.0.0-beta.39",
   "@babel/preset-react": "7.0.0-beta.39",
-  "@babel/preset-stage-0": "7.0.0-beta.39",
-  "@babel/preset-stage-1": "7.0.0-beta.39",
-  "@babel/preset-stage-2": "7.0.0-beta.39",
-  "@babel/preset-stage-3": "7.0.0-beta.39",
   "@babel/preset-typescript": "7.0.0-beta.39",
   "@babel/register": "7.0.0-beta.39",
   "@babel/runtime": "7.0.0-beta.39",

@@ -1,4 +1,4 @@
-const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
+const { presets: oldPresets, plugins: oldPlugins, stagePresets } = require('./packageData');
 const upgradeOptions = require('./upgradeOptions');
 
 function changeName(originalName, kind) {
@@ -23,6 +23,7 @@ function changeName(originalName, kind) {
 // TODO: fix all of this
 function changePresets(config, options = {}) {
   let presets = config.presets;
+  const newPlugins = [];
 
   if (!Array.isArray(presets) && typeof presets === 'string') {
     presets = config.presets = config.presets.split(',').map((preset) => preset.trim());
@@ -39,9 +40,14 @@ function changePresets(config, options = {}) {
       const isArray = Array.isArray(preset);
 
       const name = changeName(isArray ? preset[0] : preset, 'preset');
-      if (name === null) {
+      if (name === null || name.startsWith('@babel/preset-stage-')) {
         presets.splice(i, 1);
         i--;
+
+        if (name !== null) {
+          const stage = name.slice(-1);
+          newPlugins.push(stagePresets[stage]);
+        }
       } else {
         if (isArray) preset[0] = name;
         else preset = name;
@@ -52,6 +58,10 @@ function changePresets(config, options = {}) {
 
     if (options.hasFlow && !presets.includes('@babel/preset-flow')) {
       presets.push('@babel/preset-flow');
+    }
+
+    if (newPlugins.length > 0) {
+      config.plugins = (config.plugins || []).concat(...newPlugins);
     }
   }
 }

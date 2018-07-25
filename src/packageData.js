@@ -245,9 +245,39 @@ const packages = Object.assign(
 
 const latestPackages = new Set(Object.values(packages));
 
+const stagePresets = Object.create(null);
+stagePresets[3] = [
+  "@babel/plugin-syntax-dynamic-import",
+  "@babel/plugin-syntax-import-meta",
+  "@babel/plugin-proposal-class-properties",
+  "@babel/plugin-proposal-json-strings",
+];
+stagePresets[2] = [
+  ...stagePresets[3],
+  ["@babel/plugin-proposal-decorators", { "legacy": true }],
+  "@babel/plugin-proposal-function-sent",
+  "@babel/plugin-proposal-export-namespace-from",
+  "@babel/plugin-proposal-numeric-separator",
+  "@babel/plugin-proposal-throw-expressions",
+];
+stagePresets[1] = [
+  ...stagePresets[2],
+  "@babel/plugin-proposal-export-default-from",
+  "@babel/plugin-proposal-logical-assignment-operators",
+  "@babel/plugin-proposal-optional-chaining",
+  ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }],
+  "@babel/plugin-proposal-nullish-coalescing-operator",
+  "@babel/plugin-proposal-do-expressions",
+];
+stagePresets[0] = [
+  ...stagePresets[1],
+  "@babel/plugin-proposal-function-bind",
+];
+
 module.exports = {
   packages,
   presets,
   plugins,
   latestPackages,
+  stagePresets,
 };
