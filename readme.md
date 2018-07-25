@@ -170,6 +170,30 @@ npx babel-upgrade --write --install
 +  "@babel/preset-flow": "7.0.0-beta.39"
 }
 ```
+- [x] Replace Stage presets with individual proposal plugins ([#69](https://github.com/babel/babel-upgrade/pull/69))
+
+```diff
+{
+-  "presets": ["@babel/preset-stage-3"],
++  "presets": [],
++  "plugins": [
++    "@babel/plugin-syntax-dynamic-import",
++    "@babel/plugin-syntax-import-meta",
++    "@babel/plugin-proposal-class-properties",
++    "@babel/plugin-proposal-json-strings"
++  ]
+}
+```
+
+```diff
+{
+-    "@babel/preset-stage-3": "7.0.0-beta.54"
++    "@babel/plugin-proposal-class-properties": "7.0.0-beta.54",
++    "@babel/plugin-proposal-json-strings": "7.0.0-beta.54",
++    "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.54",
++    "@babel/plugin-syntax-import-meta": "7.0.0-beta.54"
+}
+```
 
 - [ ] Log when replacing out preset-es2015,16,17,latest as FYI
 - [ ] Figure out how to change nested .babelrcs into using "overrides" instead
