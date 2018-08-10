@@ -81,6 +81,20 @@ Object {
 }
 `;
 
+exports[`upgradeDeps doesn't add runtime-corejs2 if it is already there 1`] = `
+Object {
+  "@babel/runtime": "7.0.0-beta.39",
+  "@babel/runtime-corejs2": "7.0.0-beta.39",
+}
+`;
+
+exports[`upgradeDeps splits runtime into runtime and runtime-corejs2 1`] = `
+Object {
+  "@babel/runtime": "7.0.0-beta.39",
+  "@babel/runtime-corejs2": "7.0.0-beta.39",
+}
+`;
+
 exports[`upgradeDeps upgrades from earlier v7 version 1`] = `
 Object {
   "@babel/core": "7.0.0-beta.39",
@@ -219,6 +233,7 @@ Object {
   "@babel/preset-typescript": "7.0.0-beta.39",
   "@babel/register": "7.0.0-beta.39",
   "@babel/runtime": "7.0.0-beta.39",
+  "@babel/runtime-corejs2": "7.0.0-beta.39",
   "@babel/standalone": "7.0.0-beta.39",
   "@babel/template": "7.0.0-beta.39",
   "@babel/traverse": "7.0.0-beta.39",

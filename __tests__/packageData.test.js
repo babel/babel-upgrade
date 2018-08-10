@@ -19,6 +19,19 @@ describe('upgradeDeps', () => {
   test('upgrades from earlier v7 version', () => {
     expect(upgradeDeps(depsFixtureEarlierBeta, VERSION)).toMatchSnapshot();
   });
+
+  test('splits runtime into runtime and runtime-corejs2', () => {
+    expect(upgradeDeps({
+      "@babel/runtime": "7.0.0-alpha.0",
+    }, VERSION)).toMatchSnapshot();
+  });
+
+  test("doesn't add runtime-corejs2 if it is already there", () => {
+    expect(upgradeDeps({
+      "@babel/runtime": "7.0.0-alpha.0",
+      "@babel/runtime-corejs2": "7.0.0-alpha.0",
+    }, VERSION)).toMatchSnapshot();
+  });
 });
 
 test('scripts', async () => {

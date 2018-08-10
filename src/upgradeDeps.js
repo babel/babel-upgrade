@@ -85,5 +85,9 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     }
   }
 
+  if (dependencies['@babel/runtime'] && !dependencies['@babel/runtime-corejs2']) {
+    dependencies['@babel/runtime-corejs2'] = version;
+  }
+
   return dependencies;
 }

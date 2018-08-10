@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`adds corejs to transform-runtime 1`] = `
+Object {
+  "plugins": Array [
+    Array [
+      "@babel/plugin-transform-runtime",
+      Object {
+        "corejs": 2,
+      },
+    ],
+  ],
+}
+`;
+
 exports[`adds flow preset if hasFlow option passed 1`] = `
 Object {
   "presets": Array [

@@ -7,6 +7,8 @@ const updaters = {
 
   "@babel/plugin-proposal-pipeline-operator": define({ proposal: "minimal" }),
   "@babel/plugin-syntax-pipeline-operator": define({ proposal: "minimal" }),
+
+  "@babel/plugin-transform-runtime": define({ corejs: 2 }),
 };
 
 module.exports = function updateOptions(entry) {

@@ -114,3 +114,9 @@ test("replaces stage presets", () => {
 
   expect(upgradeConfig(config)).toMatchSnapshot();
 });
+
+test("adds corejs to transform-runtime", () => {
+  const config = { "plugins": ["transform-runtime"] };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
