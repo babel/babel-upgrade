@@ -29,7 +29,7 @@ npx babel-upgrade --write --install
 
 ## Todos
 
-- [x] Works on Node >= 4 (anything lower isn't supported in v7) ([#16](https://github.com/babel/babel-upgrade/pull/16))
+- [x] Works on Node >= 6 (anything lower isn't supported in v7) ([#16](https://github.com/babel/babel-upgrade/pull/16))
 - [x] Run npm/yarn after updating dependencies (use `--install`) ([#18](https://github.com/babel/babel-upgrade/pull/18))
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version.
   - [x] all package renames
