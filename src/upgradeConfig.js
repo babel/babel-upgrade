@@ -66,7 +66,7 @@ function changePresets(config, options = {}) {
   }
 }
 
-function changePlugins(config) {
+function changePlugins(config, options = {}) {
   let plugins = config.plugins;
 
   if (!Array.isArray(plugins) && typeof plugins === 'string') {
@@ -81,14 +81,39 @@ function changePlugins(config) {
 
       // check if it's a plugin with options (an array)
       const isArray = Array.isArray(plugin);
+      const oldName = isArray ? plugin[0] : plugin;
 
-      const name = changeName(isArray ? plugin[0] : plugin, 'plugin');
+      const name = changeName(oldName, 'plugin');
       if (name === null) {
         plugins.splice(i, 1);
         i--;
       } else {
-        if (isArray) plugin[0] = name;
-        else plugin = name;
+        const shouldAddCoreJS = oldName === "babel-plugin-transform-runtime" || oldName === "transform-runtime";
+        if (
+          oldName === "@babel/plugin-transform-runtime" ||
+          oldName === "@babel/transform-runtime"
+        ) {
+          // 7.0.0-alpha.5 <= x <= 7.0.0-beta.55
+          console.warn(
+            "Babel was not able to infer dedice wether or not to add a "
+            + "`corejs: 2` option to @babel/plugin-transform-rumtime. "
+            + "If you want it to handle builtin functions (e.g. Promise, "
+            + "Array.prototype.includes, ...), add that option manually:\n"
+            + "\t[\"@babel/plugin-transform-runtime\", { \"corejs\": 2 }]\n"
+          );
+        }
+
+        if (shouldAddCoreJS) {
+          if (isArray) {
+            plugin[0] = name;
+            plugin[1] = Object.assign({ corejs: 2 }, plugin[1]);
+          } else {
+            plugin = [name, { corejs: 2 }];
+          }
+        } else {
+          if (isArray) plugin[0] = name;
+          else plugin = name;
+        }
 
         plugins[i] = upgradeOptions(plugin);
       }
@@ -100,12 +125,12 @@ module.exports = function upgradeConfig(config, options) {
   config = Object.assign({}, config);
 
   changePresets(config, options);
-  changePlugins(config);
+  changePlugins(config, options);
 
   if (config.env) {
     Object.keys(config.env).forEach((env) => {
       changePresets(config.env[env]);
-      changePlugins(config.env[env]);
+      changePlugins(config.env[env], options);
     });
   }
 

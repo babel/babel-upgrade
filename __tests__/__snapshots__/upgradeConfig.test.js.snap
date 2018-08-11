@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`adds corejs to transform-runtime 1`] = `
+exports[`adds corejs to babel 6 transform-runtime 1`] = `
 Object {
   "plugins": Array [
     Array [
@@ -95,6 +95,14 @@ Object {
   "presets": Array [
     "@babel/preset-react",
     "@babel/preset-flow",
+  ],
+}
+`;
+
+exports[`doesn't add corejs to babel 7 transform-runtime 1`] = `
+Object {
+  "plugins": Array [
+    "@babel/transform-runtime",
   ],
 }
 `;
