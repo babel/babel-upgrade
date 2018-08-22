@@ -62,6 +62,12 @@ async function updatePackageJSON(pkg, options) {
       getLatestVersion(),
       options,
     ));
+
+    // Adds preset-flow if needed, especially since it was split out of
+    // preset-react
+    if (options.hasFlow && !pkg.devDependencies['@babel/preset-flow']) {
+      pkg.devDependencies['@babel/preset-flow'] = getLatestVersion();
+    }
   }
 
   if (pkg.dependencies) {
@@ -128,7 +134,7 @@ async function writeBabelRC(configPath, options) {
 
   try {
     json = await readBabelRC(configPath);
-  } catch (e) {}
+  } catch (e) { }
 
   if (json) {
     console.log(`Updating .babelrc config at ${configPath}`);
