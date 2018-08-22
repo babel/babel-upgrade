@@ -81,52 +81,6 @@ Object {
 }
 `;
 
-exports[`upgradeDeps adds flow preset if user is upgrading from previous v7 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps adds flow preset if user was using v6 preset-react 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps does not add flow preset if user is upgrading from previous v7 but flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps does not add flow preset if user was using v6 preset-react but flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps handles flow preset if user had entry and is upgrading from previous v7 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps handles flow preset if user had entry and is upgrading from previous v7 and flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
 exports[`upgradeDeps upgrades from earlier v7 version 1`] = `
 Object {
   "@babel/core": "7.0.0-beta.39",

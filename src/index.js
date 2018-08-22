@@ -36,7 +36,7 @@ function upgradeScripts(scripts) {
   return scripts;
 }
 
-async function updatePackageJSON(pkg, options) {
+async function updatePackageJSON(pkg, options = {}) {
   if (process.env.NODE_ENV !== 'test') {
     console.log("Updating closest package.json dependencies");
   }
