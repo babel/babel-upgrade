@@ -19,44 +19,6 @@ describe('upgradeDeps', () => {
   test('upgrades from earlier v7 version', () => {
     expect(upgradeDeps(depsFixtureEarlierBeta, VERSION)).toMatchSnapshot();
   });
-
-  test('adds flow preset if user was using v6 preset-react', () => {
-    expect(upgradeDeps({
-      "babel-preset-react": "6.0.0"
-    }, VERSION, { hasFlow: true })).toMatchSnapshot();
-  });
-
-  test('does not add flow preset if user was using v6 preset-react but flow not detected', () => {
-    expect(upgradeDeps({
-      "babel-preset-react": "6.0.0"
-    }, VERSION, { hasFlow: false })).toMatchSnapshot();
-  });
-
-  test('adds flow preset if user is upgrading from previous v7', () => {
-    expect(upgradeDeps({
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: true })).toMatchSnapshot();
-  });
-
-  test('does not add flow preset if user is upgrading from previous v7 but flow not detected', () => {
-    expect(upgradeDeps({
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: false })).toMatchSnapshot();
-  });
-
-  test('handles flow preset if user had entry and is upgrading from previous v7', () => {
-    expect(upgradeDeps({
-      "@babel/preset-flow": "7.0.0-alpha.0",
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: true })).toMatchSnapshot();
-  });
-
-  test('handles flow preset if user had entry and is upgrading from previous v7 and flow not detected', () => {
-    expect(upgradeDeps({
-      "@babel/preset-flow": "7.0.0-alpha.0",
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: false })).toMatchSnapshot();
-  });
 });
 
 test('scripts', async () => {

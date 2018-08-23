@@ -1,5 +1,5 @@
 
-const { writePackageJSON, writeBabelRC, writeMochaOpts } = require('../src/');
+const { updatePackageJSON, writePackageJSON, writeBabelRC, writeMochaOpts } = require('../src/');
 
 jest.mock('write-json-file', () => jest.fn().mockResolvedValue({}));
 jest.mock('write', () => jest.fn().mockResolvedValue({}));
@@ -37,4 +37,69 @@ test('writes when --write is passed', async () => {
   expect(writeFile).toBeCalled();
   writeFile.mockReset();
 
+});
+
+describe('flow preset', () => {
+
+  test('adds flow preset if user was using v6 preset-react', async () => {
+    let pkg = await updatePackageJSON({
+      dependencies: {},
+      devDependencies: {
+        "babel-preset-react": "6.0.0"
+      }
+    }, { hasFlow: true });
+    expect(pkg).toMatchSnapshot();
+  });
+
+  test('does not add flow preset if user was using v6 preset-react but flow not detected', async () => {
+    let pkg = await updatePackageJSON({
+      dependencies: {},
+      devDependencies: {
+        "babel-preset-react": "6.0.0"
+      }
+    }, { hasFlow: false });
+    expect(pkg).toMatchSnapshot();
+  });
+
+  test('adds flow preset if user is upgrading from previous v7', async () => {
+    let pkg = await updatePackageJSON({
+      dependencies: {},
+      devDependencies: {
+        "@babel/preset-react": "7.0.0-alpha.0"
+      }
+    }, { hasFlow: true });
+    expect(pkg).toMatchSnapshot();
+  });
+
+  test('does not add flow preset if user is upgrading from previous v7 but flow not detected', async () => {
+    let pkg = await updatePackageJSON({
+      dependencies: {},
+      devDependencies: {
+        "@babel/preset-react": "7.0.0-alpha.0",
+      }
+    }, { hasFlow: false });
+    expect(pkg).toMatchSnapshot();
+  });
+
+  test('handles flow preset if user had entry and is upgrading from previous v7', async () => {
+    let pkg = await updatePackageJSON({
+      dependencies: {},
+      devDependencies: {
+        "@babel/preset-flow": "7.0.0-alpha.0",
+        "@babel/preset-react": "7.0.0-alpha.0",
+      }
+    }, { hasFlow: true });
+    expect(pkg).toMatchSnapshot();
+  });
+
+  test('handles flow preset if user had entry and is upgrading from previous v7 and flow not detected', async () => {
+    let pkg = await updatePackageJSON({
+      dependencies: {},
+      devDependencies: {
+        "@babel/preset-flow": "7.0.0-alpha.0",
+        "@babel/preset-react": "7.0.0-alpha.0",
+      }
+    }, { hasFlow: false });
+    expect(pkg).toMatchSnapshot();
+  });
 });

@@ -55,12 +55,6 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   const webpack = semver.coerce(dependencies.webpack);
   const depsWebpack1 = webpack && webpack.major === 1;
 
-  // Adds preset-flow if needed, especially since it was split out of
-  // preset-react
-  if (options.hasFlow && !dependencies['@babel/preset-flow']) {
-    dependencies['@babel/preset-flow'] = version;
-  }
-
   // Later versions of babel-loader are incompatible with Webpack v1.
   // https://github.com/babel/babel-loader/issues/505
   if (depsWebpack1 && dependencies['babel-loader']) {
