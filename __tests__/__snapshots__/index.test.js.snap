@@ -4,9 +4,9 @@ exports[`flow preset adds flow preset if user is upgrading from previous v7 1`] 
 Object {
   "dependencies": Object {},
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.54",
-    "@babel/preset-flow": "7.0.0-beta.54",
-    "@babel/preset-react": "7.0.0-beta.54",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
   },
 }
 `;
@@ -15,9 +15,9 @@ exports[`flow preset adds flow preset if user was using v6 preset-react 1`] = `
 Object {
   "dependencies": Object {},
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.54",
-    "@babel/preset-flow": "7.0.0-beta.54",
-    "@babel/preset-react": "7.0.0-beta.54",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
   },
 }
 `;
@@ -26,8 +26,8 @@ exports[`flow preset does not add flow preset if user is upgrading from previous
 Object {
   "dependencies": Object {},
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.54",
-    "@babel/preset-react": "7.0.0-beta.54",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
   },
 }
 `;
@@ -36,8 +36,8 @@ exports[`flow preset does not add flow preset if user was using v6 preset-react 
 Object {
   "dependencies": Object {},
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.54",
-    "@babel/preset-react": "7.0.0-beta.54",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
   },
 }
 `;
@@ -46,9 +46,9 @@ exports[`flow preset handles flow preset if user had entry and is upgrading from
 Object {
   "dependencies": Object {},
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.54",
-    "@babel/preset-flow": "7.0.0-beta.54",
-    "@babel/preset-react": "7.0.0-beta.54",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
   },
 }
 `;
@@ -57,9 +57,9 @@ exports[`flow preset handles flow preset if user had entry and is upgrading from
 Object {
   "dependencies": Object {},
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.54",
-    "@babel/preset-flow": "7.0.0-beta.54",
-    "@babel/preset-react": "7.0.0-beta.54",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
   },
 }
 `;
