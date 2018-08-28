@@ -18,7 +18,7 @@ function isAcceptedNodeVersion() {
 }
 
 function getLatestVersion() {
-  return "7.0.0-beta.54";
+  return "^7.0.0";
 }
 
 function replaceMocha(str) {

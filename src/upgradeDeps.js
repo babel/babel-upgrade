@@ -2,7 +2,7 @@ const semver = require('semver');
 const { packages: oldPackages, latestPackages, stagePresets } = require('./packageData');
 
 const otherPackages = {
-  'babel-loader': '^8.0.0-beta.0',
+  'babel-loader': '^8.0.0',
   'rollup-plugin-babel': '^4.0.0-beta.2',
 };
 
@@ -30,8 +30,8 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     } else if (
       latestPackages.has(pkg) &&
       semver.valid(depVersion) &&
-      semver.valid(version) &&
-      semver.lt(depVersion, version)
+      semver.validRange(version) &&
+      !semver.satisfies(depVersion, version)
     ) {
       dependencies[pkg] = version;
     // TODO: refactor out somewhere else
