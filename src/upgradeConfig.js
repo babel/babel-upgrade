@@ -61,14 +61,15 @@ function changePresets(config, options = {}) {
     }
 
     if (newPlugins.length > 0) {
-      config.plugins = (config.plugins || []).concat(...newPlugins);
+      config.plugins = (config.plugins || []);
     }
   }
+  // We return this to prevent duplication in the next step
+  return newPlugins;
 }
 
-function changePlugins(config) {
+function changePlugins(config, updatedPlugins) {
   let plugins = config.plugins;
-
   if (!Array.isArray(plugins) && typeof plugins === 'string') {
     plugins = config.plugins = config.plugins.split(',').map((plugin) => plugin.trim());
   }
@@ -83,7 +84,12 @@ function changePlugins(config) {
       const isArray = Array.isArray(plugin);
 
       const name = changeName(isArray ? plugin[0] : plugin, 'plugin');
-      if (name === null) {
+
+      let alreadyDuplicated = updatedPlugins.some(plugins =>
+        plugins.includes(name)
+      );
+
+      if (name === null || alreadyDuplicated) {
         plugins.splice(i, 1);
         i--;
       } else {
@@ -94,18 +100,21 @@ function changePlugins(config) {
       }
     }
   }
+  if (config.plugins) {
+    config.plugins = config.plugins.concat(...updatedPlugins);
+  }
 }
 
 module.exports = function upgradeConfig(config, options) {
   config = Object.assign({}, config);
 
-  changePresets(config, options);
-  changePlugins(config);
+  let updatedPlugins = changePresets(config, options);
+  changePlugins(config, updatedPlugins);
 
   if (config.env) {
     Object.keys(config.env).forEach((env) => {
-      changePresets(config.env[env]);
-      changePlugins(config.env[env]);
+      let updatedPlugins = changePresets(config.env[env]);
+      changePlugins(config.env[env], updatedPlugins);
     });
   }
 

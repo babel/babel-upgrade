@@ -125,9 +125,5 @@ test("does not duplicate stage presets", () => {
     ]
   };
   let updatedConfig = upgradeConfig(config);
-  expect(
-    updatedConfig.plugins.filter(
-      plugin => plugin === "@babel/plugin-syntax-dynamic-import"
-    ).length
-  ).toEqual(1);
+  expect(updatedConfig).toMatchSnapshot();
 });

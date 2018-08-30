@@ -86,6 +86,28 @@ Object {
 }
 `;
 
+exports[`does not duplicate stage presets 1`] = `
+Object {
+  "plugins": Array [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-syntax-import-meta",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-json-strings",
+    Array [
+      "@babel/plugin-proposal-decorators",
+      Object {
+        "legacy": true,
+      },
+    ],
+    "@babel/plugin-proposal-function-sent",
+    "@babel/plugin-proposal-export-namespace-from",
+    "@babel/plugin-proposal-numeric-separator",
+    "@babel/plugin-proposal-throw-expressions",
+  ],
+  "presets": Array [],
+}
+`;
+
 exports[`handles @babel prefix in plugins 1`] = `
 Object {
   "plugins": Array [
