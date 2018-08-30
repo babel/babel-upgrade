@@ -159,7 +159,7 @@ npx babel-upgrade --write --install
 ```diff
 {
 -  "presets": "env, react",
-+  "presets": ["env", "react"],
++  "presets": ["@babel/preset-env", "@babel/preset-react"],
 ```
 
 - [x] handle react + flow preset being split. Read if `.flowconfig` and add it? ([#21](https://github.com/babel/babel-upgrade/pull/21))
