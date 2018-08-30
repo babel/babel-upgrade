@@ -114,3 +114,20 @@ test("replaces stage presets", () => {
 
   expect(upgradeConfig(config)).toMatchSnapshot();
 });
+
+test("does not duplicate stage presets", () => {
+  const config = {
+    "presets": [
+      "stage-2"
+    ],
+    "plugins": [
+      "syntax-dynamic-import"
+    ]
+  };
+  let updatedConfig = upgradeConfig(config);
+  expect(
+    updatedConfig.plugins.filter(
+      plugin => plugin === "@babel/plugin-syntax-dynamic-import"
+    ).length
+  ).toEqual(1);
+});
