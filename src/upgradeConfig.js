@@ -59,16 +59,12 @@ function changePresets(config, options = {}) {
     if (options.hasFlow && !presets.includes('@babel/preset-flow')) {
       presets.push('@babel/preset-flow');
     }
-
-    if (newPlugins.length > 0) {
-      config.plugins = (config.plugins || []);
-    }
   }
   // We return this to prevent duplication in the next step
   return newPlugins;
 }
 
-function changePlugins(config, updatedPlugins) {
+function changePlugins(config, newPlugins) {
   let plugins = config.plugins;
   if (!Array.isArray(plugins) && typeof plugins === 'string') {
     plugins = config.plugins = config.plugins.split(',').map((plugin) => plugin.trim());
@@ -85,7 +81,7 @@ function changePlugins(config, updatedPlugins) {
 
       const name = changeName(isArray ? plugin[0] : plugin, 'plugin');
 
-      let alreadyDuplicated = updatedPlugins.some(plugins =>
+      let alreadyDuplicated = newPlugins.some(plugins =>
         plugins.includes(name)
       );
 
@@ -100,21 +96,21 @@ function changePlugins(config, updatedPlugins) {
       }
     }
   }
-  if (config.plugins) {
-    config.plugins = config.plugins.concat(...updatedPlugins);
+  if (newPlugins.length > 0)  {
+    config.plugins = (config.plugins ||  []).concat(...newPlugins);
   }
 }
 
 module.exports = function upgradeConfig(config, options) {
   config = Object.assign({}, config);
 
-  let updatedPlugins = changePresets(config, options);
-  changePlugins(config, updatedPlugins);
+  let newPlugins = changePresets(config, options);
+  changePlugins(config, newPlugins);
 
   if (config.env) {
-    Object.keys(config.env).forEach((env) => {
-      let updatedPlugins = changePresets(config.env[env]);
-      changePlugins(config.env[env], updatedPlugins);
+    Object.values(config.env).forEach(env => {
+      let newPlugins = changePresets(env);
+      changePlugins(env, newPlugins);
     });
   }
 

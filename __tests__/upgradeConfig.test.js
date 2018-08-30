@@ -124,6 +124,5 @@ test("does not duplicate stage presets", () => {
       "syntax-dynamic-import"
     ]
   };
-  let updatedConfig = upgradeConfig(config);
-  expect(updatedConfig).toMatchSnapshot();
+  expect(upgradeConfig(config)).toMatchSnapshot();
 });
