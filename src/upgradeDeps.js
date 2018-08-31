@@ -85,5 +85,14 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     }
   }
 
+  if (dependencies['jest']) {
+    dependencies['babel-jest'] = '^23.4.2';
+  }
+
+  //https://github.com/babel/babel-upgrade/issues/79
+  if (dependencies['eslint'] && dependencies['babel-eslint']) {
+    dependencies['babel-eslint'] = '^9.0.0';
+  }
+
   return dependencies;
 }

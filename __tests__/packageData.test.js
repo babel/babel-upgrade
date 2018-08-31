@@ -8,6 +8,8 @@ const webpackV1Fixture = require('../fixtures/webpack-v1');
 const depsFixtureEarlierBeta = require('../fixtures/deps-earlier-beta.json');
 const scriptsMochaFixture = require('../fixtures/scripts-mocha');
 const scriptsBabelNodeFixture = require('../fixtures/scripts-babel-node');
+const eslintFixture = require('../fixtures/eslint');
+const babelJestFixture = require('../fixtures/babel-jest.json');
 
 const VERSION = "7.0.0-beta.39";
 
@@ -41,6 +43,14 @@ test('jest-cli babel-core bridge', async () => {
 test('webpack v1 compatibility', async () => {
   expect(await updatePackageJSON(webpackV1Fixture)).toMatchSnapshot();
 });
+
+test('eslint babel-eslint', async () => {
+  expect(await updatePackageJSON(eslintFixture)).toMatchSnapshot();
+});
+
+test('babel-jest', async () => {
+  expect(await updatePackageJSON(babelJestFixture)).toMatchSnapshot();
+})
 
 test('replaces stage presets', () => {
   expect(upgradeDeps({
