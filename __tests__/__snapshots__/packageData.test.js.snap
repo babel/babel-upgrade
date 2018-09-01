@@ -12,6 +12,33 @@ Object {
 }
 `;
 
+exports[`babel-jest 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
+    "jest": "^23.5.0",
+  },
+}
+`;
+
+exports[`eslint babel-eslint 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-eslint": "^9.0.0",
+    "babel-loader": "^8.0.0",
+    "eslint": "^5.4.0",
+  },
+}
+`;
+
 exports[`jest babel-core bridge 1`] = `
 Object {
   "devDependencies": Object {
@@ -19,6 +46,7 @@ Object {
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.0",
     "jest": "22.0.0",
   },
@@ -33,6 +61,7 @@ Object {
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.0",
     "jest-cli": "22.0.0",
   },
