@@ -20,6 +20,19 @@ function changeName(originalName, kind) {
   return originalName;
 }
 
+function flattenPlugins(arr) {
+  let newArr = [];
+  arr && arr.forEach(a => {
+    const secondIsObject = typeof a[1] === 'object'
+  	if (Array.isArray(a) && !secondIsObject) {
+      newArr = newArr.concat(flattenPlugins(a));
+    } else {
+      newArr.splice(newArr.length, 0, a);
+    }
+  });
+  return newArr;
+}
+
 // TODO: fix all of this
 function changePresets(config, options = {}) {
   let presets = config.presets;
@@ -101,6 +114,8 @@ module.exports = function upgradeConfig(config, options) {
 
   changePresets(config, options);
   changePlugins(config);
+
+  if(config.plugins) config.plugins = flattenPlugins(config.plugins)
 
   if (config.env) {
     Object.keys(config.env).forEach((env) => {
