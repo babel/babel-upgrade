@@ -4,6 +4,7 @@ const { packages: oldPackages, latestPackages, stagePresets } = require('./packa
 const otherPackages = {
   'babel-loader': '^8.0.0',
   'rollup-plugin-babel': '^4.0.1',
+  'babel-eslint': '^9.0.0',
 };
 
 module.exports = function upgradeDeps(dependencies, version, options = {}) {
