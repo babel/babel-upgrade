@@ -184,5 +184,6 @@
   "babel-traverse": "6.0.0",
   "babel-types": "6.0.0",
   "babel-loader": "6.0.0",
-  "rollup-plugin-babel": "3.0.3"
+  "rollup-plugin-babel": "3.0.3",
+  "babel-eslint": "8.2.6"
 }
