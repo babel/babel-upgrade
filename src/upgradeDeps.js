@@ -75,6 +75,10 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     dependencies['babel-core'] = '^7.0.0-bridge.0';
   }
 
+  if (dependencies['jest'] || dependencies['jest-cli']) {
+    dependencies['babel-jest'] = '^23.4.2';
+  }
+
   for (let stage = 0; stage <= 3; stage++) {
     if (dependencies[`@babel/preset-stage-${stage}`]) {
       delete dependencies[`@babel/preset-stage-${stage}`];

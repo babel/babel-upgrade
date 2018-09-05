@@ -8,6 +8,7 @@ const webpackV1Fixture = require('../fixtures/webpack-v1');
 const depsFixtureEarlierBeta = require('../fixtures/deps-earlier-beta.json');
 const scriptsMochaFixture = require('../fixtures/scripts-mocha');
 const scriptsBabelNodeFixture = require('../fixtures/scripts-babel-node');
+const babelJestFixture = require('../fixtures/babel-jest');
 
 const VERSION = "7.0.0-beta.39";
 
@@ -46,4 +47,8 @@ test('replaces stage presets', () => {
   expect(upgradeDeps({
     "@babel/preset-stage-2": "7.0.0-alpha.0"
   }, VERSION)).toMatchSnapshot();
+});
+
+test('add babel-jest', async () => {
+  expect(await updatePackageJSON(babelJestFixture)).toMatchSnapshot();
 });
