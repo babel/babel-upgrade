@@ -171,6 +171,12 @@ Object {
         "useBuiltIns": true,
       },
     ],
+    Array [
+      "@babel/plugin-proposal-decorators",
+      Object {
+        "legacy": true,
+      },
+    ],
     "@babel/plugin-proposal-class-properties",
   ],
   "presets": Array [
