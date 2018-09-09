@@ -47,3 +47,9 @@ test('replaces stage presets', () => {
     "@babel/preset-stage-2": "7.0.0-alpha.0"
   }, VERSION)).toMatchSnapshot();
 });
+
+test('replaces transform-decorators-legacy plugin', () => {
+  expect(upgradeDeps({
+    "babel-plugin-transform-decorators-legacy": "1.0.0"
+  }, VERSION)).toMatchSnapshot();
+});
