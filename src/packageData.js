@@ -127,6 +127,7 @@ const proposalPlugins = {
   'babel-plugin-transform-async-generator-functions': '@babel/plugin-proposal-async-generator-functions',
   'babel-plugin-transform-class-properties': '@babel/plugin-proposal-class-properties',
   'babel-plugin-transform-decorators': '@babel/plugin-proposal-decorators',
+  'babel-plugin-transform-decorators-legacy': '@babel/plugin-proposal-decorators',
   'babel-plugin-transform-do-expressions': '@babel/plugin-proposal-do-expressions',
   'babel-plugin-transform-export-default': ['@babel/plugin-proposal-export-default-from', '@babel/plugin-proposal-export-namespace-from'],
   'babel-plugin-transform-export-extensions': ['@babel/plugin-proposal-export-default-from', '@babel/plugin-proposal-export-namespace-from'],

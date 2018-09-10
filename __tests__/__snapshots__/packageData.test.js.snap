@@ -70,6 +70,13 @@ Object {
 }
 `;
 
+exports[`replaces transform-decorators-legacy plugin 1`] = `
+Object {
+  "@babel/core": "7.0.0-beta.39",
+  "@babel/plugin-proposal-decorators": "7.0.0-beta.39",
+}
+`;
+
 exports[`scripts 1`] = `
 Object {
   "name": "mocha-scripts-test",

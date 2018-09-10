@@ -49,6 +49,12 @@ test('replaces stage presets', () => {
   }, VERSION)).toMatchSnapshot();
 });
 
+test('replaces transform-decorators-legacy plugin', () => {
+  expect(upgradeDeps({
+    "babel-plugin-transform-decorators-legacy": "1.0.0"
+  }, VERSION)).toMatchSnapshot();
+});
+
 test('add babel-jest', async () => {
   expect(await updatePackageJSON(babelJestFixture)).toMatchSnapshot();
 });
