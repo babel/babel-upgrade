@@ -49,8 +49,15 @@ async function hasFlow() {
   // TODO: allow passing a specific path
   await writePackageJSON(upgradeOptions);
 
-  if (Commander.install && Commander.write) {
+  if (!Commander.install) return;
+
+  if (Commander.write) {
     console.log('Installing new dependencies');
     await installDeps();
+  } else {
+    console.error(
+      'Run babel-upgrade with --write (or) -w and --install for it to install the newly added dependencies'
+    );
+    process.exit(1);
   }
 })();

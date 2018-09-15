@@ -8,7 +8,6 @@
     "build": "babel src -d lib",
     "start": "npm run build -- -w",
     "test": "jest",
-    "precommit": "npm test",
     "prepublish": "npm test  &&  npm run build"
   },
   "files": [
@@ -47,7 +46,6 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "husky": "^0.14.3",
     "jest": "^22.4.0"
   },
   "jest": {
