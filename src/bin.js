@@ -40,11 +40,10 @@ async function hasFlow() {
       console.log("We suggest using the new 'overrides' option instead of nested .babelrc's, can check out http://new.babeljs.io/docs/en/next/babelrc.html#overrides");
       console.log("");
     }
-
-    for (let path of paths)  writeBabelRC(path, upgradeOptions);
+    paths.forEach(p => writeBabelRC(p, upgradeOptions));
   }
 
-  for (let path of mochaOpts)  writeMochaOpts(path, upgradeOptions);
+  mochaOpts.forEach(p => writeMochaOpts(p, upgradeOptions));
 
   // TODO: allow passing a specific path
   await writePackageJSON(upgradeOptions);
