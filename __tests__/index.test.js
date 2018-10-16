@@ -39,6 +39,19 @@ test('writes when --write is passed', async () => {
 
 });
 
+test('do not downgrade dependencies', async () => {
+
+  let pkg = await updatePackageJSON({
+    dependencies: {
+      'babel-loader': '^9.0.0',
+      'rollup-plugin-babel': '^5.0.1',
+      'babel-eslint': '^10.0.0',
+    }
+  });
+  expect(pkg).toMatchSnapshot();
+
+});
+
 describe('flow preset', () => {
 
   test('adds flow preset if user was using v6 preset-react', async () => {

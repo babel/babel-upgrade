@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`do not downgrade dependencies 1`] = `
+Object {
+  "dependencies": Object {
+    "babel-eslint": "^10.0.0",
+    "babel-loader": "^9.0.0",
+    "rollup-plugin-babel": "^5.0.1",
+  },
+}
+`;
+
 exports[`flow preset adds flow preset if user is upgrading from previous v7 1`] = `
 Object {
   "dependencies": Object {},
