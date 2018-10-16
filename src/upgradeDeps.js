@@ -37,6 +37,7 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
       dependencies[pkg] = version;
     // TODO: refactor out somewhere else
     } else if (
+      otherPackages[pkg] &&
       semver.lt(
         semver.valid(semver.coerce(dependencies[pkg])),
         semver.valid(semver.coerce(otherPackages[pkg]))
