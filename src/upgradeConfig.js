@@ -61,13 +61,13 @@ function changePresets(config, options = {}) {
     }
 
     if (newPlugins.length > 0) {
-      config.plugins = (config.plugins || []).concat(...newPlugins);
     }
   }
 }
 
 function changePlugins(config) {
   let plugins = config.plugins;
+  const uniquePlugins = new Set();
 
   if (!Array.isArray(plugins) && typeof plugins === 'string') {
     plugins = config.plugins = config.plugins.split(',').map((plugin) => plugin.trim());
@@ -83,10 +83,11 @@ function changePlugins(config) {
       const isArray = Array.isArray(plugin);
 
       const name = changeName(isArray ? plugin[0] : plugin, 'plugin');
-      if (name === null) {
+      if (name === null || uniquePlugins.has(name)) {
         plugins.splice(i, 1);
         i--;
       } else {
+        uniquePlugins.add(name);
         if (isArray) plugin[0] = name;
         else plugin = name;
 
