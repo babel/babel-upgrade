@@ -19,7 +19,7 @@ babel-upgrade --write
 
 Without the `--write` (or `-w`) flag, `babel-upgrade` will print a diff without writing any changes.
 
-Optionally, add `--install` as well to run `yarn` or `npm` after writing the upgrade.
+Optionally, add `--install` (or `-i`) as well to run `yarn` or `npm` after writing the upgrade.
 
 ```bash
 npx babel-upgrade --write --install
@@ -222,7 +222,7 @@ npx babel-upgrade --write --install
 - Maybe the version should just reflect the version that it targets?
 
 ## Development
-```sh
-$ npm i
-$ npm start
+```Shell
+npm install
+npm start
 ```

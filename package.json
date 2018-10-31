@@ -7,8 +7,8 @@
   "scripts": {
     "build": "babel src -d lib",
     "start": "npm run build -- -w",
-    "prepublish": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm test  &&  npm run build"
   },
   "files": [
     "lib",
@@ -27,6 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "commander": "^2.18.0",
     "cross-spawn": "^6.0.4",
     "diff": "^3.5.0",
     "globby": "^8.0.1",
