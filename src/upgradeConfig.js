@@ -61,6 +61,7 @@ function changePresets(config, options = {}) {
     }
 
     if (newPlugins.length > 0) {
+      config.plugins = (config.plugins || []).concat(...newPlugins);
     }
   }
 }
