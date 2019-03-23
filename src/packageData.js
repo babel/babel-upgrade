@@ -87,8 +87,6 @@ const syntaxPlugins = {
   'babel-plugin-syntax-do-expressions': '@babel/plugin-syntax-do-expressions',
   'babel-plugin-syntax-dynamic-import': '@babel/plugin-syntax-dynamic-import',
   'babel-plugin-syntax-export-extensions': ['@babel/plugin-syntax-export-default-from', '@babel/plugin-syntax-export-namespace-from'],
-  'babel-plugin-syntax-export-default-from': '@babel/plugin-syntax-export-default-from',
-  'babel-plugin-syntax-export-namespace-from': '@babel/plugin-syntax-export-namespace-from',
   'babel-plugin-syntax-flow': '@babel/plugin-syntax-flow',
   'babel-plugin-syntax-function-bind': '@babel/plugin-syntax-function-bind',
   'babel-plugin-syntax-function-sent': '@babel/plugin-syntax-function-sent',
@@ -127,11 +125,10 @@ const proposalPlugins = {
   'babel-plugin-transform-async-generator-functions': '@babel/plugin-proposal-async-generator-functions',
   'babel-plugin-transform-class-properties': '@babel/plugin-proposal-class-properties',
   'babel-plugin-transform-decorators': '@babel/plugin-proposal-decorators',
+  'babel-plugin-transform-decorators-legacy': '@babel/plugin-proposal-decorators',
   'babel-plugin-transform-do-expressions': '@babel/plugin-proposal-do-expressions',
   'babel-plugin-transform-export-default': ['@babel/plugin-proposal-export-default-from', '@babel/plugin-proposal-export-namespace-from'],
   'babel-plugin-transform-export-extensions': ['@babel/plugin-proposal-export-default-from', '@babel/plugin-proposal-export-namespace-from'],
-  'babel-plugin-transform-export-default-from': '@babel/plugin-proposal-export-default-from',
-  'babel-plugin-transform-export-namespace-from': '@babel/plugin-proposal-export-namespace-from',
   'babel-plugin-transform-function-bind': '@babel/plugin-proposal-function-bind',
   'babel-plugin-transform-function-sent': '@babel/plugin-proposal-function-sent',
   'babel-plugin-transform-function-sent2': '@babel/plugin-proposal-function-sent',
@@ -243,11 +240,44 @@ const packages = Object.assign(
   misc,
 );
 
-const latestPackages = new Set(Object.values(packages));
+const latestPackages = new Set([
+  ...Object.values(packages),
+  "@babel/runtime-corejs2",
+]);
+
+const stagePresets = Object.create(null);
+stagePresets[3] = [
+  "@babel/plugin-syntax-dynamic-import",
+  "@babel/plugin-syntax-import-meta",
+  "@babel/plugin-proposal-class-properties",
+  "@babel/plugin-proposal-json-strings",
+];
+stagePresets[2] = [
+  ...stagePresets[3],
+  ["@babel/plugin-proposal-decorators", { "legacy": true }],
+  "@babel/plugin-proposal-function-sent",
+  "@babel/plugin-proposal-export-namespace-from",
+  "@babel/plugin-proposal-numeric-separator",
+  "@babel/plugin-proposal-throw-expressions",
+];
+stagePresets[1] = [
+  ...stagePresets[2],
+  "@babel/plugin-proposal-export-default-from",
+  "@babel/plugin-proposal-logical-assignment-operators",
+  "@babel/plugin-proposal-optional-chaining",
+  ["@babel/plugin-proposal-pipeline-operator", { "proposal": "minimal" }],
+  "@babel/plugin-proposal-nullish-coalescing-operator",
+  "@babel/plugin-proposal-do-expressions",
+];
+stagePresets[0] = [
+  ...stagePresets[1],
+  "@babel/plugin-proposal-function-bind",
+];
 
 module.exports = {
   packages,
   presets,
   plugins,
   latestPackages,
+  stagePresets,
 };

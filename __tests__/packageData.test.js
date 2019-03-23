@@ -1,6 +1,7 @@
 const { updatePackageJSON } = require('../src/');
 const upgradeDeps = require('../src/upgradeDeps');
 const babelCoreFixture = require('../fixtures/babel-core');
+const avaFixture = require('../fixtures/ava');
 const jestFixture = require('../fixtures/jest');
 const jestCliFixture = require('../fixtures/jest-cli');
 const depsFixture = require('../fixtures/deps');
@@ -8,6 +9,7 @@ const webpackV1Fixture = require('../fixtures/webpack-v1');
 const depsFixtureEarlierBeta = require('../fixtures/deps-earlier-beta.json');
 const scriptsMochaFixture = require('../fixtures/scripts-mocha');
 const scriptsBabelNodeFixture = require('../fixtures/scripts-babel-node');
+const babelJestFixture = require('../fixtures/babel-jest');
 
 const VERSION = "7.0.0-beta.39";
 
@@ -20,42 +22,17 @@ describe('upgradeDeps', () => {
     expect(upgradeDeps(depsFixtureEarlierBeta, VERSION)).toMatchSnapshot();
   });
 
-  test('adds flow preset if user was using v6 preset-react', () => {
+  test('splits runtime into runtime and runtime-corejs2', () => {
     expect(upgradeDeps({
-      "babel-preset-react": "6.0.0"
-    }, VERSION, { hasFlow: true })).toMatchSnapshot();
+      "@babel/runtime": "7.0.0-alpha.0",
+    }, VERSION)).toMatchSnapshot();
   });
 
-  test('does not add flow preset if user was using v6 preset-react but flow not detected', () => {
+  test("doesn't add runtime-corejs2 if it is already there", () => {
     expect(upgradeDeps({
-      "babel-preset-react": "6.0.0"
-    }, VERSION, { hasFlow: false })).toMatchSnapshot();
-  });
-
-  test('adds flow preset if user is upgrading from previous v7', () => {
-    expect(upgradeDeps({
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: true })).toMatchSnapshot();
-  });
-
-  test('does not add flow preset if user is upgrading from previous v7 but flow not detected', () => {
-    expect(upgradeDeps({
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: false })).toMatchSnapshot();
-  });
-
-  test('handles flow preset if user had entry and is upgrading from previous v7', () => {
-    expect(upgradeDeps({
-      "@babel/preset-flow": "7.0.0-alpha.0",
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: true })).toMatchSnapshot();
-  });
-
-  test('handles flow preset if user had entry and is upgrading from previous v7 and flow not detected', () => {
-    expect(upgradeDeps({
-      "@babel/preset-flow": "7.0.0-alpha.0",
-      "@babel/preset-react": "7.0.0-alpha.0",
-    }, VERSION, { hasFlow: false })).toMatchSnapshot();
+      "@babel/runtime": "7.0.0-alpha.0",
+      "@babel/runtime-corejs2": "7.0.0-alpha.0",
+    }, VERSION)).toMatchSnapshot();
   });
 });
 
@@ -78,4 +55,24 @@ test('jest-cli babel-core bridge', async () => {
 
 test('webpack v1 compatibility', async () => {
   expect(await updatePackageJSON(webpackV1Fixture)).toMatchSnapshot();
+});
+
+test('replaces stage presets', () => {
+  expect(upgradeDeps({
+    "@babel/preset-stage-2": "7.0.0-alpha.0"
+  }, VERSION)).toMatchSnapshot();
+});
+
+test('replaces transform-decorators-legacy plugin', () => {
+  expect(upgradeDeps({
+    "babel-plugin-transform-decorators-legacy": "1.0.0"
+  }, VERSION)).toMatchSnapshot();
+});
+
+test('add babel-jest', async () => {
+  expect(await updatePackageJSON(babelJestFixture)).toMatchSnapshot();
+});
+
+test('upgrades packages in ava', async () => {
+  expect(await updatePackageJSON(avaFixture)).toMatchSnapshot();
 });

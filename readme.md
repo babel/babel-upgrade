@@ -1,6 +1,6 @@
 # babel-upgrade
 
-> A tool that tries to automatically update most dependencies, config files, and JavaScript files that require Babel packages directly to [Babel v7](http://new.babeljs.io/docs/en/next/v7-migration.html) (and more in the future).
+> A tool that tries to automatically update most dependencies, config files, and JavaScript files that require Babel packages directly to [Babel 7](http://babeljs.io/docs/en/v7-migration.html) (and more in the future).
 
 ## Usage
 
@@ -19,7 +19,7 @@ babel-upgrade --write
 
 Without the `--write` (or `-w`) flag, `babel-upgrade` will print a diff without writing any changes.
 
-Optionally, add `--install` as well to run `yarn` or `npm` after writing the upgrade.
+Optionally, add `--install` (or `-i`) as well to run `yarn` or `npm` after writing the upgrade.
 
 ```bash
 npx babel-upgrade --write --install
@@ -29,7 +29,7 @@ npx babel-upgrade --write --install
 
 ## Todos
 
-- [x] Works on Node >= 4 (anything lower isn't supported in v7) ([#16](https://github.com/babel/babel-upgrade/pull/16))
+- [x] Works on Node >= 6 (anything lower isn't supported in v7) ([#16](https://github.com/babel/babel-upgrade/pull/16))
 - [x] Run npm/yarn after updating dependencies (use `--install`) ([#18](https://github.com/babel/babel-upgrade/pull/18))
 - [x] Update `package.json`: `dependencies` and `devDependencies` to the "latest supported" version.
   - [x] all package renames
@@ -41,9 +41,9 @@ npx babel-upgrade --write --install
 ```diff
 {
   "devDependencies": {
-+   "@babel/core": "7.0.0-beta.39",
-+   "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
-+   "@babel/preset-env": "7.0.0-beta.39",
++   "@babel/core": "^7.0.0",
++   "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
++   "@babel/preset-env": "^7.0.0",
 +   "babel-loader": "v8.0.0-beta.0"
 -   "babel-loader": "6.0.0",
 -   "babel-plugin-transform-object-rest-spread": "6.0.0",
@@ -68,7 +68,7 @@ npx babel-upgrade --write --install
 
 ```diff
 "devDependencies": {
-  "@babel/core": "7.0.0-beta.39",
+  "@babel/core": "^7.0.0",
 + "babel-core": "7.0.0-bridge.0",
   "jest": "^22.0.0"
 },
@@ -81,8 +81,8 @@ npx babel-upgrade --write --install
 
 ```diff
 "devDependencies": {
-  "@babel/cli": "7.0.0-beta.39",
-+ "@babel/node": "7.0.0-beta.39"
+  "@babel/cli": "^7.0.0",
++ "@babel/node": "^7.0.0"
 },
 "scripts": {
   "start": "babel-node a.js"
@@ -159,15 +159,39 @@ npx babel-upgrade --write --install
 ```diff
 {
 -  "presets": "env, react",
-+  "presets": ["env", "react"],
++  "presets": ["@babel/preset-env", "@babel/preset-react"],
 ```
 
 - [x] handle react + flow preset being split. Read if `.flowconfig` and add it? ([#21](https://github.com/babel/babel-upgrade/pull/21))
 
 ```diff
 {
-  "@babel/preset-react": "7.0.0-beta.39",
-+  "@babel/preset-flow": "7.0.0-beta.39"
+  "@babel/preset-react": "^7.0.0",
++  "@babel/preset-flow": "^7.0.0"
+}
+```
+- [x] Replace Stage presets with individual proposal plugins ([#69](https://github.com/babel/babel-upgrade/pull/69))
+
+```diff
+{
+-  "presets": ["@babel/preset-stage-3"],
++  "presets": [],
++  "plugins": [
++    "@babel/plugin-syntax-dynamic-import",
++    "@babel/plugin-syntax-import-meta",
++    "@babel/plugin-proposal-class-properties",
++    "@babel/plugin-proposal-json-strings"
++  ]
+}
+```
+
+```diff
+{
+-    "@babel/preset-stage-3": "^7.0.0"
++    "@babel/plugin-proposal-class-properties": "^7.0.0",
++    "@babel/plugin-proposal-json-strings": "^7.0.0",
++    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
++    "@babel/plugin-syntax-import-meta": "^7.0.0"
 }
 ```
 
@@ -198,7 +222,7 @@ npx babel-upgrade --write --install
 - Maybe the version should just reflect the version that it targets?
 
 ## Development
-```sh
-$ npm i
-$ npm start
+```Shell
+npm install
+npm start
 ```

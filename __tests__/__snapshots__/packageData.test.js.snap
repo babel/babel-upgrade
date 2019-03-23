@@ -3,23 +3,37 @@
 exports[`@babel/core peerDep 1`] = `
 Object {
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.44",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.44",
-    "@babel/preset-env": "7.0.0-beta.44",
-    "babel-loader": "^8.0.0-beta.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-loader": "^8.0.0",
   },
   "name": "add-@babel/core-peerDep",
+}
+`;
+
+exports[`add babel-jest 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
+    "jest": "^23.5.0",
+  },
 }
 `;
 
 exports[`jest babel-core bridge 1`] = `
 Object {
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.44",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.44",
-    "@babel/preset-env": "7.0.0-beta.44",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-loader": "^8.0.0-beta.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
     "jest": "22.0.0",
   },
   "name": "add-@babel/core-peerDep",
@@ -29,14 +43,37 @@ Object {
 exports[`jest-cli babel-core bridge 1`] = `
 Object {
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.44",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.44",
-    "@babel/preset-env": "7.0.0-beta.44",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-loader": "^8.0.0-beta.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
     "jest-cli": "22.0.0",
   },
   "name": "add-@babel/core-peerDep",
+}
+`;
+
+exports[`replaces stage presets 1`] = `
+Object {
+  "@babel/core": "7.0.0-beta.39",
+  "@babel/plugin-proposal-class-properties": "7.0.0-beta.39",
+  "@babel/plugin-proposal-decorators": "7.0.0-beta.39",
+  "@babel/plugin-proposal-export-namespace-from": "7.0.0-beta.39",
+  "@babel/plugin-proposal-function-sent": "7.0.0-beta.39",
+  "@babel/plugin-proposal-json-strings": "7.0.0-beta.39",
+  "@babel/plugin-proposal-numeric-separator": "7.0.0-beta.39",
+  "@babel/plugin-proposal-throw-expressions": "7.0.0-beta.39",
+  "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.39",
+  "@babel/plugin-syntax-import-meta": "7.0.0-beta.39",
+}
+`;
+
+exports[`replaces transform-decorators-legacy plugin 1`] = `
+Object {
+  "@babel/core": "7.0.0-beta.39",
+  "@babel/plugin-proposal-decorators": "7.0.0-beta.39",
 }
 `;
 
@@ -56,8 +93,8 @@ Object {
 exports[`scripts 2`] = `
 Object {
   "devDependencies": Object {
-    "@babel/cli": "7.0.0-beta.44",
-    "@babel/node": "7.0.0-beta.44",
+    "@babel/cli": "^7.0.0",
+    "@babel/node": "^7.0.0",
   },
   "name": "scripts-babel-node",
   "scripts": Object {
@@ -66,49 +103,15 @@ Object {
 }
 `;
 
-exports[`upgradeDeps adds flow preset if user is upgrading from previous v7 1`] = `
+exports[`upgradeDeps doesn't add runtime-corejs2 if it is already there 1`] = `
 Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
+  "@babel/runtime-corejs2": "7.0.0-beta.39",
 }
 `;
 
-exports[`upgradeDeps adds flow preset if user was using v6 preset-react 1`] = `
+exports[`upgradeDeps splits runtime into runtime and runtime-corejs2 1`] = `
 Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps does not add flow preset if user is upgrading from previous v7 but flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps does not add flow preset if user was using v6 preset-react but flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps handles flow preset if user had entry and is upgrading from previous v7 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps handles flow preset if user had entry and is upgrading from previous v7 and flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
+  "@babel/runtime-corejs2": "7.0.0-beta.39",
 }
 `;
 
@@ -164,6 +167,8 @@ Object {
   "@babel/plugin-proposal-export-namespace-from": "7.0.0-beta.39",
   "@babel/plugin-proposal-function-bind": "7.0.0-beta.39",
   "@babel/plugin-proposal-function-sent": "7.0.0-beta.39",
+  "@babel/plugin-proposal-json-strings": "7.0.0-beta.39",
+  "@babel/plugin-proposal-logical-assignment-operators": "7.0.0-beta.39",
   "@babel/plugin-proposal-nullish-coalescing-operator": "7.0.0-beta.39",
   "@babel/plugin-proposal-numeric-separator": "7.0.0-beta.39",
   "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
@@ -245,28 +250,81 @@ Object {
   "@babel/preset-env-standalone": "7.0.0-beta.39",
   "@babel/preset-flow": "7.0.0-beta.39",
   "@babel/preset-react": "7.0.0-beta.39",
-  "@babel/preset-stage-0": "7.0.0-beta.39",
-  "@babel/preset-stage-1": "7.0.0-beta.39",
-  "@babel/preset-stage-2": "7.0.0-beta.39",
-  "@babel/preset-stage-3": "7.0.0-beta.39",
   "@babel/preset-typescript": "7.0.0-beta.39",
   "@babel/register": "7.0.0-beta.39",
-  "@babel/runtime": "7.0.0-beta.39",
+  "@babel/runtime-corejs2": "7.0.0-beta.39",
   "@babel/standalone": "7.0.0-beta.39",
   "@babel/template": "7.0.0-beta.39",
   "@babel/traverse": "7.0.0-beta.39",
   "@babel/types": "7.0.0-beta.39",
-  "babel-loader": "^8.0.0-beta.0",
-  "rollup-plugin-babel": "^4.0.0-beta.2",
+  "babel-eslint": "^9.0.0",
+  "babel-loader": "^8.0.0",
+  "rollup-plugin-babel": "^4.0.1",
+}
+`;
+
+exports[`upgrades packages in ava 1`] = `
+Object {
+  "ava": Object {
+    "babel": Object {
+      "testOptions": Object {
+        "babelrc": false,
+        "plugins": Array [
+          "@babel/plugin-syntax-jsx",
+          "@babel/plugin-proposal-object-rest-spread",
+          "@babel/plugin-syntax-dynamic-import",
+          "@babel/plugin-syntax-import-meta",
+          "@babel/plugin-proposal-class-properties",
+          "@babel/plugin-proposal-json-strings",
+          Array [
+            "@babel/plugin-proposal-decorators",
+            Object {
+              "legacy": true,
+            },
+          ],
+          "@babel/plugin-proposal-function-sent",
+          "@babel/plugin-proposal-export-namespace-from",
+          "@babel/plugin-proposal-numeric-separator",
+          "@babel/plugin-proposal-throw-expressions",
+          "@babel/plugin-proposal-export-default-from",
+          "@babel/plugin-proposal-logical-assignment-operators",
+          "@babel/plugin-proposal-optional-chaining",
+          Array [
+            "@babel/plugin-proposal-pipeline-operator",
+            Object {
+              "proposal": "minimal",
+            },
+          ],
+          "@babel/plugin-proposal-nullish-coalescing-operator",
+          "@babel/plugin-proposal-do-expressions",
+          "@babel/plugin-proposal-function-bind",
+        ],
+        "presets": Array [
+          "@babel/preset-env",
+          "@babel/preset-react",
+          "@ava/transform-test-files",
+          Array [
+            "module:ava/stage-4",
+            false,
+          ],
+        ],
+      },
+    },
+    "require": Array [
+      "@babel/polyfill",
+      "@babel/register",
+    ],
+  },
+  "name": "upgrade-packages-in-ava",
 }
 `;
 
 exports[`webpack v1 compatibility 1`] = `
 Object {
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.44",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.44",
-    "@babel/preset-env": "7.0.0-beta.44",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "7.1.1",
     "webpack": "^1.15.0",

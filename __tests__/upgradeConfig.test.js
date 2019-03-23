@@ -2,12 +2,23 @@ const path = require('path');
 const upgradeConfig = require('../src/upgradeConfig');
 const babelrcFixture = require('../fixtures/babelrc');
 const optionParsingFixture = require('../fixtures/option-parsing');
+const dupesProspectFixture = require('../fixtures/dupes-prospect');
 const { readBabelRC } = require('../src');
 const JSON5_PATH = path.resolve(__dirname, '../fixtures/babelrc.json5');
 
 test('packages', () => {
   expect(upgradeConfig(babelrcFixture)).toMatchSnapshot();
 });
+
+test('new plugins with array', () => {
+  expect(upgradeConfig({
+    plugins: [
+      'babel-plugin-syntax-async-generators',
+      'babel-plugin-syntax-export-extensions',
+      ["babel-plugin-transform-es2015-arrow-functions", { "spec": true }]
+    ]
+  })).toMatchSnapshot();
+})
 
 test('package that is removed', () => {
   expect(upgradeConfig({
@@ -89,12 +100,44 @@ test("adds legacy option to decorators", () => {
       "transform-decorators",
       "@babel/plugin-syntax-decorators"
     ],
+  };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("adds proposal option to pipeline", () => {
+  const config = {
+    "plugins": [
+      "transform-pipeline-operator",
+      "@babel/plugin-syntax-pipeline-operator"
+    ],
+  };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("replaces stage presets", () => {
+  const config = {
     "presets": [
-      "@babel/preset-stage-0",
-      "babel-preset-stage-1",
-      "stage-2"
+      "stage-1"
     ]
   };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("prevent dupe plugins", () => {
+  expect(upgradeConfig(dupesProspectFixture)).toMatchSnapshot();
+});
+
+test("adds corejs to babel 6 transform-runtime", () => {
+  const config = { "plugins": ["transform-runtime"] };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("doesn't add corejs to babel 7 transform-runtime", () => {
+  const config = { "plugins": ["@babel/transform-runtime"] };
 
   expect(upgradeConfig(config)).toMatchSnapshot();
 });
