@@ -4,6 +4,8 @@
 
 ## Usage
 
+**Requires nodejs 8 or newer**
+
 Run at the root of your git repo:
 
 > If using npm < v5.2.0, install [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) globally.
