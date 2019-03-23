@@ -9,8 +9,8 @@ const semver = require('semver');
 const writeFile = require('write');
 const crossSpawn = require('cross-spawn');
 const hasYarn = require('has-yarn');
-
 const { packages } = require('./packageData');
+const diff = require('diff');
 const upgradeDeps = require('./upgradeDeps');
 const upgradeConfig = require('./upgradeConfig');
 
@@ -19,7 +19,7 @@ function isAcceptedNodeVersion() {
 }
 
 function getLatestVersion() {
-  return "7.0.0-beta.40";
+  return "^7.0.0";
 }
 
 function replaceMocha(str) {
@@ -37,7 +37,7 @@ function upgradeScripts(scripts) {
   return scripts;
 }
 
-async function updatePackageJSON(pkg, options) {
+async function updatePackageJSON(pkg, options = {}) {
   if (process.env.NODE_ENV !== 'test') {
     console.log("Updating closest package.json dependencies");
   }
@@ -57,13 +57,18 @@ async function updatePackageJSON(pkg, options) {
     }
   }
 
-
   if (pkg.devDependencies) {
     pkg.devDependencies = sortKeys(upgradeDeps(
       pkg.devDependencies,
       getLatestVersion(),
       options,
     ));
+
+    // Adds preset-flow if needed, especially since it was split out of
+    // preset-react
+    if (options.hasFlow && !pkg.devDependencies['@babel/preset-flow']) {
+      pkg.devDependencies['@babel/preset-flow'] = getLatestVersion();
+    }
   }
 
   if (pkg.dependencies) {
@@ -88,17 +93,37 @@ async function updatePackageJSON(pkg, options) {
   return pkg;
 }
 
+function prettyPrint(json) {
+  return JSON.stringify(json, null, 2);
+}
+
+function showPatch(filename, before, after) {
+  console.log(
+    diff.createPatch(
+      filename,
+      before,
+      after,
+      "Before Upgrade",
+      "After Upgrade"
+    )
+  );
+  console.log("");
+}
+
 async function writePackageJSON(options) {
   let { pkg, path } = await readPkgUp({ normalize: false });
-
+  let oldPkg = prettyPrint(pkg);
   pkg = await updatePackageJSON(pkg, options);
 
   if (pkg.babel) {
     console.log("Updating package.json 'babel' config");
     pkg.babel = upgradeConfig(pkg.babel, options);
   }
+  showPatch(path, oldPkg, prettyPrint(pkg));
 
-  await writeJsonFile(path, pkg, { detectIndent: true });
+  if (options.write) {
+    await writeJsonFile(path, pkg, { detectIndent: true });
+  }
 }
 
 async function installDeps() {
@@ -121,18 +146,27 @@ async function writeBabelRC(configPath, options) {
 
   try {
     json = await readBabelRC(configPath);
-  } catch (e) {}
+  } catch (e) { }
 
   if (json) {
     console.log(`Updating .babelrc config at ${configPath}`);
+    let oldJson = prettyPrint(json);
     json = upgradeConfig(json, options);
-    await writeJsonFile(configPath, json, { detectIndent: true });
+    showPatch(configPath, oldJson, prettyPrint(json));
+
+    if (options.write) {
+      await writeJsonFile(configPath, json, { detectIndent: true });
+    };
   }
 }
 
-async function writeMochaOpts(configPath) {
+async function writeMochaOpts(configPath, options) {
   let rawFile = (await pify(fs.readFile)(configPath)).toString('utf8');
-  await writeFile(configPath, replaceMocha(rawFile));
+  showPatch(configPath, rawFile, replaceMocha(rawFile));
+
+  if (options.write) {
+    await writeFile(configPath, replaceMocha(rawFile));
+  }
 }
 
 module.exports = {

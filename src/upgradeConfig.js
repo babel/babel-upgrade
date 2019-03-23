@@ -1,8 +1,29 @@
-const { presets: oldPresets, plugins: oldPlugins } = require('./packageData');
+const { presets: oldPresets, plugins: oldPlugins, stagePresets } = require('./packageData');
+const upgradeOptions = require('./upgradeOptions');
+
+function changeName(originalName, kind) {
+  const oldNames = kind === 'plugin' ? oldPlugins : oldPresets;
+  let name = originalName;
+
+  if (name.indexOf(`babel-${kind}`) !== 0 && name.indexOf('@babel/') !== 0 && name.indexOf('module:ava') !== 0) {
+    name = `babel-${kind}-${name}`;
+  }
+
+  if (oldNames.hasOwnProperty(name)) {
+    if (oldNames[name]) {
+      return oldNames[name];
+    } else {
+      return null;
+    }
+  }
+
+  return originalName;
+}
 
 // TODO: fix all of this
 function changePresets(config, options = {}) {
   let presets = config.presets;
+  const newPlugins = [];
 
   if (!Array.isArray(presets) && typeof presets === 'string') {
     presets = config.presets = config.presets.split(',').map((preset) => preset.trim());
@@ -16,49 +37,38 @@ function changePresets(config, options = {}) {
       const presetsToReplace = Object.keys(oldPresets);
 
       // check if it's a preset with options (an array)
-      if (Array.isArray(preset)) {
-        if (
-          !preset[0].includes('babel-preset') &&
-          !preset[0].includes('@babel/') &&
-          !preset[0].includes('module:ava')
-        ) {
-          preset[0] = `babel-preset-${preset[0]}`;
-        }
-        if (presetsToReplace.includes(preset[0])) {
-          if (oldPresets[preset[0]]) {
-            preset[0] = oldPresets[preset[0]];
-          } else {
-            presets.splice(i, 1);
-            i--;
-          }
+      const isArray = Array.isArray(preset);
+
+      const name = changeName(isArray ? preset[0] : preset, 'preset');
+      if (name === null || name.startsWith('@babel/preset-stage-')) {
+        presets.splice(i, 1);
+        i--;
+
+        if (name !== null) {
+          const stage = name.slice(-1);
+          newPlugins.push(stagePresets[stage]);
         }
       } else {
-        if (
-          !preset.includes('babel-preset') &&
-          !preset.includes('@babel/') &&
-          !preset[0].includes('module:ava')
-        ) {
-          preset = `babel-preset-${preset}`;
-        }
-        if (presetsToReplace.includes(preset)) {
-          if (oldPresets[preset]) {
-            presets[i] = oldPresets[preset];
-          } else {
-            presets.splice(i, 1);
-            i--;
-          }
-        }
+        if (isArray) preset[0] = name;
+        else preset = name;
+
+        presets[i] = upgradeOptions(preset);
       }
     }
 
     if (options.hasFlow && !presets.includes('@babel/preset-flow')) {
       presets.push('@babel/preset-flow');
     }
+
+    if (newPlugins.length > 0) {
+      config.plugins = (config.plugins || []).concat(...newPlugins);
+    }
   }
 }
 
 function changePlugins(config) {
   let plugins = config.plugins;
+  const uniquePlugins = new Set();
 
   if (!Array.isArray(plugins) && typeof plugins === 'string') {
     plugins = config.plugins = config.plugins.split(',').map((plugin) => plugin.trim());
@@ -69,34 +79,24 @@ function changePlugins(config) {
     // assume it's an array
     for (let i = 0; i < plugins.length; i++) {
       let plugin = plugins[i];
-      const pluginsToReplace = Object.keys(oldPlugins);
 
       // check if it's a plugin with options (an array)
-      if (Array.isArray(plugin)) {
+      const isArray = Array.isArray(plugin);
 
-        if (!plugin[0].includes('babel-plugin') && !plugin[0].includes('@babel/')) {
-          plugin[0] = `babel-plugin-${plugin[0]}`;
-        }
-
-        if (pluginsToReplace.includes(plugin[0])) {
-          if (oldPlugins[plugin[0]]) {
-            plugin[0] = oldPlugins[plugin[0]];
-          } else {
-            plugins.splice(i, 1);
-            i--;
-          }
-        }
+      const name = changeName(isArray ? plugin[0] : plugin, 'plugin');
+      if (name === null || uniquePlugins.has(name)) {
+        plugins.splice(i, 1);
+        i--;
       } else {
-        if (!plugin.includes('babel-plugin') && !plugin.includes('@babel/')) {
-          plugin = `babel-plugin-${plugin}`;
-        }
-        if (pluginsToReplace.includes(plugin)) {
-          if (oldPlugins[plugin]) {
-            plugins[i] = oldPlugins[plugin];
-          } else {
-            plugins.splice(i, 1);
-            i--;
-          }
+        const names = Array.isArray(name) ? name : [name];
+        for (let j = 0; j < names.length; j++) {
+          uniquePlugins.add(name);
+          const n = names[j];
+          if (isArray) plugin = [n, plugin[1]];
+          else plugin = n;
+
+          if (j > 0) plugins.splice(i + 1, 0, upgradeOptions(plugin))
+          else plugins[i] = upgradeOptions(plugin);
         }
       }
     }

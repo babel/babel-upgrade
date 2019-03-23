@@ -1,13 +1,10 @@
 before_install:
   - npm i -g npm@^5.7.0
-git:
-  depth: 10
-sudo: false
 language: node_js
 node_js:
+  - '11'
+  - '10'
   - '8'
-  - '6'
-  - '4'
 
 install:
   - npm ci
@@ -16,7 +13,3 @@ install:
 cache:
   directories:
   - "$HOME/.npm"
-
-branches:
-  except:
-    - /^v\d+\.\d+\.\d+$/

@@ -1,0 +1,57 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "useBuiltIns": "usage",
+        "targets": {
+          "browsers": ["> 0.25%"]
+        },
+        "modules": false,
+        "loose": true
+      }
+    ],
+    "stage-1",
+    "react",
+    "flow"
+  ],
+
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-react-display-name",
+    "transform-class-properties",
+    ["import", { "libraryName": "antd", "style": "css" }]
+  ],
+
+  "env": {
+    "production": {
+      "plugins": ["transform-react-remove-prop-types"]
+    },
+    "development": {
+      "plugins": ["react-hot-loader/babel"]
+    },
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "useBuiltIns": "usage",
+            "targets": {
+              "browsers": ["> 0.25%"]
+            },
+            "modules": false,
+            "loose": true
+          }
+        ],
+        "react"
+      ],
+      "plugins": [
+        "transform-runtime",
+        "transform-decorators-legacy",
+        "transform-react-display-name",
+        "transform-class-properties",
+        ["import", { "libraryName": "antd", "style": "css" }]
+      ]
+    }
+  }
+}

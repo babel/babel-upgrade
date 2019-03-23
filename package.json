@@ -1,14 +1,17 @@
 {
   "name": "babel-upgrade",
-  "version": "0.0.15",
+  "version": "0.0.24",
   "description": "Upgrade tool for Babel",
   "bin": "./bin/babel-upgrade",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib",
     "start": "npm run build -- -w",
-    "prepublish": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "npm test  &&  npm run build"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   },
   "files": [
     "lib",
@@ -26,28 +29,31 @@
   "repository": "babel/babel-upgrade",
   "license": "MIT",
   "dependencies": {
-    "@babel/polyfill": "7.0.0-beta.40",
+    "@babel/polyfill": "^7.0.0",
+    "commander": "^2.18.0",
     "cross-spawn": "^6.0.4",
-    "globby": "^8.0.1",
-    "has-yarn": "^1.0.0",
-    "json5": "^0.5.1",
-    "pify": "^3.0.0",
-    "read-pkg-up": "^3.0.0",
+    "diff": "^4.0.1",
+    "globby": "^9.1.0",
+    "has-yarn": "^2.0.0",
+    "json5": "^2.1.0",
+    "pify": "^4.0.1",
+    "read-pkg-up": "^5.0.0",
     "semver": "^5.5.0",
     "sort-keys": "^2.0.0",
     "write": "^1.0.3",
-    "write-json-file": "^2.3.0",
+    "write-json-file": "^3.1.0",
     "write-pkg": "^3.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.0.0-beta.40",
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/preset-env": "7.0.0-beta.40",
-    "babel-core": "^7.0.0-bridge.0",
-    "jest": "^22.4.0"
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "jest": "^24.5.0"
   },
   "jest": {
     "testEnvironment": "node",
-    "setupTestFrameworkScriptFile": "<rootDir>/node_modules/@babel/polyfill/dist/polyfill.js"
+    "setupFilesAfterEnv": [
+      "<rootDir>/node_modules/@babel/polyfill/dist/polyfill.js"
+    ]
   }
 }

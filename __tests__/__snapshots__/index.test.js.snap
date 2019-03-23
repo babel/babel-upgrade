@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`do not downgrade dependencies 1`] = `
+Object {
+  "dependencies": Object {
+    "babel-eslint": "^10.0.0",
+    "babel-loader": "^9.0.0",
+    "rollup-plugin-babel": "^5.0.1",
+  },
+}
+`;
+
+exports[`flow preset adds flow preset if user is upgrading from previous v7 1`] = `
+Object {
+  "dependencies": Object {},
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+  },
+}
+`;
+
+exports[`flow preset adds flow preset if user was using v6 preset-react 1`] = `
+Object {
+  "dependencies": Object {},
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+  },
+}
+`;
+
+exports[`flow preset does not add flow preset if user is upgrading from previous v7 but flow not detected 1`] = `
+Object {
+  "dependencies": Object {},
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+  },
+}
+`;
+
+exports[`flow preset does not add flow preset if user was using v6 preset-react but flow not detected 1`] = `
+Object {
+  "dependencies": Object {},
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+  },
+}
+`;
+
+exports[`flow preset handles flow preset if user had entry and is upgrading from previous v7 1`] = `
+Object {
+  "dependencies": Object {},
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+  },
+}
+`;
+
+exports[`flow preset handles flow preset if user had entry and is upgrading from previous v7 and flow not detected 1`] = `
+Object {
+  "dependencies": Object {},
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+  },
+}
+`;

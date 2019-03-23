@@ -3,26 +3,77 @@
 exports[`@babel/core peerDep 1`] = `
 Object {
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.40",
-    "@babel/preset-env": "7.0.0-beta.40",
-    "babel-loader": "^8.0.0-beta.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-loader": "^8.0.0",
   },
   "name": "add-@babel/core-peerDep",
+}
+`;
+
+exports[`add babel-jest 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
+    "jest": "^23.5.0",
+  },
 }
 `;
 
 exports[`jest babel-core bridge 1`] = `
 Object {
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.40",
-    "@babel/preset-env": "7.0.0-beta.40",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-loader": "^8.0.0-beta.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
     "jest": "22.0.0",
   },
   "name": "add-@babel/core-peerDep",
+}
+`;
+
+exports[`jest-cli babel-core bridge 1`] = `
+Object {
+  "devDependencies": Object {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.0",
+    "jest-cli": "22.0.0",
+  },
+  "name": "add-@babel/core-peerDep",
+}
+`;
+
+exports[`replaces stage presets 1`] = `
+Object {
+  "@babel/core": "7.0.0-beta.39",
+  "@babel/plugin-proposal-class-properties": "7.0.0-beta.39",
+  "@babel/plugin-proposal-decorators": "7.0.0-beta.39",
+  "@babel/plugin-proposal-export-namespace-from": "7.0.0-beta.39",
+  "@babel/plugin-proposal-function-sent": "7.0.0-beta.39",
+  "@babel/plugin-proposal-json-strings": "7.0.0-beta.39",
+  "@babel/plugin-proposal-numeric-separator": "7.0.0-beta.39",
+  "@babel/plugin-proposal-throw-expressions": "7.0.0-beta.39",
+  "@babel/plugin-syntax-dynamic-import": "7.0.0-beta.39",
+  "@babel/plugin-syntax-import-meta": "7.0.0-beta.39",
+}
+`;
+
+exports[`replaces transform-decorators-legacy plugin 1`] = `
+Object {
+  "@babel/core": "7.0.0-beta.39",
+  "@babel/plugin-proposal-decorators": "7.0.0-beta.39",
 }
 `;
 
@@ -42,59 +93,13 @@ Object {
 exports[`scripts 2`] = `
 Object {
   "devDependencies": Object {
-    "@babel/cli": "7.0.0-beta.40",
-    "@babel/node": "7.0.0-beta.40",
+    "@babel/cli": "^7.0.0",
+    "@babel/node": "^7.0.0",
   },
   "name": "scripts-babel-node",
   "scripts": Object {
     "test": "babel-node",
   },
-}
-`;
-
-exports[`upgradeDeps adds flow preset if user is upgrading from previous v7 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps adds flow preset if user was using v6 preset-react 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps does not add flow preset if user is upgrading from previous v7 but flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps does not add flow preset if user was using v6 preset-react but flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps handles flow preset if user had entry and is upgrading from previous v7 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
-}
-`;
-
-exports[`upgradeDeps handles flow preset if user had entry and is upgrading from previous v7 and flow not detected 1`] = `
-Object {
-  "@babel/core": "7.0.0-beta.39",
-  "@babel/preset-flow": "7.0.0-beta.39",
-  "@babel/preset-react": "7.0.0-beta.39",
 }
 `;
 
@@ -150,6 +155,8 @@ Object {
   "@babel/plugin-proposal-export-namespace-from": "7.0.0-beta.39",
   "@babel/plugin-proposal-function-bind": "7.0.0-beta.39",
   "@babel/plugin-proposal-function-sent": "7.0.0-beta.39",
+  "@babel/plugin-proposal-json-strings": "7.0.0-beta.39",
+  "@babel/plugin-proposal-logical-assignment-operators": "7.0.0-beta.39",
   "@babel/plugin-proposal-nullish-coalescing-operator": "7.0.0-beta.39",
   "@babel/plugin-proposal-numeric-separator": "7.0.0-beta.39",
   "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.39",
@@ -231,10 +238,6 @@ Object {
   "@babel/preset-env-standalone": "7.0.0-beta.39",
   "@babel/preset-flow": "7.0.0-beta.39",
   "@babel/preset-react": "7.0.0-beta.39",
-  "@babel/preset-stage-0": "7.0.0-beta.39",
-  "@babel/preset-stage-1": "7.0.0-beta.39",
-  "@babel/preset-stage-2": "7.0.0-beta.39",
-  "@babel/preset-stage-3": "7.0.0-beta.39",
   "@babel/preset-typescript": "7.0.0-beta.39",
   "@babel/register": "7.0.0-beta.39",
   "@babel/runtime": "7.0.0-beta.39",
@@ -242,8 +245,9 @@ Object {
   "@babel/template": "7.0.0-beta.39",
   "@babel/traverse": "7.0.0-beta.39",
   "@babel/types": "7.0.0-beta.39",
-  "babel-loader": "^8.0.0-beta.0",
-  "rollup-plugin-babel": "^4.0.0-beta.2",
+  "babel-eslint": "^9.0.0",
+  "babel-loader": "^8.0.0",
+  "rollup-plugin-babel": "^4.0.1",
 }
 `;
 
@@ -282,9 +286,9 @@ Object {
 exports[`webpack v1 compatibility 1`] = `
 Object {
   "devDependencies": Object {
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/plugin-proposal-object-rest-spread": "7.0.0-beta.40",
-    "@babel/preset-env": "7.0.0-beta.40",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "7.1.1",
     "webpack": "^1.15.0",

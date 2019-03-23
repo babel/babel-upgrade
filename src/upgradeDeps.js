@@ -1,9 +1,10 @@
 const semver = require('semver');
-const { packages: oldPackages, latestPackages } = require('./packageData');
+const { packages: oldPackages, latestPackages, stagePresets } = require('./packageData');
 
 const otherPackages = {
-  'babel-loader': '^8.0.0-beta.0',
-  'rollup-plugin-babel': '^4.0.0-beta.2',
+  'babel-loader': '^8.0.0',
+  'rollup-plugin-babel': '^4.0.1',
+  'babel-eslint': '^9.0.0',
 };
 
 module.exports = function upgradeDeps(dependencies, version, options = {}) {
@@ -22,9 +23,7 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
           console.warn(`Updating ${pkg} -> ${newPackageName}`);
         }
         if (Array.isArray(newPackageName)) {
-          for (name of newPackageName) {
-            dependencies[name] = version;
-          }
+          newPackageName.forEach(name => dependencies[name] = version);
         } else {
           dependencies[newPackageName] = version;
         }
@@ -32,12 +31,18 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     } else if (
       latestPackages.has(pkg) &&
       semver.valid(depVersion) &&
-      semver.valid(version) &&
-      semver.lt(depVersion, version)
+      semver.validRange(version) &&
+      !semver.satisfies(depVersion, version)
     ) {
       dependencies[pkg] = version;
     // TODO: refactor out somewhere else
-    } else if (otherPackages[pkg]) {
+    } else if (
+      otherPackages[pkg] &&
+      semver.lt(
+        semver.valid(semver.coerce(dependencies[pkg])),
+        semver.valid(semver.coerce(otherPackages[pkg]))
+      )
+    ) {
       dependencies[pkg] = otherPackages[pkg];
     }
   }
@@ -57,12 +62,6 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   const webpack = semver.coerce(dependencies.webpack);
   const depsWebpack1 = webpack && webpack.major === 1;
 
-  // Adds preset-flow if needed, especially since it was split out of
-  // preset-react
-  if (options.hasFlow && !dependencies['@babel/preset-flow']) {
-    dependencies['@babel/preset-flow'] = version;
-  }
-
   // Later versions of babel-loader are incompatible with Webpack v1.
   // https://github.com/babel/babel-loader/issues/505
   if (depsWebpack1 && dependencies['babel-loader']) {
@@ -77,10 +76,24 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   // https://github.com/babel/babel-upgrade/issues/29
   // https://github.com/babel/babel-loader/issues/505
   if (
-    (dependencies['jest'] || (depsWebpack1 && dependencies['babel-loader'])) &&
+    (dependencies['jest'] || dependencies['jest-cli'] || (depsWebpack1 && dependencies['babel-loader'])) &&
     !dependencies['babel-core']
   ) {
     dependencies['babel-core'] = '^7.0.0-bridge.0';
+  }
+
+  if (dependencies['jest'] || dependencies['jest-cli']) {
+    dependencies['babel-jest'] = '^23.4.2';
+  }
+
+  for (let stage = 0; stage <= 3; stage++) {
+    if (dependencies[`@babel/preset-stage-${stage}`]) {
+      delete dependencies[`@babel/preset-stage-${stage}`];
+      for (const plugin of stagePresets[stage]) {
+        const name = typeof plugin === "string" ? plugin : plugin[0];
+        dependencies[name] = version;
+      }
+    }
   }
 
   return dependencies;
