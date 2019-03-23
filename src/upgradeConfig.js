@@ -66,7 +66,7 @@ function changePresets(config, options = {}) {
   }
 }
 
-function changePlugins(config) {
+function changePlugins(config, options = {}) {
   let plugins = config.plugins;
   const uniquePlugins = new Set();
 
@@ -82,20 +82,57 @@ function changePlugins(config) {
 
       // check if it's a plugin with options (an array)
       const isArray = Array.isArray(plugin);
+      const oldName = isArray ? plugin[0] : plugin;
 
-      const name = changeName(isArray ? plugin[0] : plugin, 'plugin');
-      if (name === null || uniquePlugins.has(name)) {
+      const name = changeName(oldName, 'plugin');
+
+      if (name === null) {
         plugins.splice(i, 1);
         i--;
       } else {
         const names = Array.isArray(name) ? name : [name];
         for (let j = 0; j < names.length; j++) {
-          uniquePlugins.add(name);
           const n = names[j];
-          if (isArray) plugin = [n, plugin[1]];
-          else plugin = n;
+          if (uniquePlugins.has(n)) {
+            if (j === 0) {
+              plugins.splice(i, 1);
+              i--;
+            }
+            continue;
+          }
+          uniquePlugins.add(n);
 
-          if (j > 0) plugins.splice(i + 1, 0, upgradeOptions(plugin))
+          const shouldAddCoreJS = oldName === "babel-plugin-transform-runtime" || oldName === "transform-runtime";
+          if (
+            oldName === "@babel/plugin-transform-runtime" ||
+            oldName === "@babel/transform-runtime"
+          ) {
+            // 7.0.0-alpha.5 <= x <= 7.0.0-beta.55
+            console.warn(
+              "Babel was not able to dedice whether or not to add a "
+              + "`corejs: 2` option to @babel/plugin-transform-rumtime. "
+              + "If you want it to handle builtin functions (e.g. Promise, "
+              + "Array.prototype.includes, ...), add that option manually:\n"
+              + "\t[\"@babel/plugin-transform-runtime\", { \"corejs\": 2 }]\n"
+            );
+          }
+
+          if (shouldAddCoreJS) {
+            if (isArray) {
+              plugin[0] = n;
+              plugin[1] = Object.assign({ corejs: 2 }, plugin[1]);
+            } else {
+              plugin = [n, { corejs: 2 }];
+            }
+          } else {
+            if (isArray) plugin = [n, plugin[1]];
+            else plugin = n;
+          }
+
+          if (j > 0) {
+            plugins.splice(i + 1, 0, upgradeOptions(plugin));
+            i++;
+          }
           else plugins[i] = upgradeOptions(plugin);
         }
       }
@@ -107,12 +144,12 @@ module.exports = function upgradeConfig(config, options) {
   config = Object.assign({}, config);
 
   changePresets(config, options);
-  changePlugins(config);
+  changePlugins(config, options);
 
   if (config.env) {
     Object.keys(config.env).forEach((env) => {
       changePresets(config.env[env]);
-      changePlugins(config.env[env]);
+      changePlugins(config.env[env], options);
     });
   }
 

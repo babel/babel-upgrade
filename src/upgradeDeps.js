@@ -7,9 +7,18 @@ const otherPackages = {
   'babel-eslint': '^9.0.0',
 };
 
+const runtimeVersionsWithCoreJS = "<= 7.0.0-beta.55";
+
 module.exports = function upgradeDeps(dependencies, version, options = {}) {
+  let oldRuntimeVersion;
+
   for (const pkg of Object.keys(dependencies)) {
     const depVersion = dependencies[pkg];
+
+    if (pkg === "babel-runtime" || pkg === "@babel/runtime") {
+      oldRuntimeVersion = depVersion;
+    }
+
     if (Object.keys(oldPackages).includes(pkg)) {
       // don't update `babel-core` bridge
       if (dependencies[pkg].includes("7.0.0-bridge.0")) {
@@ -94,6 +103,14 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
         dependencies[name] = version;
       }
     }
+  }
+
+  if (
+    oldRuntimeVersion &&
+    semver.intersects(runtimeVersionsWithCoreJS, oldRuntimeVersion)
+  ) {
+    delete dependencies['@babel/runtime'];
+    dependencies['@babel/runtime-corejs2'] = version;
   }
 
   return dependencies;

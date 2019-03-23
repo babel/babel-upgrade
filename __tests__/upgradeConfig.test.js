@@ -129,3 +129,15 @@ test("replaces stage presets", () => {
 test("prevent dupe plugins", () => {
   expect(upgradeConfig(dupesProspectFixture)).toMatchSnapshot();
 });
+
+test("adds corejs to babel 6 transform-runtime", () => {
+  const config = { "plugins": ["transform-runtime"] };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("doesn't add corejs to babel 7 transform-runtime", () => {
+  const config = { "plugins": ["@babel/transform-runtime"] };
+
+  expect(upgradeConfig(config)).toMatchSnapshot();
+});

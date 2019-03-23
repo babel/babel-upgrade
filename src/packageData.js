@@ -240,7 +240,10 @@ const packages = Object.assign(
   misc,
 );
 
-const latestPackages = new Set(Object.values(packages));
+const latestPackages = new Set([
+  ...Object.values(packages),
+  "@babel/runtime-corejs2",
+]);
 
 const stagePresets = Object.create(null);
 stagePresets[3] = [
