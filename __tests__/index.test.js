@@ -7,6 +7,19 @@ jest.mock('write', () => jest.fn().mockResolvedValue({}));
 const writeJsonFile = require('write-json-file');
 const writeFile = require('write');
 
+let logSpy;
+let warnSpy;
+
+beforeAll(() => {
+  logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+  warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+});
+
+afterAll(() => {
+  logSpy.mockReset();
+  warnSpy.mockReset();
+});
+
 test('does not write when --write is not passed', async () => {
 
   await writePackageJSON({ write: false });
