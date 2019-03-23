@@ -244,7 +244,12 @@ Object {
     },
     "test": Object {
       "plugins": Array [
-        "@babel/plugin-transform-runtime",
+        Array [
+          "@babel/plugin-transform-runtime",
+          Object {
+            "corejs": 2,
+          },
+        ],
         Array [
           "@babel/plugin-proposal-decorators",
           Object {
