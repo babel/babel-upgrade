@@ -2,12 +2,23 @@ const path = require('path');
 const upgradeConfig = require('../src/upgradeConfig');
 const babelrcFixture = require('../fixtures/babelrc');
 const optionParsingFixture = require('../fixtures/option-parsing');
+const dupesProspectFixture = require('../fixtures/dupes-prospect');
 const { readBabelRC } = require('../src');
 const JSON5_PATH = path.resolve(__dirname, '../fixtures/babelrc.json5');
 
 test('packages', () => {
   expect(upgradeConfig(babelrcFixture)).toMatchSnapshot();
 });
+
+test('new plugins with array', () => {
+  expect(upgradeConfig({
+    plugins: [
+      'babel-plugin-syntax-async-generators',
+      'babel-plugin-syntax-export-extensions',
+      ["babel-plugin-transform-es2015-arrow-functions", { "spec": true }]
+    ]
+  })).toMatchSnapshot();
+})
 
 test('package that is removed', () => {
   expect(upgradeConfig({
@@ -113,6 +124,10 @@ test("replaces stage presets", () => {
   };
 
   expect(upgradeConfig(config)).toMatchSnapshot();
+});
+
+test("prevent dupe plugins", () => {
+  expect(upgradeConfig(dupesProspectFixture)).toMatchSnapshot();
 });
 
 test("adds corejs to babel 6 transform-runtime", () => {

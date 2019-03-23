@@ -68,6 +68,7 @@ function changePresets(config, options = {}) {
 
 function changePlugins(config, options = {}) {
   let plugins = config.plugins;
+  const uniquePlugins = new Set();
 
   if (!Array.isArray(plugins) && typeof plugins === 'string') {
     plugins = config.plugins = config.plugins.split(',').map((plugin) => plugin.trim());
@@ -84,7 +85,7 @@ function changePlugins(config, options = {}) {
       const oldName = isArray ? plugin[0] : plugin;
 
       const name = changeName(oldName, 'plugin');
-      if (name === null) {
+      if (name === null || uniquePlugins.has(name)) {
         plugins.splice(i, 1);
         i--;
       } else {
@@ -102,20 +103,28 @@ function changePlugins(config, options = {}) {
             + "\t[\"@babel/plugin-transform-runtime\", { \"corejs\": 2 }]\n"
           );
         }
-
         if (shouldAddCoreJS) {
+          uniquePlugins.add(name);
           if (isArray) {
             plugin[0] = name;
             plugin[1] = Object.assign({ corejs: 2 }, plugin[1]);
           } else {
             plugin = [name, { corejs: 2 }];
           }
+          plugins[i] = upgradeOptions(plugin);
         } else {
-          if (isArray) plugin[0] = name;
-          else plugin = name;
-        }
+          const names = Array.isArray(name) ? name : [name];
+          for (let j = 0; j < names.length; j++) {
+            const n = names[j];
+            uniquePlugins.add(n);
+            
+            if (isArray) plugin = [n, plugin[1]];
+            else plugin = n;
 
-        plugins[i] = upgradeOptions(plugin);
+            if (j > 0) plugins.splice(i + 1, 0, upgradeOptions(plugin))
+            else plugins[i] = upgradeOptions(plugin);
+            }
+        }
       }
     }
   }

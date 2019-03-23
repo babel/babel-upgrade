@@ -4,6 +4,7 @@ const { packages: oldPackages, latestPackages, stagePresets } = require('./packa
 const otherPackages = {
   'babel-loader': '^8.0.0',
   'rollup-plugin-babel': '^4.0.1',
+  'babel-eslint': '^9.0.0',
 };
 
 const runtimeVersionsWithCoreJS = "<= 7.0.0-beta.55";
@@ -44,7 +45,13 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     ) {
       dependencies[pkg] = version;
     // TODO: refactor out somewhere else
-    } else if (otherPackages[pkg]) {
+    } else if (
+      otherPackages[pkg] &&
+      semver.lt(
+        semver.valid(semver.coerce(dependencies[pkg])),
+        semver.valid(semver.coerce(otherPackages[pkg]))
+      )
+    ) {
       dependencies[pkg] = otherPackages[pkg];
     }
   }
@@ -82,6 +89,10 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     !dependencies['babel-core']
   ) {
     dependencies['babel-core'] = '^7.0.0-bridge.0';
+  }
+
+  if (dependencies['jest'] || dependencies['jest-cli']) {
+    dependencies['babel-jest'] = '^23.4.2';
   }
 
   for (let stage = 0; stage <= 3; stage++) {
