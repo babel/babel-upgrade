@@ -88,11 +88,16 @@ function changePlugins(config) {
         plugins.splice(i, 1);
         i--;
       } else {
-        uniquePlugins.add(name);
-        if (isArray) plugin[0] = name;
-        else plugin = name;
+        const names = Array.isArray(name) ? name : [name];
+        for (let j = 0; j < names.length; j++) {
+          uniquePlugins.add(name);
+          const n = names[j];
+          if (isArray) plugin = [n, plugin[1]];
+          else plugin = n;
 
-        plugins[i] = upgradeOptions(plugin);
+          if (j > 0) plugins.splice(i + 1, 0, upgradeOptions(plugin))
+          else plugins[i] = upgradeOptions(plugin);
+        }
       }
     }
   }

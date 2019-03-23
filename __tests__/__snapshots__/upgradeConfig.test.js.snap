@@ -96,6 +96,22 @@ Object {
 }
 `;
 
+exports[`new plugins with array 1`] = `
+Object {
+  "plugins": Array [
+    "@babel/plugin-syntax-async-generators",
+    "@babel/plugin-syntax-export-default-from",
+    "@babel/plugin-syntax-export-namespace-from",
+    Array [
+      "@babel/plugin-transform-arrow-functions",
+      Object {
+        "spec": true,
+      },
+    ],
+  ],
+}
+`;
+
 exports[`package that is removed 1`] = `
 Object {
   "plugins": Array [

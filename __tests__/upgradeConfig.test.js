@@ -10,6 +10,16 @@ test('packages', () => {
   expect(upgradeConfig(babelrcFixture)).toMatchSnapshot();
 });
 
+test('new plugins with array', () => {
+  expect(upgradeConfig({
+    plugins: [
+      'babel-plugin-syntax-async-generators',
+      'babel-plugin-syntax-export-extensions',
+      ["babel-plugin-transform-es2015-arrow-functions", { "spec": true }]
+    ]
+  })).toMatchSnapshot();
+})
+
 test('package that is removed', () => {
   expect(upgradeConfig({
     plugins: [
