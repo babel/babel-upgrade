@@ -123,7 +123,7 @@ function changePlugins(config, options = {}) {
 
             if (j > 0) plugins.splice(i + 1, 0, upgradeOptions(plugin))
             else plugins[i] = upgradeOptions(plugin);
-            }
+          }
         }
       }
     }
