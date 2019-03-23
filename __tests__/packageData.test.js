@@ -1,6 +1,7 @@
 const { updatePackageJSON } = require('../src/');
 const upgradeDeps = require('../src/upgradeDeps');
 const babelCoreFixture = require('../fixtures/babel-core');
+const avaFixture = require('../fixtures/ava');
 const jestFixture = require('../fixtures/jest');
 const jestCliFixture = require('../fixtures/jest-cli');
 const depsFixture = require('../fixtures/deps');
@@ -70,4 +71,8 @@ test('replaces transform-decorators-legacy plugin', () => {
 
 test('add babel-jest', async () => {
   expect(await updatePackageJSON(babelJestFixture)).toMatchSnapshot();
+});
+
+test('upgrades packages in ava', async () => {
+  expect(await updatePackageJSON(avaFixture)).toMatchSnapshot();
 });

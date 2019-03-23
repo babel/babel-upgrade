@@ -1,0 +1,26 @@
+{
+  "name": "upgrade-packages-in-ava",
+  "ava": {
+    "require": [
+      "@babel/polyfill",
+      "babel-register"
+    ],
+    "babel": {
+      "testOptions": {
+        "babelrc": false,
+        "plugins": [
+          "@babel/plugin-syntax-jsx",
+          "transform-object-rest-spread"
+        ],
+        "presets": [
+          "@babel/preset-stage-3",
+          "es2015",
+          "stage-0",
+          "react",
+          "@ava/transform-test-files",
+          ["module:ava/stage-4", false]
+        ]
+      }
+    }
+  }
+}

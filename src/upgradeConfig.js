@@ -5,7 +5,7 @@ function changeName(originalName, kind) {
   const oldNames = kind === 'plugin' ? oldPlugins : oldPresets;
   let name = originalName;
 
-  if (name.indexOf(`babel-${kind}`) !== 0 && name.indexOf('@babel/') !== 0) {
+  if (name.indexOf(`babel-${kind}`) !== 0 && name.indexOf('@babel/') !== 0 && name.indexOf('module:ava') !== 0) {
     name = `babel-${kind}-${name}`;
   }
 
