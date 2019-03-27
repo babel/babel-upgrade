@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-console.log("🙌  Thanks for trying out https://github.com/babel/babel-upgrade!");
+console.log("🙌  Thanks for trying out https://github.com/babel/babel-upgrade !");
 console.log("");
 
 require('@babel/polyfill');
