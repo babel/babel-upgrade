@@ -80,7 +80,7 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     dependencies['babel-loader'] = '7.1.1';
   }
 
-  // babel-bridge is needed for Jest, or for when a project is using Webpack v1
+  // babel-bridge is needed for Jest < 24, or for when a project is using Webpack v1
   // and babel-loader.
   // https://github.com/babel/babel-upgrade/issues/29
   // https://github.com/babel/babel-loader/issues/505
