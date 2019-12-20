@@ -80,18 +80,23 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
     dependencies['babel-loader'] = '7.1.1';
   }
 
-  // babel-bridge is needed for Jest, or for when a project is using Webpack v1
+  // babel-bridge is needed for Jest < 24, or for when a project is using Webpack v1
   // and babel-loader.
   // https://github.com/babel/babel-upgrade/issues/29
   // https://github.com/babel/babel-loader/issues/505
+  const JEST_BABEL_7_ONLY_VERSION = 24;
+  const legacyJest = ['jest', 'jest-cli']
+    .map(pkgName => semver.coerce(dependencies[pkgName]))
+    .some(pkgVersion => pkgVersion && (pkgVersion.major < JEST_BABEL_7_ONLY_VERSION));
+
   if (
-    (dependencies['jest'] || dependencies['jest-cli'] || (depsWebpack1 && dependencies['babel-loader'])) &&
+    (legacyJest || (depsWebpack1 && dependencies['babel-loader'])) &&
     !dependencies['babel-core']
   ) {
     dependencies['babel-core'] = '^7.0.0-bridge.0';
   }
 
-  if (dependencies['jest'] || dependencies['jest-cli']) {
+  if (legacyJest) {
     dependencies['babel-jest'] = '^23.4.2';
   }
 

@@ -4,6 +4,7 @@ const babelCoreFixture = require('../fixtures/babel-core');
 const avaFixture = require('../fixtures/ava');
 const jestFixture = require('../fixtures/jest');
 const jestCliFixture = require('../fixtures/jest-cli');
+const jest24Fixture = require('../fixtures/jest-v24');
 const depsFixture = require('../fixtures/deps');
 const webpackV1Fixture = require('../fixtures/webpack-v1');
 const depsFixtureEarlierBeta = require('../fixtures/deps-earlier-beta.json');
@@ -51,6 +52,10 @@ test('jest babel-core bridge', async () => {
 
 test('jest-cli babel-core bridge', async () => {
   expect(await updatePackageJSON(jestCliFixture)).toMatchSnapshot();
+});
+
+test("doesn't downgrade jest >= 24 ", async () => {
+  expect(await updatePackageJSON(jest24Fixture)).toMatchSnapshot();
 });
 
 test('webpack v1 compatibility', async () => {

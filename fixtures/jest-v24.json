@@ -1,0 +1,7 @@
+{
+  "name": "add-@babel/core-peerDep",
+  "devDependencies": {
+    "jest": "^24.0.0",
+    "babel-jest": "^24.0.0"
+  }
+}
