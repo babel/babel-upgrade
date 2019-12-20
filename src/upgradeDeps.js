@@ -84,10 +84,10 @@ module.exports = function upgradeDeps(dependencies, version, options = {}) {
   // and babel-loader.
   // https://github.com/babel/babel-upgrade/issues/29
   // https://github.com/babel/babel-loader/issues/505
-  const JEST_MAJOR_VERSION_COMPATIBLE_WITH_BABEL_7 = 24;
+  const JEST_BABEL_7_ONLY_VERSION = 24;
   const legacyJest = ['jest', 'jest-cli']
     .map(pkgName => semver.coerce(dependencies[pkgName]))
-    .some(pkgVersion => pkgVersion && (pkgVersion.major < JEST_MAJOR_VERSION_COMPATIBLE_WITH_BABEL_7));
+    .some(pkgVersion => pkgVersion && (pkgVersion.major < JEST_BABEL_7_ONLY_VERSION));
 
   if (
     (legacyJest || (depsWebpack1 && dependencies['babel-loader'])) &&
