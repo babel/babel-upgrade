@@ -109,8 +109,8 @@ function changePlugins(config, options = {}) {
           ) {
             // 7.0.0-alpha.5 <= x <= 7.0.0-beta.55
             console.warn(
-              "Babel was not able to dedice whether or not to add a "
-              + "`corejs: 2` option to @babel/plugin-transform-rumtime. "
+              "Babel was not able to decide whether or not to add a "
+              + "`corejs: 2` option to @babel/plugin-transform-runtime. "
               + "If you want it to handle builtin functions (e.g. Promise, "
               + "Array.prototype.includes, ...), add that option manually:\n"
               + "\t[\"@babel/plugin-transform-runtime\", { \"corejs\": 2 }]\n"
