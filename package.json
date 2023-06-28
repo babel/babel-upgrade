@@ -38,7 +38,7 @@
     "json5": "^2.1.0",
     "pify": "^4.0.1",
     "read-pkg-up": "^5.0.0",
-    "semver": "^5.5.0",
+    "semver": "^7.5.2",
     "sort-keys": "^2.0.0",
     "write": "^1.0.3",
     "write-json-file": "^3.1.0",
